@@ -432,7 +432,6 @@ function EditProfile({
 
     // }
   };
-  // pointer
 
   const onFinish = async (values: any) => {
     if (deleteVideo) {
@@ -493,8 +492,11 @@ function EditProfile({
     const isWMV = file.type === "video/WMV";
     return ismp4 || isMOV || isWMV || Upload.LIST_IGNORE;
   };
+
+  // 1000000000
+
   const videoFileChange = async (info: any) => {
-    if (info?.file?.size <= 524288000 || true) {
+    if (info?.file?.size && info?.file?.size <= 1000000000) {
       setUserVideoLoader(true);
       const s3 = new ReactS3Client(configS3);
       try {
@@ -512,12 +514,11 @@ function EditProfile({
       }
     } else {
       notification.error({
-        message: "Maximum Upload Size 500MB",
+        message: "Maximum Upload Size 1GB",
       });
     }
   };
 
-  // pointer
   const onRemoveVideoClick = () => {
     setDeleteVideo(true);
   };
@@ -763,8 +764,8 @@ function EditProfile({
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
-        <div className="flex flex-col w-full justify-start items-center py-3">
-          <div className="w-full mb-10 mt-10 sm:mt-auto flex gap-8 items-center">
+        <div className="flex flex-col xs:w-[50%] sm:w-full justify-start items-center py-3 xs:items-start">
+          <div className="xs:w-[100%] sm:w-full mb-10 mt-10 sm:mt-auto flex gap-8 items-center  ">
             <Upload
               maxCount={1}
               beforeUpload={onBeforeUpload}
@@ -820,7 +821,7 @@ function EditProfile({
                   </Button>
                 </div>
               )}
-              <span className="block">{doctor_email}</span>
+              <span className="block xs:w-64 truncate">{doctor_email}</span>
               <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
                 {getRole() === "Admin" && (
                   <>
@@ -861,7 +862,7 @@ function EditProfile({
             </div>
           </div>
 
-          <div className="w-full pb-10">
+          <div className="xs:w-[100%] sm:w-full pb-10">
             <Form
               form={formInstance}
               name="basic"
@@ -1263,8 +1264,6 @@ function EditProfile({
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
               <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
-                {/* pointer */}
-
                 {/* ----------------------------------------------------------- */}
 
                 <Form.Item
@@ -1280,18 +1279,15 @@ function EditProfile({
                     onRemove={onRemoveVideoClick}
                     defaultFileList={defaultArray}
                     itemRender={(itemRender) => {
-                      console.log(
-                        "itemRender",
-                        itemRender.props.children[0].props.children.props
-                          .children[1]
-                      );
                       return (
-                        <div className="flex border rounded-xl items-center p-2 mt-2 text-primary">
-                          <FileOutlined className="text-2xl mx-2" />
-                          {
-                            itemRender.props.children[0].props.children.props
-                              .children[1]
-                          }
+                        <div className="w-full truncate">
+                          <div className="flex border rounded-xl items-center p-2 mt-2 text-primary ">
+                            <FileOutlined className="text-2xl mx-2 " />
+                            {
+                              itemRender.props.children[0].props.children.props
+                                .children[1]
+                            }
+                          </div>
                         </div>
                       );
                     }}
@@ -1301,7 +1297,6 @@ function EditProfile({
                     }}
                   >
                     <Button
-                      // loading={userVideoLoader}
                       onClick={() => {
                         setDeleteVideo(false);
                       }}
