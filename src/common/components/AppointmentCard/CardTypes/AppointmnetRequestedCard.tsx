@@ -50,32 +50,30 @@ function AppointmnetRequestedCard({
       <span className="text-primary text-base block  mb-6">
         {specialization}
       </span>
-      <span className="text-sm improved-word-spacing">
-        Requested appointment type
-      </span>
+      <span className="text-sm  ">Requested appointment type</span>
       <div className="text-sm text-gray mb-3">{serviceType}</div>
-      <span className="text-sm block improved-word-spacing">
-        Requested date
-      </span>
+      <span className="text-sm block  ">Requested date</span>
       <h6 className="text-cyan">
         {date.formatDAYMMDDYY(requestedDate, timeZone)}
       </h6>
-      <span className="text-sm mt-4 block improved-word-spacing">
-        Requested time
-      </span>
+      <span className="text-sm mt-4 block  ">Requested time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
              - ${date.formathhmma(appointmentDateTime.endTime, timeZone)}`
           : "--"}
       </div>
-      <span className="text-sm mt-4 block font-normal improved-word-spacing">
+      <span className="text-sm mt-4 block font-normal  ">
         Appointment status
       </span>
       <div className="flex justify-between">
-        <span className="text-base text-yellow font-bold w-full ">{status}</span>
+        <span className="text-base text-yellow font-bold w-full ">
+          {status}
+        </span>
         <Button
-          className={`${_classes["card-btn"]} bg-transparent ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["card-btn"]} bg-transparent ${
+            isChrome && "antCustomBtn"
+          }`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           Details

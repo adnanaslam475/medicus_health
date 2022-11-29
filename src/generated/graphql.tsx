@@ -2062,7 +2062,7 @@ export type UpdateDoctorProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, certification_and_licensure?: string | null, awards_honors_recognition?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, contact_number?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, timeZoneId?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null } | null } };
+export type UpdateDoctorProfileMutation = { __typename?: 'Mutation', updateDoctorProfile: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, certification_and_licensure?: string | null, awards_honors_recognition?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, profile_video?: string | null, user?: { __typename?: 'User', id: number, first_name: string, last_name: string, email: string, gender?: string | null, streetAddress?: string | null, contact_number?: string | null, country_id?: number | null, state_id?: number | null, city_id?: number | null, timeZoneId?: number | null, zip_code?: string | null, password?: string | null, status: boolean, role?: string | null, city?: { __typename?: 'City', city_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, country?: { __typename?: 'Country', country_name: string } | null } | null } };
 
 export type EnableOrDisableDoctorMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -2516,7 +2516,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, is_active: boolean, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: number, tos_acceptance: boolean, first_name: string, last_name: string, gender?: string | null, date_of_birth?: any | null, contact_number?: string | null, email: string, country_id?: number | null, city_id?: number | null, state_id?: number | null, zip_code?: string | null, is_active: boolean, streetAddress?: string | null, status: boolean, country?: { __typename?: 'Country', country_name: string } | null, state?: { __typename?: 'State', state_name: string } | null, city?: { __typename?: 'City', city_name: string } | null, patientProfile?: { __typename?: 'PatientProfile', maritalStatus?: string | null, profileImage?: string | null, children?: number | null, haveChildren?: string | null, occupation?: string | null, occupationalExposure?: string | null, pets?: string | null, petsAnswer?: string | null, exposureDuration?: string | null, userId: number } | null, doctorProfile?: { __typename?: 'DoctorProfile', id: number, doctor_id: number, connect_details_submitted: boolean, year_of_experience?: number | null, specialization?: string | null, condition_treated?: string | null, educational_background?: string | null, professional_experience?: string | null, language?: any | null, about_me?: string | null, profile_image?: string | null, profile_video?: string | null } | null, timeZone?: { __typename?: 'TimeZones', countryName: string, countryCode: string, timeZone: string, timeZoneName: string, id: number, gmtOffset: string } | null } };
 
 export type DoctorProfilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3174,6 +3174,7 @@ export const UpdateDoctorProfileDocument = gql`
     language
     about_me
     profile_image
+    profile_video
     user {
       id
       first_name
@@ -4876,6 +4877,7 @@ export const GetUserDocument = gql`
     doctorProfile {
       id
       doctor_id
+      connect_details_submitted
       year_of_experience
       specialization
       condition_treated
@@ -4884,6 +4886,7 @@ export const GetUserDocument = gql`
       language
       about_me
       profile_image
+      profile_video
     }
     timeZone {
       countryName

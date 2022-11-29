@@ -98,6 +98,7 @@ query getUser($input: Int!) {
     doctorProfile {
       id
       doctor_id
+      connect_details_submitted
       year_of_experience
       specialization
       condition_treated
@@ -106,6 +107,7 @@ query getUser($input: Int!) {
       language
       about_me
       profile_image
+      profile_video
     }
     timeZone {
       countryName

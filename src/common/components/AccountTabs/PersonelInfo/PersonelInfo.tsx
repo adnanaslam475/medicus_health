@@ -151,7 +151,7 @@ const PersonalInfo = () => {
 
   const fileChange = async (info: UploadChangeParam) => {
     try {
-      const url = await mediaUploader.upload(info.file.originFileObj as File);
+      const url = await mediaUploader.upload(info?.file?.originFileObj as File);
       if (url) {
         setImage(url?.location);
       }
@@ -220,7 +220,9 @@ const PersonalInfo = () => {
                   <div className="flex flex-col justify-start">
                     <Button
                       type="link"
-                      className={`text-primary underline text-xs ${isChrome && 'antCustomBtn'}`}
+                      className={`text-primary underline text-xs ${
+                        isChrome && "antCustomBtn"
+                      }`}
                     >
                       Actualizar foto
                       {/* {t("update_photo")} */}
@@ -239,7 +241,9 @@ const PersonalInfo = () => {
               <div className="flex gap-2 flex-wrap">
                 <Button
                   danger
-                  className={`text-xs p-5 text-red ${isChrome && 'antCustomBtn'}`}
+                  className={`text-xs p-5 text-red ${
+                    isChrome && "antCustomBtn"
+                  }`}
                   size="large"
                   onClick={() => setIsEdit(false)}
                 >
@@ -250,7 +254,7 @@ const PersonalInfo = () => {
                 </Button>
                 <Button
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
-                  className={`text-xs p-5 ${isChrome && 'antCustomBtn'}`}
+                  className={`text-xs p-5 ${isChrome && "antCustomBtn"}`}
                   size="large"
                   onClick={onSave}
                 >
@@ -263,7 +267,7 @@ const PersonalInfo = () => {
             ) : (
               <Button
                 type="default"
-                className={`text-xs p-5 ${isChrome && 'antCustomBtn'}`}
+                className={`text-xs p-5 ${isChrome && "antCustomBtn"}`}
                 size="large"
                 onClick={() => setIsEdit(true)}
               >

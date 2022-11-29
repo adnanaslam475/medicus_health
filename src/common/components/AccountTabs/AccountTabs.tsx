@@ -110,7 +110,7 @@ function AccountTabs() {
           <Tabs.TabPane
             className="w-full"
             tab={
-              <span className="font-Circular font-medium improved-word-spacing">
+              <span className="font-Circular font-medium  ">
                 {t("personal_information")}
                 {/* Personal information */}
               </span>
@@ -121,7 +121,7 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium improved-word-spacing">
+              <span className="font-Circular font-medium  ">
                 {t("health_questionnaire")}
                 {/* Health questionnaire */}
               </span>
@@ -151,7 +151,7 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium improved-word-spacing">
+              <span className="font-Circular font-medium  ">
                 {t("payment_settings")}
                 {/* Payment settings */}
               </span>
@@ -163,7 +163,7 @@ function AccountTabs() {
           <Tabs.TabPane
             className={`${_classes["font-normal"]}`}
             tab={
-              <span className="font-Circular font-medium improved-word-spacing">
+              <span className="font-Circular font-medium  ">
                 {t("transaction_history")}
                 {/* Transaction history */}
               </span>
@@ -181,7 +181,7 @@ function AccountTabs() {
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={
-              <span className="font-Circular font-medium improved-word-spacing">
+              <span className="font-Circular font-medium  ">
                 {t("email_notification")}
                 {/* Email notification */}
               </span>

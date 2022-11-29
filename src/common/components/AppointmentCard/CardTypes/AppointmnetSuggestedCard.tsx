@@ -50,26 +50,20 @@ function AppointmnetSuggestedCard({
   return (
     <Card className={`${_classes["appointment-card"]}`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
-      <h3 className="mb-0 capitalize improved-word-spacing">
-        {formatedDoctorName}
-      </h3>
-      <span className="text-primary text-base block mb-6 improved-word-spacing">
+      <h3 className="mb-0 capitalize  ">{formatedDoctorName}</h3>
+      <span className="text-primary text-base block mb-6  ">
         {specialization}
       </span>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm improved-word-spacing">
-        Requested appointment type
-      </span>
-      <div className="text-sm text-gray mb-3 improved-word-spacing">
-        {serviceTypeName}
-      </div>
+      <span className="text-sm  ">Requested appointment type</span>
+      <div className="text-sm text-gray mb-3  ">{serviceTypeName}</div>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm improved-word-spacing">Requested date</span>
+      <span className="text-sm  ">Requested date</span>
       <h6 className="text-cyan">
         {date.formatDAYMMDDYY(requestedDate, timeZone)}
       </h6>
       <Space direction="vertical" size="middle" />
-      <span className="text-sm improved-word-spacing">Requested time</span>
+      <span className="text-sm  ">Requested time</span>
       <div className="text-cyan">
         {appointmentDateTime?.endTime && appointmentDateTime?.startTime
           ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
@@ -78,15 +72,15 @@ function AppointmnetSuggestedCard({
       </div>
 
       <Space direction="vertical" size="middle" />
-      <span className="text-sm  block mt-4 improved-word-spacing">
-        Appointment status
-      </span>
+      <span className="text-sm  block mt-4  ">Appointment status</span>
       <span className="text-base text-primary font-bold ">{status}</span>
       <Space direction="vertical" size="middle" />
       <div className="flex justify-between items-center">
         <Button
           type={"primary"}
-          className={`${_classes["card-btn"]} mt-4 ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["card-btn"]} mt-4 ${
+            isChrome && "antCustomBtn"
+          }`}
           onClick={() => onViewSuggestedSlots()}
         >
           View proposed appointment times

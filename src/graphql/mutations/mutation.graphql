@@ -175,6 +175,7 @@ mutation updateDoctorProfile(
     language
     about_me
     profile_image
+    profile_video
     user {
       id
       first_name

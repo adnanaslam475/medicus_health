@@ -37,6 +37,7 @@ function AccountsProfile() {
   }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
   const [profileUpdated, setProfileUpdated] = useState();
+  const [doctorProfileData, setDoctorProfileData] = React.useState<any>({});
 
   // GET USER ID
   const { user } = getUserData();
@@ -110,11 +111,16 @@ function AccountsProfile() {
     useDoctorProfileQuery({
       variables: { doctor_id: id as number },
       pause: !id || addScheduleDay === "Select Day" || !!deleteScheduleId,
+      requestPolicy: "network-only",
     });
   const { doctorProfile } = data || {};
+  // useEffect(() => {
+  //   setDoctorProfileData(doctorProfile);
+  // }, [doctorProfileData, isEdit, data]);
+
   useEffect(() => {
     executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
-  }, [profileUpdated]);
+  }, [profileUpdated, isEdit]);
   return (
     <div>
       {isEdit ? (
@@ -127,6 +133,7 @@ function AccountsProfile() {
           addScheduleDay={String(addScheduleDay)}
           setAddScheduleTime={setAddScheduleTime}
           doctorId={String(id)}
+          // doctorData={doctorProfileData}
           doctorData={doctorProfile}
           edit={editData}
           addScheduleTime={addScheduleTime}

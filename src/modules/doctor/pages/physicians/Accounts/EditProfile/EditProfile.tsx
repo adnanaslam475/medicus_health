@@ -15,6 +15,8 @@ import {
   Select,
   DatePicker,
   Tooltip,
+  Progress,
+  Space,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
@@ -43,8 +45,12 @@ import Router, { useRouter } from "next/router";
 import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import {
   CloseOutlined,
+  DeleteOutlined,
   EditOutlined,
+  FileOutlined,
   InfoCircleOutlined,
+  PlaySquareOutlined,
+  UploadOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
@@ -54,6 +60,7 @@ import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
 import { GraphQLError } from "graphql";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { usePublishOrUnpublishDoctorMutation } from "generated/graphql";
+import Link from "next/link";
 // import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
 
 const { TextArea } = Input;
@@ -114,6 +121,11 @@ function EditProfile({
 }: Props) {
   const [formInstance] = Form.useForm();
   const [image, setImage] = useState<string>("");
+  const [video, setVideo] = useState<string>("");
+  const [deleteVideo, setDeleteVideo] = React.useState<boolean>();
+  const [userVideoLoader, setUserVideoLoader] = React.useState<boolean>(false);
+  const [progressBar, setProgressBar] = useState();
+
   const [physicianLanguage, setPhysicianLanguage] = useState<LanguageType>({
     Spanish: false,
     English: false,
@@ -210,7 +222,19 @@ function EditProfile({
   );
   const [stateId, setStateId] = useState<number | undefined>(Number(state_id));
   //GET USER PROFILE IMAGE FROM useGetUserQuery
-  const { profile_image: userProfileImage } = doctorData || {};
+  const { profile_image: userProfileImage, profile_video: userProfileVideo } =
+    doctorData || {};
+  let defaultArray: any = userProfileVideo
+    ? [
+        {
+          uid: "1",
+          name: userProfileVideo,
+          status: "done",
+          url: userProfileVideo,
+          thumbUrl: userProfileVideo,
+        },
+      ]
+    : [];
   const [result, updateDoctor] = useUpdateDoctorProfileMutation();
   const { error, fetching } = result || {};
 
@@ -312,6 +336,7 @@ function EditProfile({
         email: values?.email || "",
         password: values?.password,
         profile_image: image || userProfileImage || "",
+        profile_video: values?.profile_video,
         about_me: values?.about_me || "",
         condition_treated: conditionTreatedList || "",
         language: physicianLanguage || "",
@@ -407,13 +432,26 @@ function EditProfile({
 
     // }
   };
+  // pointer
 
   const onFinish = async (values: any) => {
+    if (deleteVideo) {
+      values.profile_video = "";
+    } else {
+      if (deleteVideo == undefined) {
+        values.profile_video = userProfileVideo;
+      } else {
+        const res = await videoFileChange(values.profile_video);
+        values.profile_video = res;
+      }
+    }
+    if (video !== "") {
+      values.profile_video = await video;
+    }
     try {
       await updateDoctorProfile(values);
       // setIsEdit(false);
     } catch (error) {
-      console.log("my error is", error);
       // setIsEdit(true);
     }
   };
@@ -434,7 +472,7 @@ function EditProfile({
   const fileChange = async (info: UploadChangeParam) => {
     const s3 = new ReactS3Client(configS3);
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
+      const url = await s3.uploadFile(info?.file?.originFileObj as File);
       setImage(url?.location);
     } catch (error) {}
     if (error) {
@@ -449,7 +487,40 @@ function EditProfile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
+  const onBeforeVideoUpload = (file: File) => {
+    const ismp4 = file.type === "video/mp4";
+    const isMOV = file.type === "video/MOV";
+    const isWMV = file.type === "video/WMV";
+    return ismp4 || isMOV || isWMV || Upload.LIST_IGNORE;
+  };
+  const videoFileChange = async (info: any) => {
+    if (info?.file?.size <= 524288000 || true) {
+      setUserVideoLoader(true);
+      const s3 = new ReactS3Client(configS3);
+      try {
+        const url = await s3.uploadFile(info.file.originFileObj as File);
+        setVideo(url?.location);
+        setUserVideoLoader(false);
+        return url?.location;
+      } catch (error) {
+        setUserVideoLoader(false);
+      }
+      if (error) {
+        notification.error({
+          message: error?.graphQLErrors[0]?.message || "Something went wrong",
+        });
+      }
+    } else {
+      notification.error({
+        message: "Maximum Upload Size 500MB",
+      });
+    }
+  };
 
+  // pointer
+  const onRemoveVideoClick = () => {
+    setDeleteVideo(true);
+  };
   // const handleConditionTreated = async (list: string[]) => {
   //   const values = formInstance.getFieldsValue();
   //   const res = await updateDoctor({
@@ -689,7 +760,6 @@ function EditProfile({
         });
     }
   }
-
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
@@ -1192,7 +1262,56 @@ function EditProfile({
                 showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
+              <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
+                {/* pointer */}
 
+                {/* ----------------------------------------------------------- */}
+
+                <Form.Item
+                  className="flex-1"
+                  label={"Video"}
+                  name="profile_video"
+                >
+                  <Upload
+                    listType="picture"
+                    maxCount={1}
+                    beforeUpload={onBeforeVideoUpload}
+                    accept=".mp4"
+                    onRemove={onRemoveVideoClick}
+                    defaultFileList={defaultArray}
+                    itemRender={(itemRender) => {
+                      console.log(
+                        "itemRender",
+                        itemRender.props.children[0].props.children.props
+                          .children[1]
+                      );
+                      return (
+                        <div className="flex border rounded-xl items-center p-2 mt-2 text-primary">
+                          <FileOutlined className="text-2xl mx-2" />
+                          {
+                            itemRender.props.children[0].props.children.props
+                              .children[1]
+                          }
+                        </div>
+                      );
+                    }}
+                    customRequest={(arg) => {
+                      console.log(arg);
+                      return null;
+                    }}
+                  >
+                    <Button
+                      // loading={userVideoLoader}
+                      onClick={() => {
+                        setDeleteVideo(false);
+                      }}
+                      icon={<UploadOutlined />}
+                    >
+                      Upload video
+                    </Button>
+                  </Upload>
+                </Form.Item>
+              </div>
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Certification and licensure</h6>
                 {certificationList?.map((certificate, index) => {
@@ -1425,7 +1544,7 @@ function EditProfile({
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={fetching}
+                    loading={fetching || userVideoLoader}
                     disabled={fetching}
                     className={`${isChrome && "antCustomBtn"}`}
                   >

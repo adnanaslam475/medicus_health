@@ -165,7 +165,7 @@ function Login() {
                   // loading="eager"
                 />
               </div>
-              <h1 className="text-center text-secondary mb-3 font-bold improved-word-spacing">
+              <h1 className="text-center text-secondary mb-3 font-bold">
                 {t("title")}
               </h1>
               <h6 className="text-center text-gray font-rubik font-normal">

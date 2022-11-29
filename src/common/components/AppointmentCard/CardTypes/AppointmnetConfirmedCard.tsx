@@ -61,20 +61,16 @@ function AppointmnetConfirmedCard({
     <Card className={`${_classes["appointment-card"]} max-w-[300px]`}>
       <span className="text-sm mb-0">ID# {appointmentId || ""}</span>
       <h3 className="mb-0 capitalize">{formatedDoctorName}</h3>
-      <span className="text-primary text-base block mb-4 normal-case improved-word-spacing">
+      <span className="text-primary text-base block mb-4 normal-case  ">
         {specialization}
       </span>
-      <span className="text-sm improved-word-spacing">Appointment type</span>
-      <div className="text-sm text-gray mb-3 improved-word-spacing">
-        {serviceTypeName}
-      </div>
-      <span className="text-sm pt-5 improved-word-spacing">
-        Appointment date
-      </span>
+      <span className="text-sm  ">Appointment type</span>
+      <div className="text-sm text-gray mb-3  ">{serviceTypeName}</div>
+      <span className="text-sm pt-5  ">Appointment date</span>
       <h6 className="mb-4">
         {date.formatDAYMMDDYY(selectedAppointment?.startTime, timeZone)}
       </h6>
-      <span className="text-sm improved-word-spacing">Appointment time</span>
+      <span className="text-sm  ">Appointment time</span>
       {!selectedAppointment ? (
         <div className="text-cyan font-semibold mb-4">{" - "}</div>
       ) : (
@@ -96,7 +92,9 @@ function AppointmnetConfirmedCard({
           }
         >
           <Button
-            className={` ${_classes["card-btn"]} mr-3 ${isChrome && 'antCustomBtn'}`}
+            className={` ${_classes["card-btn"]} mr-3 ${
+              isChrome && "antCustomBtn"
+            }`}
             type={"primary"}
             target={"_blank"}
             disabled={disabled}
@@ -109,7 +107,9 @@ function AppointmnetConfirmedCard({
         </Link>
 
         <Button
-          className={`${_classes["card-btn"]} bg-transparent ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["card-btn"]} bg-transparent ${
+            isChrome && "antCustomBtn"
+          }`}
           onClick={() => Router.push(`/patient/appointments/${appointmentId}`)}
         >
           Details
