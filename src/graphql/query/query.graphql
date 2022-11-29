@@ -332,6 +332,8 @@ query getAllRequestedAppointments(
         createdAt
         status
         amountReceived
+        tax
+        stripeFee
       }
       appointmentCharges {
         total
@@ -691,6 +693,8 @@ query ViewSuggestedTimeSlots($id: Int!) {
     transaction {
       status
       amountReceived
+      tax
+      stripeFee
     }
   }
 }
