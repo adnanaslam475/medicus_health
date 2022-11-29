@@ -128,7 +128,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       ...data.stepThree,
     });
   }
-  // pointer
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
   const checkBoxHandler = (e: CheckboxChangeEvent) => {
@@ -167,7 +166,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       return updatedDepedencies;
     }
   };
-  // pointer
   useEffect(() => {
     let updatedDepedencies = {};
     questionnair?.forEach((item: Item) => {
@@ -330,7 +328,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         scrollToFirstError
         id="request_app_3"
       >
-        {/* pointer */}
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
