@@ -33,8 +33,6 @@ function AppointmentReschedule(props: Props) {
     status,
     transaction
   } = appointmentDetails || {};
-console.log(transaction,"FInal")
-console.log(appointmentTypeProposed,"final 2")
   const isRescheduledAppointment = status == "Rescheduled" ? true : false;
   const { first_name, last_name } = doctor || {};
   const { name } = serviceType || {};
