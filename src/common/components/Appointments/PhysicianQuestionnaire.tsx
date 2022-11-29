@@ -43,8 +43,6 @@ function PhysicianQuestionnaire(props: Props) {
   const { user } = getUserData();
   const [isDisabled, setDisabled] = useState<boolean>(false);
 
-  // console.log("user-sadasdsd", userData);
-
   const { pathname } = router || {};
   let disabled =
     pathname?.includes("/physician/appointments") ||
@@ -215,7 +213,6 @@ function PhysicianQuestionnaire(props: Props) {
       );
     }
   };
-  console.log("questionnair", questionnair);
   return (
     <React.Fragment>
       <div className="lg:w-3/6 md:w-full">
