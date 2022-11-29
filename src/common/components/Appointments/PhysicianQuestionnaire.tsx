@@ -193,16 +193,18 @@ function PhysicianQuestionnaire(props: Props) {
                     </Checkbox>
                     {
                       // @ts-ignore
-                      formInstance
-                        ?.getFieldsValue()
-                        [item?.name]?.map((value: any) => {
+                      formInstance?.getFieldsValue()[
+                        // @ts-ignore
+                        item?.name
+                      ]?.map((value: any) => {
+                        return (
                           // @ts-ignore
-                          return (
-                            !!item?.options[value]?.dependent &&
-                            value === index &&
-                            renderItems(item?.options[value]?.dependent as any)
-                          );
-                        })
+                          !!item?.options[value]?.dependent &&
+                          value === index &&
+                          // @ts-ignore
+                          renderItems(item?.options[value]?.dependent as any)
+                        );
+                      })
                     }
                   </>
                 );

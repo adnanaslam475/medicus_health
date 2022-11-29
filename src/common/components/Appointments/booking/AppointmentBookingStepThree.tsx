@@ -280,16 +280,18 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     </Checkbox>
                     {
                       // @ts-ignore
-                      formInstance
-                        ?.getFieldsValue()
-                        [item?.name]?.map((value) => {
-                          // @ts-ignore
-                          return (
-                            !!item?.options[value]?.dependent &&
-                            value === index &&
-                            renderItems(item?.options[value]?.dependent as any)
-                          );
-                        })
+                      formInstance?.getFieldsValue()[
+                        // @ts-ignore
+                        item?.name
+                        // @ts-ignore
+                      ]?.map((value) => {
+                        // @ts-ignore
+                        return (
+                          !!item?.options[value]?.dependent &&
+                          value === index &&
+                          renderItems(item?.options[value]?.dependent as any)
+                        );
+                      })
                     }
                   </>
                 );
