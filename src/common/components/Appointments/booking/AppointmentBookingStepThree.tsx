@@ -37,7 +37,7 @@ type Item = {
   type: NamePath | undefined;
   label: {} | null | undefined;
   name: NamePath | undefined;
-  options: { value: any; label: any, dependents: any }[];
+  options: { value: any; label: any; dependents: any }[];
   dependent?: Item;
 };
 
@@ -50,6 +50,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
   const physicianId = data?.stepOne?.physician?.split(":")[0];
   const patientIdFromStepOne = data?.stepOne?.patient?.split(":")[0];
   const [dependent, setDependent] = useState<any>({});
+  const [check, setCheck] = useState(false);
 
   let doctorQuestionnaireId =
     Number(rebookData?.doctorId) ||
@@ -72,18 +73,18 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     role === "Admin"
       ? patientIdFromStepOne
       : rebookData
-        ? Number(rebookData?.patientId)
-        : user?.id;
+      ? Number(rebookData?.patientId)
+      : user?.id;
   const physicianQuestionnairePatientId = rebookData
     ? Number(rebookData?.patientId)
     : Number(loggedinPatientId) ||
-    Number(adminApp_Details?.patient?.patient_id);
+      Number(adminApp_Details?.patient?.patient_id);
 
   const physicianQuestionnaireDoctorId = rebookData
     ? Number(rebookData?.doctorId)
     : Number(id) ||
-    Number(physicianId) ||
-    Number(adminApp_Details?.doctor?.doctor_Id);
+      Number(physicianId) ||
+      Number(adminApp_Details?.doctor?.doctor_Id);
 
   const [{ data: patientLastQuestionaryData }] =
     usePatientLastQuestionnaireQuery({
@@ -122,12 +123,14 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       ...data.stepThree,
     });
   }
-
+  // pointer
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
 
   const checkBoxHandler = (e: CheckboxChangeEvent) => {
     let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
+    console.log("asadformatedQuestioner", { formatedQuestioner });
     if (e?.target?.checked) {
+      setCheck(true);
       saveStepThree?.({
         ...formatedQuestioner,
         isLastFilled: e?.target?.checked,
@@ -138,6 +141,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       // });
       // setDependent(updatedDepedencies);
     } else {
+      setCheck(false);
       saveStepThree?.(undefined);
       formInstance.resetFields();
     }
@@ -159,7 +163,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       return updatedDepedencies;
     }
   };
-
+  // pointer
   useEffect(() => {
     let updatedDepedencies = {};
     questionnair?.forEach((item: Item) => {
@@ -167,10 +171,30 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         updatedDepedencies = setDepedentState(item, false, updatedDepedencies);
       }
     });
+    console.log("Useeffect ran updatedDepedencies", updatedDepedencies);
     setDependent(updatedDepedencies);
   }, [questionnair?.length, data?.stepThree]);
 
-
+  // pppppppppppp
+  useEffect(() => {
+    let updatedDepedencies = {};
+    let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
+    if (check) {
+      console.log("questionnair", questionnair);
+      console.log("formatedQuestioner", formatedQuestioner);
+      questionnair?.forEach((item: Item) => {
+        if (item.dependent && formatedQuestioner.hasOwnProperty(item.name)) {
+          updatedDepedencies = setDepedentState(
+            item,
+            !false,
+            updatedDepedencies
+          );
+        }
+      });
+      console.log("Useeffect ran updatedDepedencies", updatedDepedencies);
+      setDependent(updatedDepedencies);
+    }
+  }, [check]);
 
   const onFieldsChange = (fieldChange: FieldData[]) => {
     const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
@@ -204,9 +228,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-          // rules={[
-          //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
-          // ]}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
           >
             <Input />
           </Form.Item>
@@ -222,9 +246,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-          // rules={[
-          //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
-          // ]}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
           >
             <Radio.Group>
               {item?.options?.map(({ value, label }) => {
@@ -244,14 +268,14 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-          // rules={[
-          //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
-          // ]}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
           >
             <Checkbox.Group
               className={`${styles["ant-checkbox-wrapper-cover"]} flex flex-col`}
             >
-              {item?.options?.map(({ value, label },index) => {
+              {item?.options?.map(({ value, label }, index) => {
                 return (
                   <>
                     <Checkbox className={`${styles.checkbox}`} value={value}>
@@ -259,10 +283,17 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
                     </Checkbox>
                     {
                       // @ts-ignore
-                      formInstance?.getFieldsValue()[item?.name]?.map((value) => {
-                        // @ts-ignore
-                        return !!item?.options[value]?.dependent && value === index && renderItems(item?.options[value]?.dependent as any)
-                      })}
+                      formInstance
+                        ?.getFieldsValue()
+                        [item?.name]?.map((value) => {
+                          // @ts-ignore
+                          return (
+                            !!item?.options[value]?.dependent &&
+                            value === index &&
+                            renderItems(item?.options[value]?.dependent as any)
+                          );
+                        })
+                    }
                   </>
                 );
               })}
@@ -288,7 +319,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       );
     }
   };
-
+  console.log("questionnair", questionnair);
   return (
     <>
       <h2>Request an appointment</h2>
@@ -300,6 +331,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         scrollToFirstError
         id="request_app_3"
       >
+        {/* pointer */}
         {doctorQuestionnaire && (
           <Form.Item valuePropName="checked">
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">

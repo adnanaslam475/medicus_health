@@ -135,8 +135,6 @@ function PhysicianQuestionnaire(props: Props) {
     setDependent(updatedDepedencies);
   }, [questionnair?.length]);
 
-
-
   const renderItems = (item: Item): any => {
     if (item.type === "text") {
       return (
@@ -156,7 +154,6 @@ function PhysicianQuestionnaire(props: Props) {
         </>
       );
     } else if (item.type === "radio") {
-      console.log("item?.options",item)
       return (
         <>
           <Form.Item
@@ -185,11 +182,10 @@ function PhysicianQuestionnaire(props: Props) {
             label={item.label}
             className="text-secondary"
             name={item.name}
-            
           >
             <Checkbox.Group
               className={`${styles["ant-checkbox-wrapper-cover"]} flex flex-col`}
-              disabled={isDisabled || getRole()==="Admin"}
+              disabled={isDisabled || getRole() === "Admin"}
             >
               {item?.options?.map(({ value, label }, index) => {
                 return (
@@ -199,10 +195,17 @@ function PhysicianQuestionnaire(props: Props) {
                     </Checkbox>
                     {
                       // @ts-ignore
-                      formInstance?.getFieldsValue()[item?.name]?.map((value) => {
-                        // @ts-ignore
-                        return !!item?.options[value]?.dependent && value === index && renderItems(item?.options[value]?.dependent as any)
-                      })}
+                      formInstance
+                        ?.getFieldsValue()
+                        [item?.name]?.map((value: any) => {
+                          // @ts-ignore
+                          return (
+                            !!item?.options[value]?.dependent &&
+                            value === index &&
+                            renderItems(item?.options[value]?.dependent as any)
+                          );
+                        })
+                    }
                   </>
                 );
               })}
@@ -212,7 +215,7 @@ function PhysicianQuestionnaire(props: Props) {
       );
     }
   };
-
+  console.log("questionnair", questionnair);
   return (
     <React.Fragment>
       <div className="lg:w-3/6 md:w-full">
