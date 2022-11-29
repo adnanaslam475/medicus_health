@@ -361,7 +361,7 @@ function SidebarMenuItem() {
                 icon={IconsListPhysicianMainMenu[i]}
                 // title={el.toggleName}
                 title={
-                  <div className="relative">
+                  <div className="relative improved-word-spacing  ">
                     {el.toggleName}
                     {el.id === "1" &&
                       (localAppointmentAlertData?.upcoming < Number(upcoming) ||
