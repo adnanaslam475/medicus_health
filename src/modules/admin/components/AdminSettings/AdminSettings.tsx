@@ -156,10 +156,6 @@ function AdminSettings() {
     const consultation_charges_medicus_cut =
       dataValues?.consultation_charges_medicus_cut * total_consultation_charges;
     setConsultationMedicusCut(consultation_charges_medicus_cut);
-    console.log(
-      "ataValues?.consultation_charges_medicus_cut * total_consultation_charges;",
-      dataValues?.consultation_charges_medicus_cut * total_consultation_charges
-    );
 
     //Consultation Physician Cut
     const consultation_charges_physician_cut =
