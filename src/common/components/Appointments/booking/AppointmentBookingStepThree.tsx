@@ -37,7 +37,12 @@ type Item = {
   type: NamePath | undefined;
   label: {} | null | undefined;
   name: NamePath | undefined;
-  options: { value: any; label: any; dependents: any }[];
+  options: {
+    dependent: any;
+    value: any;
+    label: any;
+    dependents: any;
+  }[];
   dependent?: Item;
 };
 
@@ -128,7 +133,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
 
   const checkBoxHandler = (e: CheckboxChangeEvent) => {
     let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
-    console.log("asadformatedQuestioner", { formatedQuestioner });
     if (e?.target?.checked) {
       setCheck(true);
       saveStepThree?.({
@@ -171,19 +175,15 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
         updatedDepedencies = setDepedentState(item, false, updatedDepedencies);
       }
     });
-    console.log("Useeffect ran updatedDepedencies", updatedDepedencies);
     setDependent(updatedDepedencies);
   }, [questionnair?.length, data?.stepThree]);
 
-  // pppppppppppp
   useEffect(() => {
     let updatedDepedencies = {};
     let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
-    if (check) {
-      console.log("questionnair", questionnair);
-      console.log("formatedQuestioner", formatedQuestioner);
+    if (check && patientLastQuestionnaire?.history.length > 1) {
       questionnair?.forEach((item: Item) => {
-        if (item.dependent && formatedQuestioner.hasOwnProperty(item.name)) {
+        if (item?.dependent && formatedQuestioner?.hasOwnProperty(item?.name)) {
           updatedDepedencies = setDepedentState(
             item,
             !false,
@@ -191,7 +191,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
           );
         }
       });
-      console.log("Useeffect ran updatedDepedencies", updatedDepedencies);
       setDependent(updatedDepedencies);
     }
   }, [check]);
@@ -319,7 +318,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       );
     }
   };
-  console.log("questionnair", questionnair);
+
   return (
     <>
       <h2>Request an appointment</h2>
