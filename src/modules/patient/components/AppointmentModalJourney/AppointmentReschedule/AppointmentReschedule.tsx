@@ -91,7 +91,7 @@ function AppointmentReschedule(props: Props) {
             {/* pointer */}
             <div className="flex justify-between ">
               <span>Discount applied: JOINMEDICUS</span>
-              <span>($100.00)</span>
+              <span>- $100.00</span>
             </div>
             <div className="flex justify-between ">
               <span>Tax</span>
