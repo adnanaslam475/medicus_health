@@ -771,8 +771,8 @@ function EditProfile({
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
-        <div className="flex flex-col xs:w-[50%] sm:w-full justify-start items-center py-3 xs:items-start">
-          <div className="xs:w-[100%] sm:w-full mb-10 mt-10 sm:mt-auto flex gap-8 items-center  ">
+        <div className="flex-col w-[50%] justify-start items-center py-3 px-3 xs:items-start">
+          <div className="mb-10 mt-10 sm:mt-auto flex gap-8 items-center  ">
             <Upload
               maxCount={1}
               beforeUpload={onBeforeUpload}
@@ -869,7 +869,7 @@ function EditProfile({
             </div>
           </div>
 
-          <div className="xs:w-[100%] sm:w-full pb-10">
+          <div className="sm:w-full pb-10">
             <Form
               form={formInstance}
               name="basic"

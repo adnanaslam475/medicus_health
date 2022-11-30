@@ -132,9 +132,7 @@ function AppointmentReschedule(props: Props) {
       <div
         className={`py-4 block w-full ${_classes["available-slots-container"]}`}
       >
-        <h5 className="improved-word-spacing">
-          Select an available appointment time
-        </h5>
+        <h5 id="select_message">Select an available appointment time</h5>
         <Radio.Group className="block w-full" onChange={onChange} value={value}>
           <Space direction="vertical" className="block w-full">
             {appointmentTimeSlots?.length === 0 ? (
