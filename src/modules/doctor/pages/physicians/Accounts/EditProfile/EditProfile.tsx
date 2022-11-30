@@ -459,7 +459,7 @@ function EditProfile({
     if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [userData?.user]);
+  }, [userData?.user, doctorData]);
 
   const configS3 = {
     region: config?.region || "",
