@@ -31,7 +31,7 @@ function AppointmentReschedule(props: Props) {
     charges,
     appointmentTypeProposed,
     status,
-    transaction
+    transaction,
   } = appointmentDetails || {};
   const isRescheduledAppointment = status == "Rescheduled" ? true : false;
   const { first_name, last_name } = doctor || {};
@@ -95,9 +95,13 @@ function AppointmentReschedule(props: Props) {
             </div>
             <div className="flex justify-between ">
               <span>Tax</span>
-              <span>${transaction && transaction.status === "succeeded" ? addDecimaltoAmount(transaction.tax as any): addDecimaltoAmount(tax as any) || "0"}</span>
+              <span>
+                $
+                {transaction && transaction.status === "succeeded"
+                  ? addDecimaltoAmount(transaction.tax as any)
+                  : addDecimaltoAmount(tax as any) || "0"}
+              </span>
               {/* <span>${transaction  ? transaction.tax : addDecimaltoAmount(tax as any) || "0"}</span> */}
-
             </div>
 
             <div className="flex justify-between ">
@@ -106,11 +110,21 @@ function AppointmentReschedule(props: Props) {
                   ? "Processing fee"
                   : "Estimated processing fee*"}
               </span>
-              <span>${transaction && transaction.status == "succeeded" ? addDecimaltoAmount(transaction.stripeFee as any): addDecimaltoAmount(systemFee as any) || "0"}</span>
+              <span>
+                $
+                {transaction && transaction.status == "succeeded"
+                  ? addDecimaltoAmount(transaction.stripeFee as any)
+                  : addDecimaltoAmount(systemFee as any) || "0"}
+              </span>
             </div>
             <div className="flex justify-between font-semibold pt-2">
               <span>Total charges</span>
-              <span>${transaction && transaction.status === "succeeded" ? addDecimaltoAmount(transaction.amountReceived as any)  : addDecimaltoAmount(total as any) || "0"}</span>
+              <span>
+                $
+                {transaction && transaction.status === "succeeded"
+                  ? addDecimaltoAmount(transaction.amountReceived as any)
+                  : addDecimaltoAmount(total as any) || "0"}
+              </span>
             </div>
           </div>
         </div>
@@ -118,7 +132,9 @@ function AppointmentReschedule(props: Props) {
       <div
         className={`py-4 block w-full ${_classes["available-slots-container"]}`}
       >
-        <h5>Select an available appointment time</h5>
+        <h5 className="improved-word-spacing">
+          Select an available appointment time
+        </h5>
         <Radio.Group className="block w-full" onChange={onChange} value={value}>
           <Space direction="vertical" className="block w-full">
             {appointmentTimeSlots?.length === 0 ? (

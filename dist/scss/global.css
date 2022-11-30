@@ -635,4 +635,7 @@ h5,
 h6 {
     word-spacing: 0px !important;
   }
+  .AppointmentReschedule_available-slots-container__AcH_v h5.improved-word-spacing {
+    word-spacing: 0px !important;
+  }
 }/*# sourceMappingURL=global.css.map */
