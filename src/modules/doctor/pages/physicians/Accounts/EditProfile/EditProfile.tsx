@@ -262,26 +262,32 @@ function EditProfile({
     }
   }, []);
   function prepareAndSetEditPayload() {
-    formInstance.setFieldsValue({
-      firstName: doctor_first_name,
-      lastName: doctor_last_name,
-      specialization: specialization || "",
-      year_of_experience: year_of_experience || "",
-      streetAddress: street_address,
-      city_id: city_id || "",
-      country_id: country_id || "",
-      state_id: state_id || "",
-      zip_code: zip_code || "",
-      contact: contact_number || "",
-      email: doctor_email,
-      password: "",
-      confirmPassword: "",
-      about_me: about_me || "",
-      language: language,
-      condition_treated: conditionTreatedList || "",
-      // timeZoneId: timeZone?.timeZone,
-      timeZone: timeZone?.id || 86,
-    });
+    const currentFormValues = formInstance.getFieldsValue();
+    if (
+      currentFormValues.firstName === undefined ||
+      currentFormValues.lastName === undefined
+    ) {
+      formInstance.setFieldsValue({
+        firstName: doctor_first_name,
+        lastName: doctor_last_name,
+        specialization: specialization || "",
+        year_of_experience: year_of_experience || "",
+        streetAddress: street_address,
+        city_id: city_id || "",
+        country_id: country_id || "",
+        state_id: state_id || "",
+        zip_code: zip_code || "",
+        contact: contact_number || "",
+        email: doctor_email,
+        password: "",
+        confirmPassword: "",
+        about_me: about_me || "",
+        language: language,
+        condition_treated: conditionTreatedList || "",
+        // timeZoneId: timeZone?.timeZone,
+        timeZone: timeZone?.id || 86,
+      });
+    }
     setUserDisableInput(userData?.user?.is_active || false);
     setPublishStatus(userData?.user?.status);
   }
@@ -459,7 +465,7 @@ function EditProfile({
     if (doctorData || userData?.user) {
       prepareAndSetEditPayload();
     }
-  }, [userData?.user]);
+  }, [userData?.user, doctorData]);
 
   const configS3 = {
     region: config?.region || "",
