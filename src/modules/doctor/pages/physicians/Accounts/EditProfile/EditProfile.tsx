@@ -74,15 +74,15 @@ type Props = {
   doctorId?: string;
   doctorData?: User | any;
   setIsEdit: (e: boolean) => void;
-  schedules: Schedule[] | undefined;
-  setDeleteScheduleId: (e: string) => void;
-  setAddScheduleTime: React.Dispatch<
+  schedules?: Schedule[] | undefined;
+  setDeleteScheduleId?: (e: string) => void;
+  setAddScheduleTime?: React.Dispatch<
     React.SetStateAction<{
       time: RangeValue<moment.Moment> | null;
       timeString: string[];
     }>
   >;
-  setAddScheduleDay: React.Dispatch<React.SetStateAction<string | number>>;
+  setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
   onAddClick?: () => void;
   edit?: () => void;
@@ -90,7 +90,7 @@ type Props = {
     timeString: string[];
     time: RangeValue<moment.Moment> | null;
   };
-  addScheduleDay: string;
+  addScheduleDay?: string;
   loading?: boolean;
   setProfileUpdated?: any;
   deleteScheduleFetching?: boolean;
@@ -901,7 +901,6 @@ function EditProfile({
                   <Input onPressEnter={(e) => e.preventDefault()} />
                 </Form.Item>
               </div>
-
               <div className="flex flex-col sm:flex-row  sm:gap-3">
                 <Form.Item
                   name="email"
@@ -995,7 +994,6 @@ function EditProfile({
                   />
                 </Form.Item>
               </div>
-
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item
                   label="Specialization"
@@ -1068,7 +1066,6 @@ function EditProfile({
                   </Select>
                 </Form.Item>
               </div>
-
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 <Form.Item className="flex-1" label={"State"} name="state_id">
                   <Select
@@ -1121,7 +1118,6 @@ function EditProfile({
                   </Select>
                 </Form.Item>
               </div>
-
               <div className="flex flex-col sm:flex-row sm:gap-3">
                 {/* <Form.Item
                   className="flex-1"
@@ -1236,7 +1232,6 @@ function EditProfile({
                   </div>
                 </Form.Item>
               </div>
-
               <div className="mt-5 border-b border-gray-3 ">
                 <Form.Item label="About me" name="about_me">
                   <TextArea
@@ -1254,7 +1249,8 @@ function EditProfile({
                 }}
                 initialValue={conditionTreatedList?.split(",")}
               />
-              <MultiRangeDatePicker
+              {/* pointer */}
+              {/* <MultiRangeDatePicker
                 loading={loading}
                 disable={false}
                 schedules={schedules}
@@ -1268,7 +1264,7 @@ function EditProfile({
                 setAddScheduleClick={setAddScheduleClick}
                 showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
-              />
+              /> */}
               <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
                 {/* ----------------------------------------------------------- */}
 
@@ -1428,7 +1424,6 @@ function EditProfile({
                   );
                 })}
               </div>
-
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Educational background</h6>
                 {educationList?.map((education, index) => {
@@ -1493,7 +1488,6 @@ function EditProfile({
                   );
                 })}
               </div>
-
               <div className={`my-6 ${_classes["educational"]}`}>
                 <h6>Awards, honors & recognition</h6>
                 {honorsList?.map((honor, index) => {
@@ -1532,7 +1526,6 @@ function EditProfile({
                   );
                 })}
               </div>
-
               <Form.Item>
                 <div className="flex items-center justify-end gap-2">
                   <Button
