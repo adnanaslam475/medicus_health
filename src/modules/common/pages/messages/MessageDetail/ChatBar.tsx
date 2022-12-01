@@ -32,7 +32,7 @@ function MessageItem(props: Props) {
   const { profileImage: patientImage } = patientProfile || {};
   const { profile_picture } = adminProfilePicture || {};
   const isMyMessage = Number(senderId) === Number(user?.id);
-  const backgroundColor = isMyMessage ? "#E0EEFD" : "#F6F8FA";
+  const backgroundColor = isMyMessage ? "#e0eefd" : "#F6F8FA";
   const justifyContent = isMyMessage ? "flex-end" : "flex-start";
 
   // Set User time zone
@@ -110,9 +110,7 @@ function MessageItem(props: Props) {
                   </p>
                 ) : (
                   <p
-                    className={`p-3 text-secondary rounded inline-block ${
-                      message.includes(" ") ? "break-words" : "break-all"
-                    }`}
+                    className={`p-3 text-secondary rounded inline-block break-all whitespace-pre-wrap`}
                   >
                     {message}
                   </p>
