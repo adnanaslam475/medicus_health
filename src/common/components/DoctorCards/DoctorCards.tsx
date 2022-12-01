@@ -106,6 +106,7 @@ function DoctorCard({
     setCurrent(current - 1);
   };
   let formatedDoctorName = `${name?.includes("Dr.") ? name : `Dr. ${name}`}`;
+  console.log("conditionTreated", conditionTreated);
   return (
     <>
       <Card className={`${_classes["doctorCard"]} rounded-lg`}>
@@ -173,7 +174,7 @@ function DoctorCard({
               <span className="text-secondary text-sm">
                 {yearOfExperience}+ {t("years_of_experience")}
               </span>
-              <h6 className="font-rubik text-gray mt-3 font-normal">
+              <h6 className="font-rubik text-gray mt-3 font-normal break-all">
                 {aboutMe}
               </h6>
               <Divider />

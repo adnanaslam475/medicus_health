@@ -80,9 +80,7 @@ function Physicians() {
                   aboutMe={aboutMe || ""}
                   professionalExperience={professionalExperience || ""}
                   yearOfExperience={yearOfExperience || 0}
-                  conditionTreated={
-                    conditionTreated?.replaceAll(",", " // ") || ""
-                  }
+                  conditionTreated={conditionTreated}
                   profile_image={profile_image}
                   doctorProfile={profile as DoctorProfile}
                   loading={fetching}
