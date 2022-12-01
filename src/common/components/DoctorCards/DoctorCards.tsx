@@ -19,6 +19,7 @@ import {
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
 import { capitalizeFirstLetter, isChrome } from "utils/helper";
+import { start } from "nprogress";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
@@ -106,7 +107,6 @@ function DoctorCard({
     setCurrent(current - 1);
   };
   let formatedDoctorName = `${name?.includes("Dr.") ? name : `Dr. ${name}`}`;
-  console.log("conditionTreated", conditionTreated);
   return (
     <>
       <Card className={`${_classes["doctorCard"]} rounded-lg`}>
@@ -184,7 +184,9 @@ function DoctorCard({
                   {t("conditions_treated")}
                 </span>
               </h6>
-              <h6 className="font-normal font-rubik">{conditionTreated}</h6>
+              <h6 className="font-normal font-rubik">
+                {conditionTreated.slice(4)}
+              </h6>
             </div>
           </div>
           <div className="card-actionBtns lg:w-2/5">
