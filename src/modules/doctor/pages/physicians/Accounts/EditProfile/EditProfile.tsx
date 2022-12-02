@@ -438,7 +438,7 @@ function EditProfile({
 
     // }
   };
-
+  // pointer
   const onFinish = async (values: any) => {
     if (deleteVideo) {
       values.profile_video = "";
@@ -767,6 +767,11 @@ function EditProfile({
         });
     }
   }
+  const customreq = async (file: any) => {
+    setTimeout(() => {
+      return file.onSuccess("ok");
+    }, 1);
+  };
 
   return (
     <div className={`w-full ${_classes["profile"]}`}>
@@ -1258,16 +1263,17 @@ function EditProfile({
                   label={"Video"}
                   name="profile_video"
                 >
+                  {/* pointer */}
                   <Upload
                     listType="picture"
                     maxCount={1}
-                    beforeUpload={onBeforeVideoUpload}
                     accept=".mp4"
+                    // beforeUpload={onBeforeVideoUpload}
                     onRemove={onRemoveVideoClick}
                     defaultFileList={defaultArray}
                     itemRender={(itemRender) => {
                       return (
-                        <div className="w-full break-all break-words truncate max-w-3/4">
+                        <div className="w-3/4 break-all break-words break-all truncate ">
                           <div className="flex border rounded-xl items-center p-2 mt-2 text-primary ">
                             <FileOutlined className="text-2xl mx-2 " />
                             {
@@ -1278,10 +1284,7 @@ function EditProfile({
                         </div>
                       );
                     }}
-                    customRequest={(arg) => {
-                      console.log(arg);
-                      return null;
-                    }}
+                    customRequest={customreq}
                   >
                     <Button
                       onClick={() => {
