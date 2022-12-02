@@ -173,7 +173,7 @@ function DoctorCard({
               <span className="text-secondary text-sm">
                 {yearOfExperience}+ {t("years_of_experience")}
               </span>
-              <h6 className="font-rubik text-gray mt-3 font-normal">
+              <h6 className="font-rubik text-gray mt-3 font-normal break-all">
                 {aboutMe}
               </h6>
               <Divider />
@@ -183,7 +183,9 @@ function DoctorCard({
                   {t("conditions_treated")}
                 </span>
               </h6>
-              <h6 className="font-normal font-rubik">{conditionTreated}</h6>
+              <h6 className="font-normal font-rubik">
+                {conditionTreated.slice(4)}
+              </h6>
             </div>
           </div>
           <div className="card-actionBtns lg:w-2/5">
