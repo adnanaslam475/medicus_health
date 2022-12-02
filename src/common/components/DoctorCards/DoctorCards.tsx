@@ -19,7 +19,6 @@ import {
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
 import { capitalizeFirstLetter, isChrome } from "utils/helper";
-import { start } from "nprogress";
 
 const FLAG_BY_LANGUAGE = {
   ["english" as string]: engFlag,
