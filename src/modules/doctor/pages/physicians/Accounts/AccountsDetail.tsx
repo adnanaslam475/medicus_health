@@ -231,7 +231,6 @@ function Accounts() {
             }
             key="6"
           >
-            {/* pointer */}
             <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
               <MultiRangeDatePicker
                 loading={fetching}

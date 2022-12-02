@@ -1249,22 +1249,7 @@ function EditProfile({
                 }}
                 initialValue={conditionTreatedList?.split(",")}
               />
-              {/* pointer */}
-              {/* <MultiRangeDatePicker
-                loading={loading}
-                disable={false}
-                schedules={schedules}
-                setDeleteScheduleId={setDeleteScheduleId}
-                deleteScheduleFetching={deleteScheduleFetching}
-                setAddScheduleTime={setAddScheduleTime}
-                addScheduleTime={addScheduleTime}
-                addScheduleDay={addScheduleDay}
-                setAddScheduleDay={setAddScheduleDay}
-                onAddClick={onAddClick}
-                setAddScheduleClick={setAddScheduleClick}
-                showCancelScheduleModal={showCancelScheduleModal}
-                setShowCancelScheduleModal={setShowCancelScheduleModal}
-              /> */}
+
               <div className="border-b border-gray-3 my-3 py-3 mb-[0] pb-[30px]">
                 {/* ----------------------------------------------------------- */}
 

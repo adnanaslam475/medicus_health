@@ -61,35 +61,6 @@ function ProfileDetail() {
 
   const adminId = query?.id;
   const id = role == "Admin" ? Number(adminId) : user?.id;
-  // const id = user?.id; // const [{ data }] = useDoctorProfileQuery({
-  //   variables: { doctor_id: Number(docId) },
-  // });
-
-  // const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
-  //   variables: { doctorId: Number(docId) },
-  // });
-
-  // const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
-  //   useCreateDoctorScheduleMutation();
-
-  // const [, executeRemoveDoctorScheduleMutation] =
-  //   useRemoveDoctorScheduleMutation();
-
-  // async function onAddClick() {
-  //   if (isEdit && addScheduleDay && addScheduleTime?.timeString?.length) {
-  //     const variable = {
-  //       doctorId: Number(docId),
-  //       day: Number(addScheduleDay),
-  //       startTime: addScheduleTime.timeString[0],
-  //       endTime: addScheduleTime.timeString[1],
-  //     };
-
-  //     await executeCreateDoctorScheduleMutation(variable);
-  //     await executeDoctorSchedules({ requestPolicy: "network-only" });
-  //     setAddScheduleDay("Select Day");
-  //     setAddScheduleTime({ timeString: [], time: null });
-  //   }
-  // }
 
   const onChangeTabHandler = (key: string) => {
     setActiveTab(key);
@@ -115,7 +86,6 @@ function ProfileDetail() {
   const { doctorQuestionnaire } = dataList || {};
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
-  //
 
   const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
     variables: { doctorId: id as number },
@@ -178,7 +148,6 @@ function ProfileDetail() {
     }
   }, [deleteScheduleId]);
 
-  //
   return (
     <AppLayout>
       <div className="w-full">
@@ -291,7 +260,6 @@ function ProfileDetail() {
               }
               key="6"
             >
-              {/* pointer */}
               <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
                 <MultiRangeDatePicker
                   loading={fetching}
