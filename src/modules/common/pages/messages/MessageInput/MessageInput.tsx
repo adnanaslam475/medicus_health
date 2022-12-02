@@ -19,6 +19,7 @@ import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { CloseCircleOutlined, FastForwardOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
 import { getFileImageIcon, hasValidMessage } from "common/utils/helper";
+import TextArea from "antd/lib/input/TextArea";
 
 function MessageInput() {
   const [messageText, setMessageText] = useState<string>("");
@@ -78,6 +79,7 @@ function MessageInput() {
       } else {
         //checking if message contains Aplhanumeric and special characters and not contain only white spaces
         if (hasValidMessage(messageText)) {
+          console.log("messageText", messageText);
           onMessage?.(messageText, "Text");
           setMessageType("Text");
         }
@@ -138,11 +140,20 @@ function MessageInput() {
       ) : (
         isShowInput && (
           <>
-            <Input
+            <TextArea
+              rows={2}
               placeholder="Type a new message"
               ref={inputRef}
               onChange={({ target }) => onMessageTextChange(target.value)}
-              onPressEnter={onSendMessage}
+              onKeyPress={(eve) => {
+                if (
+                  eve.nativeEvent.shiftKey &&
+                  eve.nativeEvent.key === "Enter"
+                ) {
+                  onSendMessage();
+                } else {
+                }
+              }}
               value={messageText}
             />
             <div className="absolute left-0 top-2 bg-gray-5">
@@ -164,7 +175,9 @@ function MessageInput() {
                         height={25}
                         // src={fileIcon}
                         src={
-                          getFileImageIcon(file?.name) as string | StaticImageData
+                          getFileImageIcon(file?.name) as
+                            | string
+                            | StaticImageData
                         }
                       />
                     </Badge>
@@ -173,7 +186,7 @@ function MessageInput() {
               ))}
             </div>
 
-            <span className="absolute right-14">
+            <span className="absolute top-4 right-14">
               <span className="h-10">
                 <Dragger
                   onChange={fileChange}
@@ -197,7 +210,7 @@ function MessageInput() {
               </span>
             </span>
             <span
-              className="absolute top-3 right-4 cursor-pointer"
+              className="absolute top-6 right-4 cursor-pointer"
               onClick={enabled ? onSendMessage : () => null}
             >
               {/* {loader && messageType === "Media" ? (
