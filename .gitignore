@@ -6,7 +6,8 @@
 .pnp.js
 package-lock.json
 yarn.lock
-
+/dist/scss/global.css
+/dist/scss/global.css.map
 # testing
 /coverage+
 
