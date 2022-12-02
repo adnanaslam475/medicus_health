@@ -3,6 +3,8 @@ trigger:
   branches:
     include:
       - master
+      - main
+      - release
 
   paths:
     include:
@@ -14,6 +16,8 @@ pr:
   branches:
     include:
       - master
+      - main
+      - release
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -77,7 +81,7 @@ stages:
       - job: package
         displayName: "Package Artifact"
         dependsOn: build
-        condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
+        condition: and(succeeded(), or(eq(variables['Build.SourceBranchName'], 'master'), eq(variables['Build.SourceBranchName'], 'main'), eq(variables['Build.SourceBranchName'], 'release')))
         steps:
           - task: ArchiveFiles@2
             inputs:
