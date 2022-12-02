@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Layout, Avatar, Dropdown, Menu, Badge, Divider, Skeleton } from "antd";
+import {
+  Layout,
+  Avatar,
+  Dropdown,
+  Menu,
+  Badge,
+  Divider,
+  Skeleton,
+  Button,
+} from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import InfoMessage from "../InfoMessage/InfoMessage";
@@ -9,7 +18,10 @@ import _classes from "./AppHeader.module.scss";
 import SidebarDrawer from "../../../modules/common/components/SidebarDrawer";
 import { getRole, getUserData } from "../../utils/userData";
 import InfoMessageBannerReminder from "../InfoMessageBannerReminder/InfoMessageBannerReminder";
-import { useGetUserQuery, usePatientHealthHistoryQuery } from "generated/graphql";
+import {
+  useGetUserQuery,
+  usePatientHealthHistoryQuery,
+} from "generated/graphql";
 import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import { useUserData } from "../Context/UserContext";
 import MDNextImage from "../MDNextImage/MDNextImage";
@@ -36,9 +48,9 @@ const AppHeader = () => {
   });
   useEffect(() => {
     if (!userData?.user?.id && !userDataLoading) {
-      logout()
+      logout();
     }
-  }, [userData?.user?.id,userDataLoading])
+  }, [userData?.user?.id, userDataLoading]);
 
   const [visible, setVisible] = useState(false);
   const router = useRouter();
@@ -76,10 +88,10 @@ const AppHeader = () => {
     userRole === "Doctor"
       ? "/physician/account"
       : userRole === "Admin"
-        ? "/admin/account"
-        : userRole === "Staff"
-          ? "/physician/staffaccount?activeTab=1"
-          : "/patient/account?activeTab=1";
+      ? "/admin/account"
+      : userRole === "Staff"
+      ? "/physician/staffaccount?activeTab=1"
+      : "/patient/account?activeTab=1";
 
   const menu = (
     <Menu className="px-2 py-2 bg-white border border-gray-3 rounded">
@@ -120,8 +132,8 @@ const AppHeader = () => {
     user?.role === "User"
       ? "/patient/appointments/upcoming"
       : user?.role === "Doctor"
-        ? "/physician/appointments/upcoming"
-        : "/admin/dashboards";
+      ? "/physician/appointments/upcoming"
+      : "/admin/dashboards";
   return (
     <>
       <Header
@@ -166,6 +178,19 @@ const AppHeader = () => {
           <div
             className={`${_classes["topBar-avatar"]} flex items-center text-right justify-end w-full md:w-1/2`}
           >
+            {getRole() === "User" && (
+              <a
+                target="blank"
+                href="https://joinmedicus.com/es/como-funciona/"
+              >
+                <div className="p-2 ">
+                  <Button type="primary" className="text-sm  ">
+                    <span className="text-xs sm:text-base">How To Use</span>
+                  </Button>
+                </div>
+              </a>
+            )}
+
             <Dropdown
               className="flex items-center min-w-[60px]"
               overlay={menu}

@@ -122,7 +122,7 @@ function UpcomingAppointments() {
               </Select> */}
               <Button
                 type="primary"
-                className={`text-sm ${isChrome && 'antCustomBtn'}`}
+                className={`text-sm ${isChrome && "antCustomBtn"}`}
                 onClick={() => Router.push(`/patient/calendar`)}
               >
                 <span className="text-xs sm:text-base">
@@ -145,7 +145,7 @@ function UpcomingAppointments() {
             >
               <Button
                 type="primary"
-                className={`text-sm ${isChrome && 'antCustomBtn'}`}
+                className={`text-sm ${isChrome && "antCustomBtn"}`}
                 onClick={showAppointmentBookingModal}
                 disabled={
                   patientHealthHistory?.patientHealthHistory?.id ? false : true
