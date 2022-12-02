@@ -874,7 +874,7 @@ function EditProfile({
             </div>
           </div>
 
-          <div className="xs:w-[100%] sm:w-full pb-10">
+          <div className="sm:w-full pb-10">
             <Form
               form={formInstance}
               name="basic"
