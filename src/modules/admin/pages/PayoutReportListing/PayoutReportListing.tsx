@@ -17,7 +17,6 @@ import { addDecimaltoAmount } from "common/utils/helper";
 function PayoutReportListing() {
   const { Panel } = Collapse;
   const onChange = (key: string | string[]) => {};
-  console.log("date.formatDAYMMDD(scheduleDate)", date.formatDAYMMDD(" "));
   const columns = [
     {
       title: "ID#",
