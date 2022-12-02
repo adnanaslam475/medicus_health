@@ -30,11 +30,6 @@ function AccountsProfile() {
   const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
     "Select Day"
   );
-  const [showCancelScheduleModal, setShowCancelScheduleModal] = useState(false);
-  const [addScheduleTime, setAddScheduleTime] = useState<{
-    time: RangeValue<moment.Moment> | null;
-    timeString: string[];
-  }>({ timeString: [], time: null });
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
   const [profileUpdated, setProfileUpdated] = useState();
   const [doctorProfileData, setDoctorProfileData] = React.useState<any>({});
@@ -49,74 +44,13 @@ function AccountsProfile() {
   });
   const schedules = doctorSchedules?.data?.doctorSchedules;
 
-  const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
-    useCreateDoctorScheduleMutation();
-  const { fetching } = createDoctorScheduleResponse;
-  const [
-    { fetching: deleteScheduleFetching },
-    executeRemoveDoctorScheduleMutation,
-  ] = useRemoveDoctorScheduleMutation();
-
-  async function onAddClick() {
-    if (
-      isEdit &&
-      addScheduleDay &&
-      !isNaN(addScheduleDay as number) &&
-      addScheduleTime?.timeString?.length &&
-      id
-    ) {
-      const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
-      const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
-      const variable = {
-        doctorId: Number(id),
-        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
-        startTime: startTime,
-        endTime: endTime,
-      };
-
-      await executeCreateDoctorScheduleMutation(variable)
-        .then((res) => {
-          if (res?.error && res?.error?.message) {
-            let graphQLError = res?.error?.graphQLErrors[0]?.extensions
-              ?.response as GraphQLError;
-            let customError = res?.error?.graphQLErrors[0]?.extensions
-              ?.exception as GraphQLError;
-            let errorMessage =
-              graphQLError?.message ||
-              customError?.message ||
-              "Something went wrong";
-            notification.error({
-              message: errorMessage,
-            });
-          }
-        })
-        .catch((err) => {});
-      await executeDoctorSchedules({ requestPolicy: "network-only" });
-      setAddScheduleDay("Select Day");
-      setAddScheduleTime({ timeString: [], time: null });
-    }
-  }
-  useEffect(() => {
-    if (deleteScheduleId) {
-      setShowCancelScheduleModal(true);
-      executeRemoveDoctorScheduleMutation({
-        id: Number(deleteScheduleId),
-      }).then(() => {
-        setShowCancelScheduleModal(false);
-      });
-    }
-  }, [deleteScheduleId]);
-
   const [{ data, fetching: doctorDataLoading }, executeUseDoctorProfileQuery] =
     useDoctorProfileQuery({
       variables: { doctor_id: id as number },
-      pause: !id || addScheduleDay === "Select Day" || !!deleteScheduleId,
+      pause: !id || !!deleteScheduleId,
       requestPolicy: "network-only",
     });
   const { doctorProfile } = data || {};
-  // useEffect(() => {
-  //   setDoctorProfileData(doctorProfile);
-  // }, [doctorProfileData, isEdit, data]);
 
   useEffect(() => {
     executeUseDoctorProfileQuery({ requestPolicy: "network-only" });
@@ -127,21 +61,10 @@ function AccountsProfile() {
         <EditProfile
           setIsEdit={setIsEdit}
           schedules={schedules}
-          setDeleteScheduleId={setDeleteScheduleId}
-          deleteScheduleFetching={deleteScheduleFetching}
-          setAddScheduleDay={setAddScheduleDay}
-          addScheduleDay={String(addScheduleDay)}
-          setAddScheduleTime={setAddScheduleTime}
           doctorId={String(id)}
-          // doctorData={doctorProfileData}
           doctorData={doctorProfile}
           edit={editData}
-          addScheduleTime={addScheduleTime}
-          onAddClick={onAddClick}
-          loading={fetching}
           setProfileUpdated={setProfileUpdated}
-          showCancelScheduleModal={showCancelScheduleModal}
-          setShowCancelScheduleModal={setShowCancelScheduleModal}
         />
       ) : (
         <ViewProfile

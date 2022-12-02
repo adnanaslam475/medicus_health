@@ -24,15 +24,15 @@ type Props = {
   setAddScheduleDay?: React.Dispatch<React.SetStateAction<string | number>>;
   setAddScheduleClick?: React.Dispatch<React.SetStateAction<boolean>>;
   loading?: boolean;
-  addScheduleDay?: string | undefined;
+  addScheduleDay?: string | undefined | number;
   onAddClick?: () => void;
   addScheduleTime?: {
     timeString: string[];
     time: RangeValue<moment.Moment> | null;
   };
   deleteScheduleFetching?: boolean;
-  showCancelScheduleModal?:boolean,
-  setShowCancelScheduleModal?:React.Dispatch<React.SetStateAction<boolean>>
+  showCancelScheduleModal?: boolean;
+  setShowCancelScheduleModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function MultiRangeDatePicker(props: Props) {
@@ -47,8 +47,8 @@ function MultiRangeDatePicker(props: Props) {
     setDeleteScheduleId,
     onAddClick,
     deleteScheduleFetching,
-    showCancelScheduleModal, 
-    setShowCancelScheduleModal
+    showCancelScheduleModal,
+    setShowCancelScheduleModal,
   } = props;
 
   function onChange(
@@ -83,7 +83,9 @@ function MultiRangeDatePicker(props: Props) {
             icon={<PlusOutlined className="font-bold text-sm pb-0.5" />}
             type="primary"
             size="large"
-            className={`my-auto ml-auto mr-2 mt-3 md:mt-2 ${_Classes["button-custom"]} ${isChrome && 'antCustomBtn'}`}
+            className={`my-auto ml-auto mr-2 mt-3 md:mt-2 ${
+              _Classes["button-custom"]
+            } ${isChrome && "antCustomBtn"}`}
             onClick={onAddClick}
             disabled={loading}
             loading={loading}
@@ -105,7 +107,7 @@ function MultiRangeDatePicker(props: Props) {
                 index={index}
                 setDeleteScheduleId={setDeleteScheduleId}
                 deleteScheduleFetching={deleteScheduleFetching}
-                showCancelScheduleModal={showCancelScheduleModal} 
+                showCancelScheduleModal={showCancelScheduleModal}
                 setShowCancelScheduleModal={setShowCancelScheduleModal}
               />
             );
