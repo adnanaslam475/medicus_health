@@ -1273,9 +1273,9 @@ function EditProfile({
                     defaultFileList={defaultArray}
                     itemRender={(itemRender) => {
                       return (
-                        <div className="w-3/4 break-all break-words break-all truncate ">
+                        <div className="w-3/4  break-words break-all truncate ">
                           <div className="flex border rounded-xl items-center p-2 mt-2 text-primary ">
-                            <FileOutlined className="text-2xl mx-2 " />
+                            <FileOutlined className="text-2xl mx-2 break-all" />
                             {
                               itemRender.props.children[0].props.children.props
                                 .children[1]
