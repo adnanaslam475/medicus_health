@@ -17,7 +17,6 @@ import { addDecimaltoAmount } from "common/utils/helper";
 function PayoutReportListing() {
   const { Panel } = Collapse;
   const onChange = (key: string | string[]) => {};
-
   const columns = [
     {
       title: "ID#",
@@ -61,7 +60,13 @@ function PayoutReportListing() {
       key: "appointmentDateTime",
       render: (appointmentDateTime: any) => {
         const scheduleDate = appointmentDateTime?.startTime || "";
-        return <div>{date.formatDAYMMDD(scheduleDate)}</div>;
+        return (
+          <div>
+            {date.formatDAYMMDD(scheduleDate) === "Invalid Date"
+              ? "-"
+              : date.formatDAYMMDD(scheduleDate)}
+          </div>
+        );
       },
     },
     {
