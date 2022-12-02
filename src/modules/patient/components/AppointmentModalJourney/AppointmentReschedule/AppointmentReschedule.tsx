@@ -31,7 +31,7 @@ function AppointmentReschedule(props: Props) {
     charges,
     appointmentTypeProposed,
     status,
-    transaction
+    transaction,
   } = appointmentDetails || {};
   const isRescheduledAppointment = status == "Rescheduled" ? true : false;
   const { first_name, last_name } = doctor || {};
@@ -88,16 +88,19 @@ function AppointmentReschedule(props: Props) {
                 ${addDecimaltoAmount((appointmentPrice as any) + 100) || "-"}
               </span>
             </div>
-            {/* pointer */}
             <div className="flex justify-between ">
               <span>Discount applied: JOINMEDICUS</span>
               <span>- $100.00</span>
             </div>
             <div className="flex justify-between ">
               <span>Tax</span>
-              <span>${transaction && transaction.status === "succeeded" ? addDecimaltoAmount(transaction.tax as any): addDecimaltoAmount(tax as any) || "0"}</span>
+              <span>
+                $
+                {transaction && transaction.status === "succeeded"
+                  ? addDecimaltoAmount(transaction.tax as any)
+                  : addDecimaltoAmount(tax as any) || "0"}
+              </span>
               {/* <span>${transaction  ? transaction.tax : addDecimaltoAmount(tax as any) || "0"}</span> */}
-
             </div>
 
             <div className="flex justify-between ">
@@ -106,11 +109,21 @@ function AppointmentReschedule(props: Props) {
                   ? "Processing fee"
                   : "Estimated processing fee*"}
               </span>
-              <span>${transaction && transaction.status == "succeeded" ? addDecimaltoAmount(transaction.stripeFee as any): addDecimaltoAmount(systemFee as any) || "0"}</span>
+              <span>
+                $
+                {transaction && transaction.status == "succeeded"
+                  ? addDecimaltoAmount(transaction.stripeFee as any)
+                  : addDecimaltoAmount(systemFee as any) || "0"}
+              </span>
             </div>
             <div className="flex justify-between font-semibold pt-2">
               <span>Total charges</span>
-              <span>${transaction && transaction.status === "succeeded" ? addDecimaltoAmount(transaction.amountReceived as any)  : addDecimaltoAmount(total as any) || "0"}</span>
+              <span>
+                $
+                {transaction && transaction.status === "succeeded"
+                  ? addDecimaltoAmount(transaction.amountReceived as any)
+                  : addDecimaltoAmount(total as any) || "0"}
+              </span>
             </div>
           </div>
         </div>

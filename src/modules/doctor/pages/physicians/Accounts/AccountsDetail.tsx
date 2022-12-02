@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Tabs } from "antd";
+import React, { useEffect, useState } from "react";
+import { notification, Tabs } from "antd";
 import AccountsProfile from "./AccountsProfile/AccountsProfile";
 import BankInfo from "./BankInfo/BankInfo";
 import _classes from "./Account.module.scss";
@@ -13,8 +13,11 @@ import {
 } from "../../../../../common/components/CustomIcon";
 import {
   Appointment,
+  useCreateDoctorScheduleMutation,
   useDoctorQuestionnaireQuery,
   User,
+  useRemoveDoctorScheduleMutation,
+  useScheduleQuery,
 } from "generated/graphql";
 import ConsultationRates from "modules/common/components/ConsultaionRates/ConsultaionRates";
 import { parseJson } from "common/utils/helper";
@@ -25,18 +28,35 @@ import {
   BellOutlined,
   EuroCircleOutlined,
   EuroOutlined,
+  ScheduleOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import Image from "next/image";
-import DollarSvg from "../../../../../../public/assets/icon/dollar.svg";
-import ConsultationRatesSvgGray from "../../../../../../public/assets/icon/consultation-iconGray.png";
+import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
+import { UTCPrettierTime } from "common/utils/date";
+import { GraphQLError } from "graphql";
+import { RangeValue } from "rc-picker/lib/interface";
 
 function Accounts() {
+  const [deleteScheduleId, setDeleteScheduleId] = useState("");
+  const [addScheduleDay, setAddScheduleDay] = useState<number | string>(
+    "Select Day"
+  );
+  const [addScheduleTime, setAddScheduleTime] = useState<{
+    time: RangeValue<moment.Moment> | null;
+    timeString: string[];
+  }>({ timeString: [], time: null });
+  const [showCancelScheduleModal, setShowCancelScheduleModal] = useState(false);
+
   // GET USER ID
   const [activeTab, setActiveTab] = React.useState<string>("");
   const { user } = getUserData();
-  const id = user?.id;
+
+  const role = user?.role;
+  const router = useRouter();
+  const { query } = router;
+  const adminId = query?.id;
+  const id = role == "Admin" ? Number(adminId) : user?.id;
 
   //  Get patient Health History
   const [{ data: dataList }] = useDoctorQuestionnaireQuery({
@@ -45,9 +65,6 @@ function Accounts() {
       languageId: 2,
     },
   });
-
-  const router = useRouter();
-  const { query } = router;
   const { doctorQuestionnaire } = dataList || {};
 
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
@@ -60,7 +77,70 @@ function Accounts() {
     setActiveTab(key);
     history.pushState({}, "", "?activeTab=" + key);
   };
+  //
 
+  const [doctorSchedules, executeDoctorSchedules] = useScheduleQuery({
+    variables: { doctorId: id as number },
+  });
+  const schedules = doctorSchedules?.data?.doctorSchedules;
+
+  const [createDoctorScheduleResponse, executeCreateDoctorScheduleMutation] =
+    useCreateDoctorScheduleMutation();
+  const { fetching } = createDoctorScheduleResponse;
+  const [
+    { fetching: deleteScheduleFetching },
+    executeRemoveDoctorScheduleMutation,
+  ] = useRemoveDoctorScheduleMutation();
+  async function onAddClick() {
+    if (
+      addScheduleDay &&
+      !isNaN(addScheduleDay as number) &&
+      addScheduleTime?.timeString?.length &&
+      id
+    ) {
+      const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
+      const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
+      const variable = {
+        doctorId: Number(id),
+        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
+        startTime: startTime,
+        endTime: endTime,
+      };
+
+      await executeCreateDoctorScheduleMutation(variable)
+        .then((res) => {
+          if (res?.error && res?.error?.message) {
+            let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+              ?.response as GraphQLError;
+            let customError = res?.error?.graphQLErrors[0]?.extensions
+              ?.exception as GraphQLError;
+            let errorMessage =
+              graphQLError?.message ||
+              customError?.message ||
+              "Something went wrong";
+            notification.error({
+              message: errorMessage,
+            });
+          }
+        })
+        .catch((err) => {});
+      await executeDoctorSchedules({ requestPolicy: "network-only" });
+      setAddScheduleDay("Select Day");
+      setAddScheduleTime({ timeString: [], time: null });
+    }
+  }
+  useEffect(() => {
+    if (deleteScheduleId) {
+      setShowCancelScheduleModal(true);
+      executeRemoveDoctorScheduleMutation({
+        id: Number(deleteScheduleId),
+      }).then(() => {
+        setShowCancelScheduleModal(false);
+      });
+    }
+  }, [deleteScheduleId]);
+
+  //
   return (
     <div>
       <div className={`${_classes["mobile-tabs"]} profile-tabs card-container`}>
@@ -139,6 +219,33 @@ function Accounts() {
           >
             <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
               <EmailNotificationPage />
+            </div>
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            className="w-full"
+            tab={
+              <span className="font-Circular font-medium   flex items-center">
+                <ScheduleOutlined style={{ fontSize: "20px" }} />
+                Schedules
+              </span>
+            }
+            key="6"
+          >
+            <div className="w-full md:w-full lg:max-w-[60%] xl:max-w-[60%]">
+              <MultiRangeDatePicker
+                loading={fetching}
+                disable={false}
+                schedules={schedules}
+                setDeleteScheduleId={setDeleteScheduleId}
+                deleteScheduleFetching={deleteScheduleFetching}
+                setAddScheduleTime={setAddScheduleTime}
+                addScheduleTime={addScheduleTime}
+                addScheduleDay={addScheduleDay}
+                setAddScheduleDay={setAddScheduleDay}
+                onAddClick={onAddClick}
+                showCancelScheduleModal={showCancelScheduleModal}
+                setShowCancelScheduleModal={setShowCancelScheduleModal}
+              />
             </div>
           </Tabs.TabPane>
         </Tabs>
