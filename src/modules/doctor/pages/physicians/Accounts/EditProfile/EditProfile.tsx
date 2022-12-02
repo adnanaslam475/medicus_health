@@ -228,7 +228,7 @@ function EditProfile({
     ? [
         {
           uid: "1",
-          name: userProfileVideo,
+          name: userProfileVideo.slice(0, 20),
           status: "done",
           url: userProfileVideo,
           thumbUrl: userProfileVideo,
@@ -771,7 +771,7 @@ function EditProfile({
   return (
     <div className={`w-full ${_classes["profile"]}`}>
       <div className="grid md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 pr-0 2xl:pr-40 gap-3">
-        <div className="flex flex-col xs:w-[50%] sm:w-full justify-start items-center py-3 xs:items-start">
+        <div className="flex flex-col  sm:w-full justify-start items-center py-3 xs:items-start">
           <div className="xs:w-[100%] sm:w-full mb-10 mt-10 sm:mt-auto flex gap-8 items-center  ">
             <Upload
               maxCount={1}
@@ -1267,7 +1267,7 @@ function EditProfile({
                     defaultFileList={defaultArray}
                     itemRender={(itemRender) => {
                       return (
-                        <div className="w-full truncate">
+                        <div className="w-full break-all break-words truncate max-w-3/4">
                           <div className="flex border rounded-xl items-center p-2 mt-2 text-primary ">
                             <FileOutlined className="text-2xl mx-2 " />
                             {
