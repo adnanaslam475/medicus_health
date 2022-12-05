@@ -186,7 +186,7 @@ const AppHeader = () => {
               >
                 <div className="p-2 ">
                   <Button type="default" className="text-sm ">
-                    <span className="text-xs sm:text-base">Get started</span>
+                    <span className="text-xs sm:text-base">How it works</span>
                   </Button>
                 </div>
               </a>
