@@ -182,10 +182,11 @@ const AppHeader = () => {
               <a
                 target="blank"
                 href="https://joinmedicus.com/es/como-funciona/"
+                className="visited:"
               >
                 <div className="p-2 ">
-                  <Button type="primary" className="text-sm  ">
-                    <span className="text-xs sm:text-base">How To Use</span>
+                  <Button type="default" className="text-sm ">
+                    <span className="text-xs sm:text-base">How it works</span>
                   </Button>
                 </div>
               </a>
