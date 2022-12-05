@@ -182,6 +182,7 @@ const AppHeader = () => {
               <a
                 target="blank"
                 href="https://joinmedicus.com/es/como-funciona/"
+                className="visited:"
               >
                 <div className="p-2 ">
                   <Button type="default" className="text-sm ">
