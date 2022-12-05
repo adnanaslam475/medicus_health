@@ -30,5 +30,8 @@
         word-spacing: 0px !important;
       }
     }
+    @media screen and (min-device-width: 360px) and (max-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+      word-spacing: 0px !important;
+    }
   }
 }
