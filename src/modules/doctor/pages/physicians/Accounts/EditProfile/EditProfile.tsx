@@ -1263,7 +1263,7 @@ function EditProfile({
                     defaultFileList={defaultArray}
                     itemRender={(itemRender) => {
                       return (
-                        <div className="w-3/4  break-words break-all truncate ">
+                        <div className="w-[360px] md:w-[480px]  break-words break-all truncate ">
                           <div className="flex border rounded-xl items-center p-2 mt-2 text-primary ">
                             <FileOutlined className="text-2xl mx-2 break-all" />
                             {
