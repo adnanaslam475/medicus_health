@@ -438,7 +438,6 @@ function EditProfile({
 
     // }
   };
-  // pointer
   const onFinish = async (values: any) => {
     if (deleteVideo) {
       values.profile_video = "";
@@ -492,14 +491,6 @@ function EditProfile({
     const isJPG = file.type === "image/jpeg";
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
-  const onBeforeVideoUpload = (file: File) => {
-    const ismp4 = file.type === "video/mp4";
-    const isMOV = file.type === "video/MOV";
-    const isWMV = file.type === "video/WMV";
-    return ismp4 || isMOV || isWMV || Upload.LIST_IGNORE;
-  };
-
-  // 1000000000
 
   const videoFileChange = async (info: any) => {
     if (info?.file?.size && info?.file?.size <= 1000000000) {
@@ -1263,7 +1254,6 @@ function EditProfile({
                   label={"Video"}
                   name="profile_video"
                 >
-                  {/* pointer */}
                   <Upload
                     listType="picture"
                     maxCount={1}
@@ -1273,9 +1263,9 @@ function EditProfile({
                     defaultFileList={defaultArray}
                     itemRender={(itemRender) => {
                       return (
-                        <div className="w-3/4 break-all break-words break-all truncate ">
+                        <div className="w-[360px] md:w-[480px]  break-words break-all truncate ">
                           <div className="flex border rounded-xl items-center p-2 mt-2 text-primary ">
-                            <FileOutlined className="text-2xl mx-2 " />
+                            <FileOutlined className="text-2xl mx-2 break-all" />
                             {
                               itemRender.props.children[0].props.children.props
                                 .children[1]
