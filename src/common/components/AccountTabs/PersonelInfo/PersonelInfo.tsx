@@ -1,243 +1,286 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Avatar, Tabs, Button, notification } from "antd";
-import Router from "next/router";
-import Image from "next/image";
-// import S3 from "react-aws-s3-typescript";
-import ReactS3Client from "react-aws-s3-typescript";
-import yourImage from "../../../../../public/assets/images/your_photo.png";
+import { Avatar, Button, notification } from "antd";
+// import ReactS3Client from "react-aws-s3-typescript";
 import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
 import { PersonalInfoDetail } from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
 import {
+  LoginUserInput,
+  useGetTimeZonesQuery,
   useGetUserQuery,
   User,
   useUpdateUserProfileMutation,
 } from "../../../../generated/graphql";
 import { getUserData } from "../../../utils/userData";
-import { Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Upload } from "antd";
 import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
-import config from "../../../../../config";
-
-// import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
-const { TabPane } = Tabs;
+import { useMediaUploader } from "common/hooks/media";
+import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import MDNextImage from "common/components/MDNextImage/MDNextImage";
+import { GraphQLError } from "graphql";
+import { useUserData } from "common/components/Context/UserContext";
+import { isChrome } from "utils/helper";
 
 const PersonalInfo = () => {
-  const [isEdit, setIsEdit] = useState(false as boolean);
-  const [image, setImage] = useState("" as string);
+  const t = useTranslations("AccountDetail");
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [image, setImage] = useState<string>("");
+
+  // File Upload Hook
+  const mediaUploader = useMediaUploader();
 
   // GET USER ID
   const { user } = getUserData();
-  const id: number = user?.id;
+  const id = user?.id;
 
   const form: any = useRef();
 
-  // GET USER DATA API CALL
-  // const [{ data: createCardsData }, executeCardMutation] =
-  const [{ data: userData }] = useGetUserQuery({
-    variables: { input: id },
+  const [{ data: userData }, executeUseGetUserQuery] = useGetUserQuery({
+    variables: { input: id as number },
   });
+
+  //GET USER PROFILE IMAGE FROM useGetUserQuery
+  const { profileImage: userProfileImage } =
+    userData?.user?.patientProfile || {};
 
   // UPDATE USER PROFILE
   const [result, updateUserProfile] = useUpdateUserProfileMutation();
+  const { error } = result;
+  const [patientTimeZoneId, setPatientTimeZoneId] = useState();
+  const [getTimeZones] = useGetTimeZonesQuery();
+  const { data: userContextData, saveUserData } = useUserData();
+
+  useEffect(() => {
+    if (patientTimeZoneId) {
+      const timeZone = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === patientTimeZoneId
+      )[0]?.timeZone;
+      const offset = getTimeZones?.data?.getTimeZones.filter(
+        (item) => item.id === patientTimeZoneId
+      )[0]?.gmtOffset;
+      localStorage.setItem("timeZone", JSON.stringify(timeZone));
+      localStorage.setItem("offset", JSON.stringify(offset));
+    }
+  }, [patientTimeZoneId]);
 
   const updateUserDetail = async (values: any) => {
-    // return null;
+    if (values?.timeZone) {
+      setPatientTimeZoneId(values?.timeZone);
+    }
     try {
-      await updateUserProfile({
-        id: id,
+      console.log({ values });
+      const res = await updateUserProfile({
+        id: id as number,
         updateUserInput: {
           first_name: values?.firstName,
           last_name: values?.lastName,
           email: values?.email,
           gender: values?.gender,
-          // date_of_birth: values?.date_of_birth,
-          date_of_birth: date.convertBirthDateToUTC(values.date_of_birth._i),
-          country_id: Number(values?.country),
+          // date_of_birth: new Date(values.date_of_birth).toLocaleDateString(),
+          date_of_birth: date?.formatMMMMDDYYYY(values.date_of_birth),
+          country_id: Number(values?.country_id),
           contact_number: values?.conntactNumber,
-          city_id: Number(values?.city),
+          city_id: Number(values?.city_id),
           password: values?.password,
-          state_id: Number(values?.state),
+          state_id: Number(values?.state_id),
           zip_code: values?.postalCode,
           streetAddress: values?.streetAddress,
           maritalStatus: values?.maritalStatus,
-          // profileImage: image,
-          profileImage:
-            "https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg",
-          children: Number(values?.children),
+          profileImage: image ? image : userProfileImage,
+          // haveChildren: values?.haveChildren ? "No" : "Yes",
+          haveChildren: values?.haveChildren,
+          children: Number(values?.children) | 0,
           occupation: values?.occupation,
           occupationalExposure: values?.occupationalExposure,
           exposureDuration: values?.exposureDuration,
           pets: values?.pets,
+          timeZoneId: values?.timeZone || 86, // 86 is default id for UTC
         },
       });
+      let loggedInUserData = localStorage.getItem("loggedInUserData");
+      let updatedLoggedInUserData: LoginUserInput | any =
+        loggedInUserData && JSON.parse(loggedInUserData);
+      if (res) {
+        res?.data?.updateUser &&
+          notification.success({
+            message: "Successfully updated",
+          });
+        executeUseGetUserQuery({ requestPolicy: "network-only" });
+      }
+      if (
+        updatedLoggedInUserData?.user &&
+        updatedLoggedInUserData?.user?.role === "User" &&
+        !res?.error
+      ) {
+        updatedLoggedInUserData.user.first_name = values?.firstName;
+        updatedLoggedInUserData.user.last_name = values?.lastName;
+        if (updatedLoggedInUserData.user.patientProfile) {
+          updatedLoggedInUserData.user.patientProfile.profileImage =
+            image || userProfileImage;
+        }
+        localStorage.setItem(
+          "loggedInUserData",
+          JSON.stringify(updatedLoggedInUserData)
+        );
+        saveUserData?.({
+          firstName: values?.firstName,
+          lastName: values?.lastName,
+          profilePicture: image ? image : userProfileImage,
+        });
+      }
+
+      if (res?.error && res?.error?.message) {
+        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = res?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const configS3 = {
-    region: config?.region || "",
-    bucketName: config?.bucketName || "",
-    accessKeyId: config?.accessKeyId || "",
-    secretAccessKey: config?.secertAccessKey || "",
-  };
-  const listFiles = async () => {
-    /* Import s3 config object and call the constrcutor */
-    const s3 = new ReactS3Client(configS3);
-
-    try {
-      const fileList = await s3.listFiles();
-
-      console.log(fileList);
-      /*
-       * {
-       *   Response: {
-       *     message: "Objects listed succesfully",
-       *     data: {                   // List of Objects
-       *       ...                     // Meta data
-       *       Contents: []            // Array of objects in the bucket
-       *     }
-       *   }
-       * }
-       */
-    } catch (exception) {
-      console.log(exception);
-      /* handle the exception */
-    }
-  };
-
   const fileChange = async (info: UploadChangeParam) => {
-    const s3 = new ReactS3Client(configS3);
-
     try {
-      const url = await s3.uploadFile(info.file.originFileObj as File);
-    } catch (error: any) {
-      console.log("error", error);
-
+      const url = await mediaUploader.upload(info?.file?.originFileObj as File);
+      if (url) {
+        setImage(url?.location);
+      }
+    } catch (error) {}
+    if (error) {
       notification.error({
-        message: error?.message || "Something went wrong",
+        message: error?.graphQLErrors[0]?.message || "Something went wrong",
       });
     }
   };
+
   const onBeforeUpload = (file: File) => {
     const isPNG = file.type === "image/png";
     const isJPG = file.type === "image/jpeg";
-    // if (!isPNG && !isJPG) {
-    //   notification.error({ message: "This file type is not accepted" });
-    // }
     return isPNG || isJPG || Upload.LIST_IGNORE;
   };
 
-  // useEffect(() => {
-  //   listFiles();
-  // }, []);
+  const onSave = async () => {
+    try {
+      await form?.current?.validateFields();
+      form?.current?.submit();
+      setIsEdit(false);
+    } catch (error: any) {
+      error?.errorFields?.forEach((e: any) => {
+        notification.error({
+          message: e.errors[0],
+        });
+      });
+    }
+  };
+
   return (
     <>
-      <div className="w-1/2">
+      <div className="w-full md:w-4/6">
         <div className="flex justify-between items-center">
-          <div className="flex w-1/2 justify-start items-center py-3 pl-0 pr-3">
-            {/* <Avatar
-              size={64}
-              src={
-                <Image
-                  alt=""
-                  src={yourImage}
-                  width={128}
-                  height={128}
-                  className="border rounded border-gray-2"
-                />
-              }
+          <div>
+            <MDNextImage
+              objectFit="cover"
+              src={image || userProfileImage || ""}
+              layout="fixed"
+              width={74}
+              height={74}
+              className="bg-gray border rounded-full border-gray"
+              fallbackImage="/assets/images/profile.svg"
             />
-            <a
-              href="javascript:void(0)"
-              className="text-primary underline ml-3 text-xs"
-            >
-              <Upload accept=".png, .jpg, .jpeg" customRequest={() => null}>
-                Update Photo
-              </Upload>
-            </a> */}
-            {/* <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload> */}
 
-            <Upload
-              onChange={fileChange}
-              maxCount={1}
-              beforeUpload={onBeforeUpload}
-              itemRender={() => <div />}
-              customRequest={() => null}
-            >
-              <div className="relative">
-                <Avatar
-                  size={50}
-                  // icon={<UserOutlined />}
-                  // src={organizationDetails?.organization_image}
-                  style={{
-                    borderColor: "purple",
-                    borderWidth: 2,
-                    lineHeight: "40px",
-                  }}
-                />
-                <span className="rounded-full absolute p-1 left-8 -top-2">
-                  <Avatar
-                    style={{
-                      backgroundColor: "purple",
-                      width: "15px",
-                      height: "15px",
-                      padding: "20%",
-                    }}
-                    size="small"
-                    src="/assets/icons/editAvatar.png"
-                  />
-                </span>
-              </div>
-            </Upload>
+            {/* <Image
+              priority={true}
+              alt="Profile Image"
+              height="74"
+              width="74"
+              onError={(e) => console.log(e)}
+              src={image || userProfileImage || userDefaultPicture}
+              className="bg-gray border rounded-full border-gray"
+            /> */}
+            {isEdit && (
+              <Upload
+                onChange={fileChange}
+                maxCount={1}
+                beforeUpload={onBeforeUpload}
+                itemRender={() => <div />}
+                customRequest={() => null}
+                accept="image/jpg, image/jpeg,"
+              >
+                <div className="relative">
+                  <div className="flex flex-col justify-start">
+                    <Button
+                      type="link"
+                      className={`text-primary underline text-xs ${
+                        isChrome && "antCustomBtn"
+                      }`}
+                    >
+                      Actualizar foto
+                      {/* {t("update_photo")} */}
+                    </Button>
+                    {/* <span className="hint font-rubik font-normal text-gray-1 font-xs cursor-default">
+                      Upload 600px*600px image
+                    </span> */}
+                  </div>
+                </div>
+              </Upload>
+            )}
           </div>
 
-          <div className="edit-btn flex justify-end">
-            {/* <Button
-                type="default"
-                className="text-xs p-5"
-                size="large"
-                // onClick={() => setIsEdit(true)}
-              >
-                <span className="text-xs">EDIT</span>
-              </Button> */}
+          <div className="edit-btn">
             {isEdit ? (
-              <div className="flex gap-4">
+              <div className="flex gap-2 flex-wrap">
                 <Button
                   danger
-                  className="text-xs p-5 text-red"
+                  className={`text-xs p-5 text-red ${
+                    isChrome && "antCustomBtn"
+                  }`}
                   size="large"
                   onClick={() => setIsEdit(false)}
                 >
-                  <span className="text-xs">CANCEL</span>
+                  <span className="text-xs">
+                    Cancelar
+                    {/* {t("cancel")} */}
+                  </span>
                 </Button>
                 <Button
                   style={{ background: "#30CEC2", borderColor: "transparent" }}
-                  className="text-xs p-5"
+                  className={`text-xs p-5 ${isChrome && "antCustomBtn"}`}
                   size="large"
-                  onClick={() => form?.current?.submit()}
+                  onClick={onSave}
                 >
-                  <span className="text-xs text-white">SAVE</span>
+                  <span className="text-xs text-white px-1">
+                    Ahorrar
+                    {/* {t("save")} */}
+                  </span>
                 </Button>
               </div>
             ) : (
               <Button
                 type="default"
-                className="text-xs p-5"
+                className={`text-xs p-5 ${isChrome && "antCustomBtn"}`}
                 size="large"
                 onClick={() => setIsEdit(true)}
               >
-                <span className="text-xs">EDIT</span>
+                <span className="text-xs">
+                  Editar
+                  {/* {t("edit")} */}
+                </span>
               </Button>
             )}
           </div>
         </div>
         {isEdit ? (
           <PersonalInfoDetail
-            // onFinish={(values) => updateUserDetail( values )}
             onFinish={updateUserDetail}
             user={userData?.user as User}
             loading={true}

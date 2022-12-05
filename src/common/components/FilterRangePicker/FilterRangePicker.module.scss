@@ -1,0 +1,29 @@
+.range-style {
+  color: gray !important;
+  outline: gray !important;
+  border-color: gray !important;
+  padding: 0 4px !important;
+  button {
+    border-color: gray !important;
+  }
+}
+
+.filter-date-wrapper {
+  & .heading-verbage {
+    font-weight: 400 !important;
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 15px !important;
+    color: #9295af !important;
+    word-spacing: 0px !important;
+  }
+  .heading-verbage-selected {
+    color: #000000 !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+}

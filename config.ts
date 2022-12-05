@@ -5,6 +5,7 @@ const config = {
   region:process.env.NEXT_PUBLIC_AWS_REGION,
   bucketName:process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
   accessKeyId:process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
-  secertAccessKey:process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
+  secertAccessKey:process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+  agoraAppId:process.env.NEXT_PUBLIC_AGORA_APP_ID,
 };
 export default config;

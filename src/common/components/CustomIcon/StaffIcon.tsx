@@ -1,0 +1,40 @@
+/* eslint-disable react/no-unknown-property */
+import React from "react";
+
+interface props {
+  className?: string | undefined;
+}
+
+export function StaffIcon({ className }: props) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+    >
+      <defs>
+        <linearGradient
+          id="linear-gradient"
+          x1="0.5"
+          x2="0.5"
+          y2="1"
+          gradientUnits="objectBoundingBox"
+        >
+          <stop offset="0" stop-color="#9e5df9" />
+          <stop offset="0.772" stop-color="#1883ff" />
+          <stop offset="1" stop-color="#36e1b3" />
+        </linearGradient>
+      </defs>
+      <g>
+        <path
+          fill="#8f95a7"
+          d="M20923.955 9371.978a.87.87 0 01-.613-.256.85.85 0 01-.238-.605 8.213 8.213 0 011.375-4.358 7.309 7.309 0 013.07-2.646 4.139 4.139 0 01-1.477-3.159v-2.718a4.319 4.319 0 018.637 0v2.718a4.14 4.14 0 01-1.539 3.214 7.869 7.869 0 014.33 6.978.831.831 0 01-.246.605.861.861 0 01-.605.249zm2.813-5.284a6.534 6.534 0 00-1.791 3.616l10.656.017a5.707 5.707 0 00-5.17-5.136 1.463 1.463 0 00-.16-.006 4.994 4.994 0 00-3.535 1.508zm1.006-8.459v2.718a2.615 2.615 0 005.229 0v-2.718a2.615 2.615 0 00-5.229 0zm-11.924 13.726a.843.843 0 01-.605-.255.813.813 0 01-.244-.605 6.459 6.459 0 013.764-5.654 3.433 3.433 0 01-1.033-2.456v-1.362a3.624 3.624 0 017.246 0v1.362a3.589 3.589 0 01-3.084 3.5.824.824 0 01-.361.051 4.478 4.478 0 00-3.125 1.133 4.88 4.88 0 00-1.5 2.62l4.439.016a.833.833 0 110 1.666zm3.582-10.333v1.362a1.92 1.92 0 003.84 0v-1.362a1.92 1.92 0 00-3.84 0z"
+          data-name="Union 3"
+          transform="translate(-20915 -9354.001)"
+        ></path>
+      </g>
+    </svg>
+  );
+}

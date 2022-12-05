@@ -1,0 +1,53 @@
+{
+  "Login": {
+    "title": "Inicie sesión para continuar",
+    "description": "Enter your credentials to access your account.",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "login": "Login",
+    "account": "Don't have an account?",
+    "register": "Register",
+    "email": "Email Address",
+    "password": "Password"
+  },
+  "AccountDetail": {
+    "title": "Account"
+  },
+
+  "Signup": {
+    "createAccount": "Create your account",
+    "createYourAccountToStart": "Create your account to start using medicus",
+    "personalInfo": "Personal info",
+    "healthQuestionnaire": "Health questionnaire",
+    "login": "Login",
+    "account": "Don't have an account?"
+  },
+
+  "UpcomingAppointments": {
+    "upcomingAppointmentsHead": "Upcoming appointments"
+  },
+  "PersonalInfo": {
+    "Login": "Login",
+    "Gender": "Gender",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "male": "Male",
+    "female": "Female",
+    "I_prefer_not_to_answer": "I prefer not to answer",
+    "date_of_Birth": "Date of birth",
+    "email_address": "Email Address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "street_address": "as",
+    "contact_number": "Contact Number",
+    "country": "Country",
+    "state": "State/Province",
+    "city": "City",
+    "postal_code": "Postal code",
+    "postal_code_message": "Please enter your postal code",
+    "next": "Next",
+    "prefer_not_to_answer": "Prefer not to answer",
+    "timezone": "Timezone",
+    "time_zone_is_required": "Time zone is required"
+  }
+}

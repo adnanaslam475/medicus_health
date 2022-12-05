@@ -1,0 +1,83 @@
+mutation createDoctorSchedule(
+  $doctorId: Int!
+  $day: Int!
+  $startTime: String!
+  $endTime: String!
+) {
+  createDoctorSchedule(
+    createDoctorScheduleNewInput: {
+      doctorId: $doctorId
+      day: $day
+      startTime: $startTime
+      endTime: $endTime
+    }
+  ) {
+    id
+    startTime
+    endTime
+    day
+  }
+}
+
+mutation removeDoctorSchedule($id: Int!) {
+  removeOneDoctorSchedule(id: $id) {
+    day
+  }
+}
+
+mutation proposeNewTime($proposeNewTimeInput: ProposeNewTimeInput!) {
+  proposeNewTime(proposeNewTimeInput: $proposeNewTimeInput) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    status
+  }
+}
+
+mutation removeAppointmentNote($id: Int!) {
+  removeAppointmentNote(id: $id) {
+    id
+    appointmentId
+    subjective
+    objective
+    assessment
+    plan
+    note
+    isPublished
+    createdAt
+    updatedAt
+  }
+}
+
+mutation suggestNewTime($suggestNewTime: SuggestNewTimeInput!) {
+  suggestNewTime(suggestNewTime: $suggestNewTime) {
+    appointmentTimeSlots {
+      startTime
+      endTime
+      selected
+    }
+  }
+}
+
+mutation reBookAppointment($rebookAppointmentInput: ReBookAppointmentInput!) {
+  reBookAppointment(rebookAppointmentInput: $rebookAppointmentInput) {
+    status
+  }
+}
+
+mutation onboardingTosAcceptance($doctorId: Int!, $ip: String!) {
+  onboardingTosAcceptance(doctorId: $doctorId, ip: $ip) {
+    tos_acceptance
+  }
+}
+
+mutation getOnboardingAccountLink($doctorId: Int!) {
+  getOnboardingAccountLink(doctorId: $doctorId) {
+    created
+    expires_at
+    url
+  }
+}

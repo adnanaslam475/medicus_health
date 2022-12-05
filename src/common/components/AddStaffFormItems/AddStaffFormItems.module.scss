@@ -1,0 +1,18 @@
+.clr-black {
+    color: #272b4c !important;
+    label{
+      color: #272b4c !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+    }
+  }
+  .form-item-wrapper{
+  label{
+    color:#272b4c !important
+  }
+}
+.form-item-wrapper{
+:global .ant-form-item-label > label{
+  color:#272b4c !important
+}
+}

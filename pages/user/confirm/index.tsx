@@ -3,8 +3,16 @@ import Router, { useRouter } from "next/router";
 import { useUserVerifyEmailMutation } from "../../../src/generated/graphql";
 import Container from "../../../src/common/components/Container/Container";
 import Image from "next/image";
+import { useLocale } from "next-intl";
+import initTranslation from "common/utils/initTranslation";
+import i18next from "i18next";
+
+initTranslation(["Common"]);
 
 export default function EmailVerification() {
+  i18next.changeLanguage(useLocale());
+  const t = i18next.t;
+
   const [errorMsg, setErrorMsg] = useState("");
 
   const router = useRouter();
@@ -38,15 +46,19 @@ export default function EmailVerification() {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-24 pb-12 px-6">
             <div className="flex flex-col justify-center mb-6">
               <Image
+                priority={true}
+                unoptimized={true}
                 alt=""
                 className="main-logo mx-auto"
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"
+                // loading="eager"
               />
               <div className="flex justify-center mt-10">
                 {!errorMsg ? (
                   <Image
+                    priority={true}
                     alt=""
                     className="success-icon mx-auto mt-10"
                     height={84}
@@ -55,6 +67,7 @@ export default function EmailVerification() {
                   />
                 ) : (
                   <Image
+                    priority={true}
                     alt=""
                     className="success-icon mx-auto mt-10"
                     height={84}
@@ -65,7 +78,7 @@ export default function EmailVerification() {
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              {!errorMsg ? "Verifying..." : errorMsg}
+              {!errorMsg ? t("verifying") : errorMsg.split("]")[1].trim()}
             </h2>
           </div>
         </div>

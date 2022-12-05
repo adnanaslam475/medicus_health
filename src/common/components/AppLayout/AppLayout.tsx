@@ -1,21 +1,22 @@
-import { Layout } from "antd";
+import { Layout, Affix, Divider } from "antd";
+import { getUserData } from "common/utils/userData";
 import React from "react";
 import AdminSideMenu from "../../../modules/admin/components/AdminSideMenu/AdminSideMenu";
 import AppHeader from "../AppHeader/AppHeader";
 import Container from "../Container/Container";
 
 type props = {
-  children: React.ReactChild | (() => React.ReactChild);
+  children: React.ReactChild | React.ReactChild[] | (() => React.ReactChild);
 };
 
 function AppLayout({ children }: props) {
   return (
     <Layout className="h-full">
       <AdminSideMenu />
-      <Layout className="ml-0 md:ml-20 xl:ml-72">
-        <div className="border-b border-gray-5 bg-white">
+      <Layout className="ml-0 md:ml-0 lg:ml-72 xl:ml-62 2xl:ml-58 sidebar-margin">
+        <Affix>
           <AppHeader />
-        </div>
+        </Affix>
         <Layout.Content className="flex w-full" style={{ overflow: "auto" }}>
           <Container fluid className="md:px-2 lg:px-3 w-full bg-white">
             {typeof children === "function" ? (

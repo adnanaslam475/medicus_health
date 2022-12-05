@@ -1,0 +1,331 @@
+query getAdminUsers(
+  $filter: GetAdminUsersFilterInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  adminUsers(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      first_name
+      last_name
+      email
+      createdAt
+      status
+      # adminUser
+    }
+    meta {
+      totalPages
+      currentPage
+      totalItems
+    }
+  }
+}
+
+query adminDashboard($filter: GetTransectionInput!) {
+  adminDashboard(filter: $filter) {
+    total_number_of_users
+    total_number_of_physicians
+    total_number_of_consultation
+    total_number_of_second_opinions
+    net_gross_sale
+    net_physician_fee
+    total_medicus_revenue
+    total_number_of_appointments
+    total_number_of_physicians
+    # gross_sale
+  }
+}
+
+query AdminPhysicianAppointment(
+  $filter: GetAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      appointmentTypeProposed{
+        type
+      }
+      patient {
+        first_name
+        last_name
+        email
+        patientProfile {
+          profileImage
+        }
+      }
+      doctor {
+        first_name
+        last_name
+      }
+      appointmentTimeSlots {
+        startTime
+        endTime
+        selected
+      }
+      appointmentSchedule {
+        startTime
+        endTime
+      }
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      charges
+      appointmentCharges {
+        total
+      }
+      status
+      serviceType {
+        name
+      }
+    }
+    meta {
+      totalPages
+      currentPage
+      totalItems
+    }
+  }
+}
+
+query getPatients(
+  $filter: GetPatientsInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  getPatients(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      first_name
+      last_name
+      email
+      contact_number
+      createdAt
+      streetAddress
+      zip_code
+      status
+      date_of_birth
+      state {
+        state_name
+      }
+      city {
+        city_name
+      }
+      country {
+        country_name
+      }
+    }
+    meta {
+      totalPages
+      currentPage
+      totalItems
+    }
+  }
+}
+
+# Pay Physician From Admin
+mutation physicianPaymentByAdmin($paymentInput: PaymentInput!) {
+  payment(paymentInput: $paymentInput) {
+    id
+    transactionId
+    appointmentId
+    cardId
+    amountReceived
+    status
+    doctor_percentage
+    payment_status
+    createdAt
+  }
+}
+
+# Admin General Settings
+mutation createAdminSettings(
+  $createAdminSettingInput: [CreateAdminSettingInput!]!
+) {
+  createAdminSetting(createAdminSettingInput: $createAdminSettingInput) {
+    total_consultation_charges
+    consultation_charges_medicus_cut
+    consultation_charges_physician_cut
+    total_second_opinion_charges
+    second_opinion_charges_medicus_cut
+    second_opinion_charges_physician_cut
+    california_state_tax
+    washington_state_tax
+    taxes_state_tax
+    stripe_fee
+    stripe_variable_amount
+  }
+}
+# Get Admin General Settings
+query getAdminSettings {
+  adminSettings {
+    total_consultation_charges
+    consultation_charges_medicus_cut
+    consultation_charges_physician_cut
+    total_second_opinion_charges
+    second_opinion_charges_medicus_cut
+    second_opinion_charges_physician_cut
+    california_state_tax
+    washington_state_tax
+    taxes_state_tax
+    stripe_fee
+    stripe_variable_amount
+  }
+}
+
+# query adminUser($filter: GetAdminUsersFilterInput!) {
+#   adminUser(filter: $filter) {
+#     id
+#     first_name
+#     last_name
+#     email
+#     password
+#     contact_number
+#     adminProfilePicture{
+#       profile_picture
+#     }
+#   }
+# }
+
+query adminUser($id: Int!) {
+  adminUser(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+
+    adminProfilePicture {
+      profile_picture
+    }
+  }
+}
+
+# remove admin user
+mutation removeAdminUser($id: Int!) {
+  removeUser(id: $id) {
+    id
+  }
+}
+
+query getAdminTransactionReportListing(
+  $filter: GetTransectionInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  getAdminTransactionReportListing(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      appointmentId
+      payment_status
+      appointmentCharges
+      amountReceived
+      status
+      appointment {
+        createdAt
+        appointmentTypeProposed {
+          type
+        }
+        appointmentDateTime {
+          startTime
+        }
+        transaction {
+          amountReceived
+          status
+        }
+        patient {
+          first_name
+          last_name
+        }
+        doctor {
+          first_name
+          last_name
+        }
+        serviceType {
+          name
+        }
+        status
+
+        requestedDate
+
+        appointmentCharges {
+          appointmentPrice
+          tax
+          systemFee
+          total
+        }
+      }
+
+      stripeFee
+      amountReceived
+      doctor_percentage
+      medicus_percentage
+    }
+    meta {
+      totalItems
+      totalPages
+      currentPage
+    }
+  }
+}
+
+query getAdminTransactionReport($filter: GetTransectionInput!) {
+  getAdminTransactionReport(filter: $filter) {
+    total_number_of_users
+    total_medicus_revenue
+    total_sale
+    net_gross_sale
+    net_physician_fee
+    total_number_of_consultation
+    total_number_of_second_opinions
+  }
+}
+
+query doctorPayoutsByAdmin {
+  doctorPayoutsByAdmin {
+    appointmentMonths
+    doctorEarnings
+    monthAppointments {
+      id
+      status
+      doctorId
+      serviceType{
+        name
+      }
+      appointmentTypeProposed {
+        type
+      }
+      appointmentDateTime {
+        startTime
+      }
+      appointmentCharges {
+        appointmentPrice
+        tax
+        systemFee
+        total
+      }
+      patient {
+        first_name
+        last_name
+      }
+      transaction {
+        id
+        createdAt
+        transactionId
+        tax
+        doctor_percentage
+        medicus_percentage
+        stripeFee
+        amountReceived
+        status
+        payment_status
+        appointmentCharges
+      }
+    }
+  }
+}

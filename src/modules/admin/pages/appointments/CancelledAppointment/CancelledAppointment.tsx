@@ -1,42 +1,201 @@
-import { Button } from "antd";
-import React from "react";
-import AppointmentCard from "../../../../../common/components/AppointmentCard";
+import { Button, Empty, Spin, Tooltip } from "antd";
+import React, { useState } from "react";
+import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import SearchFilters from "../../../../../common/components/SearchFilters/SearchFilters";
+import SearchFilter from "../../../../../common/components/SearchFilters/SearchFilter";
+import {
+  Appointment,
+  AppointmentDateTimeResponse,
+  AppointmentTimeSlots,
+  BookingDate,
+  DoctorProfile,
+  DueDate,
+  Transaction,
+  useGetAllRequestedAppointmentsQuery,
+  useGetPhysiciansQuery,
+  usePatientHealthHistoryQuery,
+  User,
+} from "../../../../../generated/graphql";
+import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
+import { getUserData } from "common/utils/userData";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 function CancelledAppointment() {
+  const t = useTranslations("CanceledAppointments");
+  const [dueStartDate, setStartDate] = useState<Date | null>();
+  const [dueEndDate, setEndDate] = useState<Date | null>();
+  const [bookingDate, setBookingDate] = useState<BookingDate>({});
+  const [dueDate, setDueDate] = useState<DueDate>({});
+  const [dataListPhysician, setDataListPhysician] = useState<string>();
+  const [searchString, setSearchString] = useState<string>();
+  const [doctorIds, setDoctorId] = useState<number>();
+  const [appointmentId, setAppointmentId] = useState<string>("");
+  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
+  const [serviceIds, setServiceIds] = useState<number>();
+  const [status, setStatus] = useState<string>("Canceled");
+  const [filterValues, setFilterValues] = useState({ status: "Canceled" });
+
+  const [{ data, fetching }, executeUseGetAllRequestedAppointmentsQuery] =
+    useGetAllRequestedAppointmentsQuery({
+      variables: {
+        filter: { ...filterValues, status: "Canceled" },
+        pagination: { limit: -1, page: 1 },
+      },
+      requestPolicy: "network-only",
+    });
+
+  //Get logged in User
+  const { user } = getUserData();
+  const { id: loggedInUser } = user || {};
+
+  const [{ data: physicianList }] = useGetPhysiciansQuery({
+    variables: {
+      filter: {},
+      pagination: { limit: -1, page: 1 },
+    },
+  });
+  const { getPhysicians } = physicianList || {};
+
+  function onViewSuggestedSlots(id: number) {
+    setCurrentAppointmentId(id);
+    setShowModal(true);
+  }
+
+  const { appointments } = data || {};
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showAppointmentBookingModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const [{ data: patientHealthHistory }] = usePatientHealthHistoryQuery({
+    variables: { input: Number(loggedInUser) },
+    requestPolicy: "network-only",
+  });
+
+  function onChangeFilters(values: any) {
+    setFilterValues(values);
+    executeUseGetAllRequestedAppointmentsQuery({
+      filter: filterValues,
+      requestPolicy: "network-only",
+    });
+  }
+
   return (
     <AppLayout>
       <div className="w-full">
-        <div className="flex items-center justify-between">
-          <h2 className="mb-4">Cancelled Appointments</h2>
-          <Button type="primary" size="large">
-            Request an Appointment
-          </Button>
-        </div>
-        <h5 className="text-gray">
-          Suspendisse ac nulla non ante viverra feugiat. Duis ullamcorperequesty
-          tortor a fringilla tempus.
-        </h5>
-
-        <div className="w-5/6">
-          <SearchFilters />
-        </div>
-
-        <div className="w-full">
-          <div className="appointment-cards flex flex-wrap">
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
-            <AppointmentCard status="confirmed" />
+        <div className="flex-none sm:flex items-center justify-between mb-5">
+          <div className="pr-3 mb-3 sm:mb-0">
+            <h2 className="mb-0">
+              {t("canceled_appointments")}
+              {/* Canceled appointments */}
+            </h2>
           </div>
-          </div>
+          <Tooltip
+            title={
+              patientHealthHistory?.patientHealthHistory?.id ? (
+                ""
+              ) : (
+                <Link passHref href={`/patient/account?activeTab=2`}>
+                  {t("please_complete_health_questionnaire")}
+                  {/* please complete health questionnaire */}
+                </Link>
+              )
+            }
+          >
+            <Button
+              type="primary"
+              className={`text-sm ${isChrome && 'antCustomBtn'}`}
+              onClick={showAppointmentBookingModal}
+              disabled={
+                patientHealthHistory?.patientHealthHistory?.id ? false : true
+              }
+            >
+              <span className="text-xs sm:text-base">
+                {t("request_an_appointment")}
+                {/* Request an appointment */}
+              </span>
+            </Button>
+          </Tooltip>
         </div>
+
+        <div className="md:w-5/6">
+          <SearchFilter onChange={onChangeFilters} />
+        </div>
+        {fetching == false ? (
+          <div className="w-full">
+            {appointments?.items?.length !== 0 && appointments ? (
+              // <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+              <div className="flex gap-3 flex-wrap  min-w-max justify-center md:justify-start">
+                {appointments?.items?.map((appointmentDetail, i) => {
+                  const {
+                    id,
+                    requestedDate,
+                    status,
+                    serviceType,
+                    doctor,
+                    appointmentTimeSlots,
+                    transaction,
+                    appointmentDateTime,
+                  } = appointmentDetail || {};
+                  var doctorFullName = `${doctor?.first_name} ${doctor?.last_name}`;
+                  return (
+                    <AppointmentCard
+                      appointmentId={Number(id)}
+                      requestedDate={requestedDate}
+                      status={status}
+                      serviceType={serviceType?.name}
+                      // doctor={doctor?.first_name}
+                      doctor={doctorFullName}
+                      appointmentTimeSlots={
+                        appointmentTimeSlots as AppointmentTimeSlots[]
+                      }
+                      onViewSuggestedSlots={() => {}}
+                      setShowModal={setShowModal}
+                      doctorProfile={doctor?.doctorProfile as DoctorProfile}
+                      transaction={transaction as Transaction}
+                      appointmentDetail={appointmentDetail as Appointment}
+                      specialization={String(
+                        appointmentDetail?.doctor?.doctorProfile
+                          ?.specialization || ""
+                      )}
+                      appointmentDateTime={
+                        appointmentDateTime as AppointmentDateTimeResponse
+                      }
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full">
+                <Empty />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="w-full flex justify-center py-10">
+            <Spin />
+          </div>
+        )}
       </div>
+      <BookAppointmentJourney
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        patientData={getPhysicians?.items as User[]}
+      />
     </AppLayout>
   );
 }

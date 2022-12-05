@@ -1,0 +1,18 @@
+.appointments-btn {
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  &.for-msg-icon-width span:first-child {
+    width: 15px !important;
+  }
+}
+
+.appointments-rebook-btn {
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 10px;
+  @media screen and (min-width: 360px) and (max-width: 575px) {
+    margin-left: 0 !important;
+  }
+}

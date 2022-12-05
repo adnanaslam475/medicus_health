@@ -1,0 +1,46 @@
+.custom-height {
+  height: calc(100vh - 272px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #dbdfea;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #dbdfea;
+  }
+}
+
+.search-color {
+  color: #f6f8fa !important;
+  background-color: #f6f8fa !important;
+}
+
+.search-color-wrapper {
+  color: #f6f8fa !important;
+  // background-color: red !important;
+  :global .ant-input {
+    padding: 0;
+    border: none;
+    background-color: #f6f8fa !important;
+    outline: none;
+    border: none !important;
+  }
+  :global .ant-input-affix-wrapper {
+    background-color: #f6f8fa !important;
+    border: none !important;
+  }
+  svg {
+    color: #969bac !important;
+  }
+}

@@ -1,0 +1,47 @@
+import { Button, Form, Input } from "antd";
+import { isChrome } from "utils/helper";
+
+type Props = {
+  onFinish: (values: any) => void;
+};
+
+function ResendLinkForm({ onFinish }: Props) {
+  return (
+    <Form
+      layout="vertical"
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Email address"
+        name="email"
+        className="mb-1"
+        rules={[
+          {
+            required: false,
+            message: "Please enter your email address",
+          },
+          {
+            type: "email",
+            message: "Email is invalid",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item>
+        <Button
+          className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
+          type="primary"
+          htmlType="submit"
+        >
+          Send reset password link
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+}
+
+export default ResendLinkForm;

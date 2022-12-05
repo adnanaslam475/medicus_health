@@ -12,7 +12,7 @@ const PaymentHeader = () => (
       <div className="flex w-full justify-between">
         <div className="px-3">
           <div className="flex flex-col">
-            <div className="text-dark font-bold">Visa Ending with 2256</div>
+            <div className="text-dark font-bold">Visa ending with 2256</div>
             <div className="text-dark ">05/2026</div>
           </div>
         </div>
@@ -20,7 +20,7 @@ const PaymentHeader = () => (
     </div>
     <div className="text-primary">
       <Tag color="#30CEC2" className="rounded-full">
-        DEFAULT
+        Default
       </Tag>
     </div>
   </div>

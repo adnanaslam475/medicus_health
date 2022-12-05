@@ -2,8 +2,26 @@ import React from "react";
 import { Avatar } from "antd";
 import successImage from "../../../../../public/assets/images/success.svg";
 import Image from "next/image";
+import Router from "next/router";
+import { getRole } from "common/utils/userData";
 
-function SuccessMessage() {
+type Props = {
+  onCancel:
+    | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
+    | undefined
+    | any;
+};
+function SuccessMessage({ onCancel }: Props) {
+  const role = getRole();
+  const clickHandler = () => {
+    const pathname = window?.location?.pathname;
+    const patientPath = pathname === "/patient/appointments/pending";
+    if (role === "Admin" || patientPath) {
+      return onCancel();
+    } else {
+      Router.push("/patient/appointments/pending");
+    }
+  };
   return (
     <>
       <div className="w-full text-center">
@@ -11,6 +29,7 @@ function SuccessMessage() {
           size={64}
           src={
             <Image
+              priority={true}
               alt="successMessage"
               src={successImage}
               width={128}
@@ -18,14 +37,15 @@ function SuccessMessage() {
             />
           }
         />
-        <h1 className="mb-0">Success!</h1>
-        <p>
-          Your appointment has been requested. You will <br /> get a
-          notification once the doctor will confirm <br />
-          the appointment. Thank you.
+        <h1 className="mt-3 mb-0">Success!</h1>
+        <p className="text-seconday text-base">
+        Your appointment has been requested. Your physician will propose a 30 minute time slot within the time you have requested. Once you confirm the proposed time you will be charged.
         </p>
-        <button className="text-white bg-primary text-sm rounded-md p-3 px-8">
-          Back to Appointments
+        <button
+          className="text-white bg-primary text-sm rounded-md p-3 px-8"
+          onClick={clickHandler}
+        >
+          Back to appointments
         </button>
       </div>
     </>

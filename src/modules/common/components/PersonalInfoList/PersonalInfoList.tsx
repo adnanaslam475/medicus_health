@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-key */
+import { useTranslations } from "next-intl";
 import React from "react";
+import { timezoneLabel } from "utils/helper";
 import { date } from "../../../../common/utils";
 import {
   useCountriesQuery,
@@ -13,6 +15,7 @@ type Props = {
 };
 
 function PersonalInfoList({ userDetail }: { userDetail: any }) {
+  const t = useTranslations("PersonalInfo");
   const {
     first_name,
     last_name,
@@ -26,7 +29,8 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
     city_id,
     zip_code,
     streetAddress,
-    patientProfile
+    patientProfile,
+    timeZone,
   } = userDetail || {};
 
   const [{ data }] = useCountriesQuery();
@@ -70,141 +74,241 @@ function PersonalInfoList({ userDetail }: { userDetail: any }) {
   }
 
   return (
-    <div className="custom-list mt-4">
-      <ul>
-        <div className="border border-gray-3 px-0 rounded custom-list-items">
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">First Name</div>
-              <div className="w-1/2 text-secondary">{first_name}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Last Name</div>
-              <div className="w-1/2 text-secondary">{last_name}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Gender</div>
-              <div className="w-1/2 text-secondary">{gender}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Date of Birth</div>
-              <div className="w-1/2 text-secondary">
-                {date.convertBirthDateToUTC(date_of_birth)}
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Contact Number</div>
-              <div className="w-1/2 text-secondary">{contact_number}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Email Address</div>
-              <div className="w-1/2 text-secondary">{email}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Password</div>
-              <div className="w-1/2 text-secondary">
-                <div className="w-1/2 text-secondary">******</div>
-                {/* <div className="word-wrap bg-transparent">
-                  <input type="password" disabled value={password} />
-                </div> */}
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Country</div>
-              <div className="w-1/2 text-secondary">{countryName}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">State</div>
-              <div className="w-1/2 text-secondary">{state}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">City</div>
-              <div className="w-1/2 text-secondary">{cityName[0]?.city_name}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Postal Code</div>
-              <div className="w-1/2 text-secondary">{zip_code}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Street Address</div>
-              <div className="w-1/2 text-secondary">
-                {streetAddress}
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Marital Status</div>
-              <div className="w-1/2">{patientProfile?.maritalStatus}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Do You have any children?</div>
-              <div className="w-1/2">{patientProfile?.children}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">What is your Occupation?</div>
-              <div className="w-1/2">{patientProfile?.occupation}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">
-                Do you have any Occupational Exposure?
-              </div>
-              <div className="w-1/2">{patientProfile?.occupationalExposure}</div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex w-full  border-b border-gray-3 p-4">
-              <div className="w-1/2 text-gray-1">Do you have any pets?</div>
-              <div className="w-1/2">{patientProfile?.pets}</div>
-            </div>
-          </li>
+    <ul className="custom-list mt-4 border border-gray-5 px-0 rounded custom-list-items">
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Nombre</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">{first_name}</div>
         </div>
-      </ul>
-    </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Apellido</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">{last_name}</div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Género</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">{gender}</div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            Fecha de nacimiento
+          </div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">
+            {date_of_birth ? date.convertStringDateToUTC(date_of_birth) : "-"}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            Teléfono de contacto #
+          </div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">
+            {`+${contact_number}`}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            Dirección de correo electrónico
+          </div>
+          <div className="sm:w-1/2 text-secondary md:pl-4 break-normal break-all">
+            {email}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Contraseña</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">
+            <div className="sm:w-1/2 text-secondary ">******</div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Pais</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">{countryName}</div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Estado</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">
+            {state ? state : "-"}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">Ciudad</div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">
+            {cityName[0]?.city_name ? cityName[0]?.city_name : "-"}
+          </div>
+        </div>
+      </li>
+
+      {/* <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            Código postal
+          </div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">{zip_code}</div>
+        </div>
+      </li> */}
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1  md:pl-4">
+            Zona horaria
+          </div>
+          <div className="sm:w-1/2 text-secondary  md:pl-4">
+            {/* {timezoneLabel(timeZone?.timeZone)} */}
+            {timeZone?.timeZoneName}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1  md:pl-4">
+            Dirección (calle y numero)
+          </div>
+          <div className="sm:w-1/2 text-secondary md:pl-4">{streetAddress}</div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            Estado civil
+          </div>
+          <div
+            className={`sm:w-1/2 md:pl-4 ${
+              !patientProfile?.maritalStatus && "text-gray-1 md:pl-4"
+            }`}
+          >
+            {patientProfile?.maritalStatus || "N/A"}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            ¿Tienes hijos?
+          </div>
+          <div
+            className={`sm:w-1/2 md:pl-4 ${
+              !patientProfile?.haveChildren && "text-gray-1"
+            }`}
+          >
+            {patientProfile?.haveChildren
+              ? t(patientProfile?.haveChildren)
+              : "N/A"}
+          </div>
+        </div>
+      </li>
+
+      {(patientProfile?.haveChildren === "Si" ||
+        patientProfile?.haveChildren === "Yes") && (
+        <li>
+          <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+            <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+              Numero de niños
+            </div>
+            <div
+              className={`sm:w-1/2 md:pl-4 ${
+                !patientProfile?.children && "text-gray-1 md:pl-4"
+              }`}
+            >
+              {patientProfile?.children ? patientProfile?.children : "No"}
+            </div>
+          </div>
+        </li>
+      )}
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            ¿Cuál es tu ocupación?
+          </div>
+          <div
+            className={`sm:w-1/2 md:pl-4 ${
+              !patientProfile?.occupation && "text-gray-1 md:pl-4"
+            }`}
+          >
+            {patientProfile?.occupation || "N/A"}
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            ¿Tiene alguna exposición ocupacional?
+          </div>
+          <div
+            className={`sm:w-1/2 md:pl-4 ${
+              !patientProfile?.occupationalExposure && "text-gray-1 md:pl-4"
+            }`}
+          >
+            {patientProfile?.haveChildren
+              ? t(patientProfile?.occupationalExposure)
+              : "N/A"}
+          </div>
+        </div>
+      </li>
+
+      {patientProfile?.occupationalExposure === "Yes" && (
+        <li>
+          <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+            <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+              {/* Do you have any occupational duration? */}
+              ¿Tiene alguna duración ocupacional?
+            </div>
+            <div
+              className={`sm:w-1/2 md:pl-4 ${
+                !patientProfile?.exposureDuration && "text-gray-1"
+              }`}
+            >
+              {patientProfile?.exposureDuration}
+            </div>
+          </div>
+        </li>
+      )}
+
+      <li>
+        <div className="flex-none sm:flex w-full border-b border-gray-5 p-4">
+          <div className="w-full sm:w-1/3 text-gray-1 md:pl-4">
+            {/* Do you have any pets? */}
+            ¿Tiene mascotas?
+          </div>
+          <div
+            className={`sm:w-1/2 md:pl-4 ${
+              !patientProfile?.pets && "text-gray-1"
+            }`}
+          >
+            {patientProfile?.pets || "N/A"}
+          </div>
+        </div>
+      </li>
+    </ul>
   );
 }
 export default PersonalInfoList;

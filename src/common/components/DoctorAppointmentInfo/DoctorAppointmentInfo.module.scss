@@ -1,0 +1,34 @@
+.appointments-btn {
+  font-size: 14px;
+  height: 40px;
+  line-height: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .joinNow {
+    word-spacing: normal;
+  }
+
+  &.join-now-mobile {
+    // border: 1px solid red !important;
+    @media screen and (min-width: 360px) and (max-width: 575px) {
+      min-width: 230px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .propose-edit-btn {
+    margin-right: 20px !important;
+    font-size: 20px !important;
+  }
+}
+@media screen and (max-width: 485px) {
+  .time-space {
+    width: 100% !important;
+  }
+  .doctor-info-form {
+    display: block !important;
+  }
+}

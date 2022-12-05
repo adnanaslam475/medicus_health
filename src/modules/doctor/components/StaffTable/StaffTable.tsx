@@ -1,0 +1,136 @@
+import React from "react";
+import Router from "next/router";
+import { Table } from "antd";
+import { AppointmentServiceType, User } from "generated/graphql";
+import { EyeFilled } from "@ant-design/icons";
+import { date } from "common/utils";
+import { ColumnsType } from "antd/lib/table";
+import { useRoleGuard } from "common/components/RoleGuard/useRoleGuard";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { tableFooter } from "utils/helper";
+
+type Props = {
+	dataSource: User[] | undefined;
+	meta: any;
+	loading: boolean | undefined;
+	onPaginationChange: any;
+	pagination: any;
+	onChange: (values: any) => void;
+};
+
+function StaffTable({
+	dataSource,
+	loading,
+	meta,
+	pagination,
+	onPaginationChange,
+	onChange,
+}: Props) {
+	const { isAdmin, isDoctor } = useRoleGuard();
+
+	const columns: ColumnsType<User> = [
+		{
+			title: "ID#",
+			dataIndex: "id",
+			sorter: true,
+		},
+		{
+			title: "Staff name",
+			dataIndex: "",
+			key: "first_name",
+			render: (value: any) => {
+				return <div>{`${value?.first_name} ${value?.last_name}`}</div>;
+			},
+			sorter: true,
+		},
+		{
+			title: "Email address",
+			dataIndex: "email",
+			key: "email",
+			render: (value: AppointmentServiceType) => {
+				return <div>{value}</div>;
+			},
+			sorter: true,
+		},
+		{
+			title: "Contact #",
+			dataIndex: "contact_number",
+			sorter: true,
+			render: (value: string) => {
+				return <div>{value}</div>;
+			},
+		},
+		{
+			title: "Account creation date",
+			dataIndex: "createdAt",
+			key: "createdAt",
+			sorter: true,
+			render: (value: string) => {
+				return <div>{date?.formatDAYMMDDYY(value)}</div>;
+			},
+		},
+		{
+			title: "Status",
+			dataIndex: "status",
+			key: "status",
+			sorter: true,
+			className: "table-action-icon",
+			render: (value: any) => {
+				return (
+					<div className="text-primary">
+						<StatusChip type={value?.toString()?.toUpperCase()} />
+					</div>
+				);
+			},
+		},
+		{
+			dataIndex: "id",
+			className: "table-action-icon",
+			render: (staffId: number) => (
+				<div className="text-primary">
+					<EyeFilled
+						onClick={() => {
+							onViewDetail(
+								staffId,
+								String(window.location.pathname.split("/").pop())
+							);
+						}}
+					/>
+				</div>
+			),
+		},
+	];
+
+	function onViewDetail(staffId: number, adminId: string) {
+		if (isAdmin) {
+			Router.push({
+				pathname: `/admin/staff/DoctorStaffDetails/${staffId}`,
+				query: { adminId },
+			});
+		} else {
+			Router.push(`/physician/staff/DoctorStaffDetails/${staffId}`);
+		}
+	}
+
+
+	return (
+		<Table
+			columns={columns}
+			dataSource={dataSource}
+			loading={loading}
+			scroll={{ x: true }}
+			onChange={onChange}
+			footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+			pagination={{
+				total: meta?.totalPages * pagination.limit,
+				current: meta?.currentPage,
+				defaultPageSize: 10,
+				onChange: onPaginationChange,
+				pageSizeOptions: ["10", "20", "30", "40"],
+				showSizeChanger: true,
+			}}
+		/>
+	);
+}
+
+export default StaffTable;

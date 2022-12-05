@@ -1,0 +1,16 @@
+export const UPCOMING = "Upcoming";
+export const CONFIRMED = "Confirmed";
+export const CANCELED = "Canceled";
+export const COMPLETED = "Completed";
+export const SUCCEEDED = "Succeeded";
+export const PENDING = "Pending";
+export const SCHEDULED = "Scheduled";
+export const BOOKING = "Booking";
+export const REQUESTED = "Requested";
+export const PROPOSED = "Proposed";
+export const ACTIVE = "Enable";
+export const INACTIVE = "Disable";
+export const PAID = "Paid";
+export const UNPAID = "Unpaid";
+export const REFUNDED = "Refunded";
+export const RESCHEDULED = "Rescheduled";

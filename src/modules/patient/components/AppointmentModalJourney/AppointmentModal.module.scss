@@ -1,0 +1,18 @@
+.appointment-journey-modal {
+  :global .ant-modal-body {
+    padding: 35px 30px !important;
+  }
+}
+.modal-header {
+  padding-top: 40px;
+  :global .ant-modal-title {
+    padding-top: 30px !important;
+  }
+  #rcDialogTitle1 {
+    margin-top: 30px !important;
+    padding-top: 100px;
+  }
+  :global .ant-modal-header {
+    border: none !important;
+  }
+}

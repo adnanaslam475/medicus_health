@@ -1,0 +1,52 @@
+.profile :global .ant-form-item-label label {
+  color: #272b4c !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.physician-profile .calendar-btn-style {
+  background-color: #e2f8f7 !important;
+  border-color: #e2f8f7;
+  color: #30cec2;
+}
+
+.professional :global .ant-form-item-label label,
+.educational :global .ant-form-item-label label {
+  color: #272b4c !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.published-button {
+  height: 34px;
+  background: #e2f8f7;
+  border-color: #e2f8f7;
+  color: #30cec2;
+}
+
+.edit-button {
+  height: 34px;
+}
+
+.profile-form :global .ant-input[disabled] {
+  color: rgba(0, 0, 0, 0.25);
+  background-color: #f6f8fa !important;
+  border-color: #f6f8fa !important;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+.profile-form :global .ant-input-affix-wrapper-disabled {
+  border-color: #f6f8fa !important;
+  background-color: #f6f8fa !important;
+}
+.profile-form .disable-select :first-child {
+  border: none !important;
+  background-color: #e2f8f7 !important;
+}
+.profile-form .edit-button {
+  min-height: 60px !important;
+}
+.profile-form .bottom-margin-0 {
+  margin-bottom: 0 !important;
+}/*# sourceMappingURL=PhysicianProfile.module.css.map */

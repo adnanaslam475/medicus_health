@@ -1,0 +1,17 @@
+.attachment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-decoration: none;
+  @media screen and (max-width: 630px) {
+    span {
+      line-break: anywhere;
+      max-width: 270px;
+    }
+  }
+  @media screen and (max-width: 394px) {
+      display: flex;
+      flex-direction: column;
+  }
+}

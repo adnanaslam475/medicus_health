@@ -1,0 +1,18 @@
+.mobile-tabs {
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    :global .ant-tabs-nav {
+      width: 100%;
+    }
+  }
+}
+.mobile-tabs {
+  svg.tabs-icon-hover {
+    g {
+      path {
+        // fill: #8f95a7;
+        fill: currentColor;
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+mutation toggleEmailPreferences(
+  $toggleEmailPreferencesInput: TogglePreference!
+) {
+  toggleEmailPreferences(
+    toggleEmailPreferencesInput: $toggleEmailPreferencesInput
+  ) {
+    patient_registration_update
+    physician_registration_update
+    appointment_accepted_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+    appointment_slot_suggested_by_doctor
+    appointment_requested
+    appointment_accepted_by_patient
+    transaction_successful_alert
+  }
+}
+
+mutation updateAppointmentAttachments(
+  $updateAppointmentAttachmentsInput: UpdateAppointmentAttachmentsInput!
+) {
+  updateAppointmentAttachments(
+    updateAppointmentAttachmentsInput: $updateAppointmentAttachmentsInput
+  ) {
+    id
+    reportUrl
+  }
+}
+
+query getPatientCurrentAppointments(
+  $filter: GetAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  appointments(filter: $filter, pagination: $pagination, sorting: $sorting) {
+    items {
+      id
+      doctor {
+        id
+      }
+    }
+  }
+}

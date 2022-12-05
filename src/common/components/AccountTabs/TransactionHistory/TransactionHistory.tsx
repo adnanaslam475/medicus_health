@@ -1,228 +1,184 @@
-import React, { useState } from "react";
-import { Table, Input, Button, Space, Tag } from "antd";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { EyeFilled } from "@ant-design/icons";
+import { Table, Input, Button, Space, Tag } from "antd";
+import { date } from "../../../utils";
+import {
+  Appointment,
+  GetAppointmentInput,
+  Transaction,
+} from "../../../../generated/graphql";
+import StatusChip from "common/components/StatusChip/StatusChip";
+import { StatusName } from "common/types/types";
+import { tableFooter } from "utils/helper";
+import { currencyFormatter } from "common/utils/date";
 
-const data = [
+const transactionsColumns = [
   {
-    key: "1",
-    // name: "John Brown",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    // status: ['completed', 'pending'],
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "2",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "3",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "4",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
-  },
-  {
-    key: "5",
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
+    title: "ID#",
+    dataIndex: "id",
+    key: "id",
+    sorter: true,
   },
 
   {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
+    title: "Physician name",
+    dataIndex: "appointment",
+    key: "first_name",
+    sorter: true,
+    render: (value: Appointment) => {
+      return (
+        <div className="someclass">{`${value?.doctor?.first_name} ${value?.doctor?.last_name}`}</div>
+      );
+    },
   },
   {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
+    title: "Appointment type", //change name to appointment type from appointment type
+    dataIndex: "appointment",
+    key: "name",
+    sorter: true,
+    render: (value: Appointment) => {
+      return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
+    },
   },
   {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
+    title: "Appointment time",
+    dataIndex: "appointment",
+    key: "startTime",
+    sorter: true,
+    // sorter: {
+    //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
+    //   multiple: 3,
+    // },
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      return (
+        <div className="someclass">{`${date?.formathhmma(
+          time?.startTime
+        )} - ${date?.formathhmma(time?.endTime)}`}</div>
+      );
+    },
   },
   {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
+    title: "Appointment date",
+    dataIndex: "appointment",
+    key: "requestedDate",
+    sorter: true,
+    render: (value: Appointment) => {
+      let time = value?.appointmentTimeSlots?.find((time) => time.selected);
+      return (
+        <div className="someclass">{`${date?.formatMMMMDDYYYY(
+          time?.startTime
+        )} `}</div>
+      );
+    },
+  },
+
+  {
+    title: "Total amount",
+    dataIndex: "amountReceived",
+    key: "amountReceived",
+    sorter: true,
+    render: (value: number) => {
+      return <div >{value ? currencyFormatter(value) : "-"}</div>;
+    },
   },
   {
-    transactionid: "MD-2312",
-    doctor: "Dr. Paul Wallner",
-    service: "First Consultation",
-    timeslot: "09:00 AM - 09:30 AM",
-    date: "Jan 30, 2022",
-    totalamount: "$40.00",
-    transactiondate: "Jan 24, 2022",
-    status: ["completed", "pending"],
-    view: "Eye",
+    title: "Transaction date",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    sorter: true,
+    render: (value: string) => {
+      return (
+        <div className="someclass">{`${value ? date?.formatDAYMMDDYY(value) : "--"
+          }`}</div>
+      );
+    },
+  },
+  {
+    title: "Payment status",
+    dataIndex: "status",
+    key: "status",
+    sorter: true,
+    render: (value: string) => {
+      if (value === "succeeded") value = "Paid";
+      return (
+        <div className="someclass">
+          <StatusChip type={value.toUpperCase() as StatusName} />
+        </div>
+      );
+    },
   },
 ];
 
-interface col {
-  title: string;
-  dataIndex: string;
-  key: "string";
-  width: "30%";
-}
+type Props = {
+  data: Transaction[] | undefined;
+  setSorting?: Dispatch<SetStateAction<any>> | undefined;
+  meta: any;
+  loading?: boolean | undefined;
+};
 
-const TransactionHistory = () => {
-  const columns = [
-    {
-      title: "Transaction ID",
-      dataIndex: "transactionid",
-      key: "name",
-      sorter: {
-        compare: (a: any, b: any) => a.transactionid - b.transactionid,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Doctor",
-      dataIndex: "doctor",
-      key: "doctor",
-      sorter: {
-        compare: (a: any, b: any) => a.doctor - b.doctor,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Service",
-      dataIndex: "service",
-      key: "service",
-      sorter: {
-        compare: (a: any, b: any) => a.service - b.service,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Time Slot",
-      dataIndex: "timeslot",
-      key: "timeslot",
-      sorter: {
-        compare: (a: any, b: any) => a.timeslot - b.timeslot,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-      sorter: {
-        compare: (a: any, b: any) => a.date - b.date,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Total Amount",
-      dataIndex: "totalamount",
-      key: "city",
-      sorter: {
-        compare: (a: any, b: any) => a.totalamount - b.totalamount,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Transaction Date",
-      dataIndex: "transactiondate",
-      key: "transactiondate",
-      sorter: {
-        compare: (a: any, b: any) => a.transactiondate - b.transactiondate,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.status - b.status,
-        multiple: 3,
-      },
-      render: () => {
-        return (
-          <div className="someclass">
-            <Tag color="cyan">completed</Tag>
-          </div>
-        );
-      },
-    },
-    {
-      title: "",
-      dataIndex: "",
-      key: "view",
-      className: "table-action-icon",
-      render: () => <EyeFilled />,
-    },
-  ];
-  function onChange(pagination: any, filters: any, sorter: any, extra: any) {
-    console.log("params", pagination, filters, sorter, extra);
-  }
-  return <Table columns={columns} dataSource={data} onChange={onChange} />;
+const TransactionHistory = (props: Props) => {
+  const { data, setSorting, meta, loading } = props || {};
+
+  const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
+    {}
+  );
+
+  const [pagination, setPagination] = React.useState({
+    page: 1,
+    limit: 10,
+  });
+
+  // const onChange = (...params: any) => {
+  //   const [, , sorter] = params;
+  //   setSorting({
+  //     order: sorter.order?.replace("end", "") || "",
+  //     column: `user.${sorter.field}` || "",
+  //   });
+  // };
+
+  const onChange = (...params: any) => {
+    const [, , sorter] = params;
+    setSorting &&
+      setSorting({
+        order: sorter.order?.replace("end", "") || "",
+        column: sorter.order
+          ? `${(sorter.field === "transaction" && "transaction") ||
+          (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
+            "appointment") ||
+          (sorter.columnKey === "name" && "appointment_service_type") ||
+          (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+          (sorter.columnKey === "amountReceived" && "transaction") ||
+          (sorter.columnKey === "requestedDate" && "appointment") ||
+          (sorter.columnKey === "status" && "transaction") ||
+          "user"
+          }.${sorter.columnKey || sorter.field}`
+          : "",
+      });
+  };
+  const onPaginationChange = (page: number, limit: number) =>
+    setPagination({ page, limit });
+
+  return (
+    <Table
+      columns={transactionsColumns}
+      dataSource={data}
+      onChange={onChange}
+      scroll={{ x: true }}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
+      loading={loading}
+    // pagination={{
+    //   total: pagination.limit * meta?.totalPages,
+    //   current: meta?.currentPage,
+    //   defaultPageSize: 10,
+    //   onChange: onPaginationChange,
+    //   pageSizeOptions: ["10", "20", "30", "40"],
+    //   showSizeChanger: true,
+    // }}
+    />
+  );
 };
 
 export default TransactionHistory;

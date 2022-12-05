@@ -3,6 +3,7 @@ import { Avatar, Tabs, Button } from "antd";
 import Router from "next/router";
 import Image from "next/image";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
+import { isChrome } from "utils/helper";
 // import PersonalInfo from "";
 // import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
 const { TabPane } = Tabs;
@@ -16,6 +17,7 @@ const HealthQuestionair = () => {
             <Avatar
               src={
                 <Image
+                  priority={true}
                   alt=""
                   src={yourImage}
                   width={64}
@@ -25,11 +27,11 @@ const HealthQuestionair = () => {
               }
             />
             <a href="void(0)" className="text-primary underline ml-3 text-xs">
-              Update Photo
+              Update photo
             </a>
           </div>
-          <Button type="default" className="text-xs p-5" size="large">
-            <span className="text-xs">EDIT</span>
+          <Button type="default" className={`text-xs p-5 ${isChrome && 'antCustomBtn'}`} size="large">
+            <span className="text-xs">Edit</span>
           </Button>
         </div>
       </div>

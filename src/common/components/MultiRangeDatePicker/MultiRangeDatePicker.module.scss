@@ -1,0 +1,44 @@
+.multiRange-date{
+    padding: 5px;
+    border: 0.5px solid #9295AF;
+
+    .ant-picker.ant-picker-range {
+        border: none !important;
+    }
+    .timeRangePicker{
+        border-left:1px solid #E7E9ED !important;
+        border-right:1px solid #E7E9ED !important;
+        border-radius: 0px !important;
+    }
+}
+.ant-picker{
+    border:none !important;
+    background-color: red;
+    color:red;
+}
+.multiRange{
+    border: none;
+}
+.button-custom{
+    background-color: #30CEC2 !important;
+    border: none;
+    height: 34px;
+    margin-left:15px !important
+}
+
+
+.MultiRangeDatePicker_multiRange-date__0szTk.flex.flex-1.rounded-lg {
+  display: flex !important;
+  flex-direction: column !important; 
+  background-color: red !important;
+}
+.dateWithTextCardWrapper{
+:global .MultiRangeDatePicker_multiRange-date__0szTk {
+  display: flex !important;
+  flex-direction: column !important;
+}
+button{
+margin-top: 10px !important;
+}
+
+}
