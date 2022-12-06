@@ -5,7 +5,7 @@ import { Spin } from "antd";
 import EditableNotes from "common/components/EditableNotes/EditableNotes";
 
 type Props = {
-  appointment?: Appointment | undefined | any;
+  appointment?: Appointment | undefined;
   doctorNotes?: any;
   loading?: boolean;
 };
