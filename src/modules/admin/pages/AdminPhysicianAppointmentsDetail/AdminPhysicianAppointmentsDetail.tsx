@@ -68,7 +68,7 @@ function AdminPhysicianAppointmentDetail() {
             <Tabs.TabPane tab="Notes" key="6">
               <AdminPhysicianNotesWithTextTab
                 appointment={appointment as Appointment}
-                doctorNotes={doctorNotes as [[string, string]]}
+                doctorNotes={doctorNotes as any}
                 loading={fetching}
               />
             </Tabs.TabPane>
