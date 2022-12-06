@@ -18,7 +18,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { isChrome } from "utils/helper";
 
 type Props = {
-  appointment?: Appointment | undefined | any;
+  appointment?: Appointment | undefined;
   doctorNotes?: GetDoctorNotesByAppIdQuery;
 };
 

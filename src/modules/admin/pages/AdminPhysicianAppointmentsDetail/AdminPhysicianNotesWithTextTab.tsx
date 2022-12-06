@@ -6,7 +6,7 @@ import EditableNotes from "common/components/EditableNotes/EditableNotes";
 
 type Props = {
   appointment?: Appointment | undefined;
-  doctorNotes?: any;
+  doctorNotes?: [[string, string]];
   loading?: boolean;
 };
 
@@ -15,7 +15,6 @@ function AdminPhysicianNotesWithTextTab({
   doctorNotes,
   loading,
 }: Props) {
-  console.log("appointment", appointment);
   return loading ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
       <Spin />
