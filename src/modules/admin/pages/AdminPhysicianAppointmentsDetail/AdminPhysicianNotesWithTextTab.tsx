@@ -22,7 +22,6 @@ function AdminPhysicianNotesWithTextTab({
     </div>
   ) : (
     <div className="">
-      {/* <EditableNotes /> */}
       <NotesTab />
     </div>
   );
