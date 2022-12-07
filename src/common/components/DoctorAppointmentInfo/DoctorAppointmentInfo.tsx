@@ -236,9 +236,8 @@ function DoctorAppointmentInfo({ data }: Props) {
                 )}`
           }
         />
-        {/* pointer */}
         <LabelWithText
-          label="Total amount asad is here"
+          label="Total amount"
           text={
             appointmentCharges?.total
               ? currencyFormatter(appointmentCharges?.total)
@@ -685,8 +684,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
-  // pointer
-  // appointmentCharges
+
   const [defaultCharges, setDefaultCharges] = useState<boolean>(true);
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
@@ -746,7 +744,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         proposeNewTimeInput: {
           id: id as number,
           serviceId: serviceTypeSelected,
-          // charges: serviceInfo?.price as number,
           charges: defaultCharges
             ? (charges as number)
             : (serviceInfo?.price as number),
@@ -865,7 +862,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         onOk={onCancelRequestedAppointment}
         message="Are you sure you want to reject appointment?"
       />
-      {/* pointer */}
       <Modal
         visible={isModalVisible}
         onOk={handleOk}
