@@ -91,15 +91,16 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       Number(physicianId) ||
       Number(adminApp_Details?.doctor?.doctor_Id);
 
-  const [{ data: patientLastQuestionaryData }] =
-    usePatientLastQuestionnaireQuery({
-      variables: {
-        patientId: physicianQuestionnairePatientId,
-        doctorId: physicianQuestionnaireDoctorId,
-      },
-      pause:
-        !physicianQuestionnaireDoctorId || !physicianQuestionnairePatientId,
-    });
+  const [
+    { data: patientLastQuestionaryData },
+    executeUsePatientHealthHistoryQuery,
+  ] = usePatientLastQuestionnaireQuery({
+    variables: {
+      patientId: physicianQuestionnairePatientId,
+      doctorId: physicianQuestionnaireDoctorId,
+    },
+    pause: !physicianQuestionnaireDoctorId || !physicianQuestionnairePatientId,
+  });
   const { patientLastQuestionnaire } = patientLastQuestionaryData || {};
   function onFinishLocal(values: any) {
     saveStepThree?.({ ...values, isLastFilled: data?.stepThree?.isLastFilled });
@@ -109,8 +110,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
       ref.current = formInstance;
     }
   }, []);
-
   useEffect(() => {
+    executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
+
     prepareAndSetEditPayload();
     if (clear) {
       formInstance.resetFields();
@@ -129,7 +131,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     });
   }
   let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
-
   const checkBoxHandler = (e: CheckboxChangeEvent) => {
     let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
     if (e?.target?.checked) {
@@ -178,7 +179,9 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
 
   useEffect(() => {
     let updatedDepedencies = {};
-    let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
+    let formatedQuestioner = parseJson(
+      patientLastQuestionaryData?.patientLastQuestionnaire?.history
+    );
     if (check && patientLastQuestionnaire?.history.length > 1) {
       questionnair?.forEach((item: Item) => {
         if (item?.dependent && formatedQuestioner?.hasOwnProperty(item?.name)) {
@@ -214,7 +217,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     });
     setDependent(updatedDepedencies);
   };
-
   const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
 
   const renderItems = (item: Item): any => {
