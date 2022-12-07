@@ -220,7 +220,11 @@ function EditableNotes() {
             >
               Publish Notes
             </Button> */}
-            <Button className={`mt-2 ${isChrome && 'antCustomBtn'}`} htmlType="submit" loading={fetching}>
+            <Button
+              className={`mt-2 ${isChrome && "antCustomBtn"}`}
+              htmlType="submit"
+              loading={fetching}
+            >
               Save
             </Button>
           </div>
@@ -228,7 +232,7 @@ function EditableNotes() {
           <div className="flex justify-end gap-3">
             <Button
               type="primary"
-              className={`mt-2 ${isChrome && 'antCustomBtn'}`}
+              className={`mt-2 ${isChrome && "antCustomBtn"}`}
               htmlType="submit"
               onClick={() => {
                 setIsPublish(true);
@@ -237,7 +241,7 @@ function EditableNotes() {
               Publish notes
             </Button>
             <Button
-              className={`mt-2 ${isChrome && 'antCustomBtn'}`}
+              className={`mt-2 ${isChrome && "antCustomBtn"}`}
               onClick={(e) => {
                 e.preventDefault();
                 setEdit(!edit);

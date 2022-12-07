@@ -119,7 +119,7 @@ function BankInfo() {
           });
           setStepNumber(2);
           notification.success({
-            message: "Card saved successfully",
+            message: "Bank information saved successfully",
           });
         }
       } catch (error: any) {
