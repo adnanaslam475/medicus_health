@@ -23,6 +23,11 @@ function successScreen() {
                 __html: `gtag('event', 'conversion', {'send_to': 'AW-10931507833/7aS5CN3vn4IYEPmkxtwo'});`,
               }}
             />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `fbq('track', 'CompleteRegistration');`,
+              }}
+            />
           </>
         )}
       </Head>
