@@ -16,6 +16,7 @@ import {
   useGetUserQuery,
   User,
   useRemovePatientUserMutation,
+  useResendActivationLinkMutation,
   useUpdateUserProfileMutation,
   useUserForgotPasswordMutation,
 } from "generated/graphql";
@@ -28,7 +29,7 @@ import { isChrome } from "utils/helper";
 
 type Props = {};
 type CountryOrStateObject = { id: number | string | undefined | null };
-function AdminPatientProfileTab({ }: Props) {
+function AdminPatientProfileTab({}: Props) {
   const { query } = useRouter();
   const [countryId, setCountryId] = React.useState<CountryOrStateObject>({
     id: 0,
@@ -64,6 +65,8 @@ function AdminPatientProfileTab({ }: Props) {
     email,
     patientProfile,
   } = user || {};
+  const [resendLink, setResendLink] = useResendActivationLinkMutation();
+  const { error, fetching: loadingEmailLink, data: dataEmailLink } = resendLink;
 
   const [{ fetching: disableLoading }, enableOrDisableAdmin] =
     useEnableOrDisablePatientMutation();
@@ -147,6 +150,25 @@ function AdminPatientProfileTab({ }: Props) {
     }
   };
 
+  const handleResendEmailVerificationLink = async () => {
+    try {
+      const response = await setResendLink({
+        email: user?.email as string,
+      });
+      if (response?.error) {
+        throw new Error(response?.error?.graphQLErrors[0]?.message);
+      }
+      if (response.data) {
+        notification.success({
+          message: "Email Verification Link Sent Successfully",
+        });
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.message || "Something Went Wrong",
+      });
+    }
+  };
   const deleteProfileHandler = async () => {
     try {
       const response = await removeUser({
@@ -300,7 +322,11 @@ function AdminPatientProfileTab({ }: Props) {
                 </Select.Option>
               </Select>
             </div>
-            <Button type="default" onClick={() => setIsEdit(!isEdit)} className={` ${isChrome && 'antCustomBtn'}`}>
+            <Button
+              type="default"
+              onClick={() => setIsEdit(!isEdit)}
+              className={` ${isChrome && "antCustomBtn"}`}
+            >
               <EditOutlined />
               Edit info
             </Button>
@@ -315,7 +341,9 @@ function AdminPatientProfileTab({ }: Props) {
                   className=""
                 />
               }
-              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3 ${isChrome && 'antCustomBtn'}`}
+              className={`${_classes["appointments-btn"]} mr-1 sm:mr-3 ${
+                isChrome && "antCustomBtn"
+              }`}
               onClick={() => {
                 const query: any = {
                   chat: "admin",
@@ -334,7 +362,9 @@ function AdminPatientProfileTab({ }: Props) {
       </div>
       <div className="flex mb-8 absolute top-0 left-0 md:right-0 flex-wrap justify-start sm:justify-end w-full">
         <Button
-          className={`${_classes["first-btn"]}} md:ml-auto ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["first-btn"]}} md:ml-auto ${
+            isChrome && "antCustomBtn"
+          }`}
           loading={loading}
           type="link"
           disabled={loading || disableLoading}
@@ -347,8 +377,23 @@ function AdminPatientProfileTab({ }: Props) {
         >
           Send reset password link
         </Button>
+
         <Button
-          className={`${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["first-btn"]}}  ${isChrome && "antCustomBtn"}`}
+          loading={loadingEmailLink}
+          type="link"
+          disabled={loadingEmailLink || disableLoading}
+          icon={
+            <span className="mr-2 mt-0.5">
+              <Image priority={true} src={Envelope} alt="" />
+            </span>
+          }
+          onClick={handleResendEmailVerificationLink}
+        >
+          Send email verification link
+        </Button>
+        <Button
+          className={`${isChrome && "antCustomBtn"}`}
           type="link"
           danger
           onClick={() => setOpen(true)}
