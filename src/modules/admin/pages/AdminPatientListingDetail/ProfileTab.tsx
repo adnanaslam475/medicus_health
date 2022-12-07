@@ -281,9 +281,9 @@ function AdminPatientProfileTab({}: Props) {
 
   return (
     <div
-      className={`relative ${_classes["admin-patient-profile-page"]} pt-16 sm:pt-0`}
+      className={`relative ${_classes["admin-patient-profile-page"]} pt-20 sm:pt-0 `}
     >
-      <div className="w-full mb-10 flex gap-8 items-center pt-10">
+      <div className="w-full mb-10 flex gap-8 items-center pt-14 md:pt-10">
         <div className="relative">
           <Avatar
             size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
