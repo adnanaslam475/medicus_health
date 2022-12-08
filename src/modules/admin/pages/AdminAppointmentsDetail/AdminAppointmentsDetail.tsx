@@ -63,7 +63,8 @@ function AdminAppointmentHistoryDetail() {
               Number(changedValues?.appointmentType) ||
               Number(appointment?.serviceType?.id),
             charges:
-              Number(changedValues?.charges) || Number(appointment?.charges),
+              Number(parseInt(changedValues?.charges)) ||
+              Number(appointment?.charges),
             doctorId:
               Number(changedValues?.physician) || Number(appointment?.doctorId),
             patientId:
@@ -118,7 +119,9 @@ function AdminAppointmentHistoryDetail() {
               size="middle"
               className={`${
                 _classes[isEdit ? `cancelBtn` : "editBtn"]
-              } max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px] ${isChrome && 'antCustomBtn'}`}
+              } max-h-[36px] max-w-[84px] px-0 mx-0 mr-2 ml-[29px] ${
+                isChrome && "antCustomBtn"
+              }`}
               onClick={HandleCancelButton}
             >
               {isEdit ? "Cancel" : "Edit info"}
@@ -129,7 +132,7 @@ function AdminAppointmentHistoryDetail() {
               size="middle"
               className={`${
                 _classes[isEdit ? `saveBtn` : "hiddenBtn"]
-              } max-h-[36px]  px-0 mx-0 ${isChrome && 'antCustomBtn'}` }
+              } max-h-[36px]  px-0 mx-0 ${isChrome && "antCustomBtn"}`}
               onClick={() => saveChanges()}
               loading={updateMutationFetching}
             >
