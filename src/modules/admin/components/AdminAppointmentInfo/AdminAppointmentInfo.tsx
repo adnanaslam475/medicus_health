@@ -289,12 +289,12 @@ function AdminAppointmentInfo({
                     name="charges"
                     className="max-w-[230px]"
                   >
-                    <InputNumber
+                    <Input
                       addonBefore="$"
                       defaultValue={totalAmount ? Number(totalAmount) : "-"}
                       placeholder="Total amount"
                       className="w-full"
-                      formatter={(value: any) => value!.replace(".", "")}
+                      // formatter={(value: any) => value!.replace(".", "")}
                     />
                   </Form.Item>
                   {/* <Form.Item name="appointmentType">
