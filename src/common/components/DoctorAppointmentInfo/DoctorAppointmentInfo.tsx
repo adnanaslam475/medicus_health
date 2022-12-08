@@ -278,27 +278,28 @@ function DoctorAppointmentInfo({ data }: Props) {
             text={appointmentTypeProposed?.type || ""}
           />
         )}
-        {appointmentTypeProposed?.dateTime?.length && status !== "Confirmed" && (
-          <LabelWithText
-            label={"Appointment(s) proposed"}
-            text={
-              appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
-                return (
-                  <li>{`${date.formatDAYMMDDYY(
-                    String(item?.date),
-                    timeZone
-                  )} - ${date.formathhmma(
-                    String(item?.startTime),
-                    timeZone
-                  )} - ${date.formathhmma(
-                    String(item?.endTime),
-                    timeZone
-                  )}`}</li>
-                );
-              }) as any
-            }
-          />
-        )}
+        {appointmentTypeProposed?.dateTime?.length &&
+          status !== "Confirmed" && (
+            <LabelWithText
+              label={"Appointment(s) proposed"}
+              text={
+                appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
+                  return (
+                    <li>{`${date.formatDAYMMDDYY(
+                      String(item?.date),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.startTime),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.endTime),
+                      timeZone
+                    )}`}</li>
+                  );
+                }) as any
+              }
+            />
+          )}
         {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 min-w-[150px] max-w-[150px] sm:max-w-[300px] ">
@@ -649,6 +650,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     appointmentTimeSlots,
     appointmentDateTime,
     appointmentTypeProposed,
+    appointmentCharges,
   } = data || {};
   const [slot, setSlot] = useState<dateArray>({
     startDate: "",
@@ -682,11 +684,11 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
+  const [defaultCharges, setDefaultCharges] = useState<boolean>(true);
 
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
   const [endDateValue, setEndDateValue] = useState<string>("");
-
   useEffect(() => {
     if (data) {
       prepareAndSetEditPayload();
@@ -710,6 +712,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   }
 
   function handleServiceChange(value: any) {
+    setDefaultCharges(false);
     let charge = allAppoinments?.find(
       (serviceType) => serviceType.id === value
     );
@@ -740,7 +743,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         proposeNewTimeInput: {
           id: id as number,
           serviceId: serviceTypeSelected,
-          charges: serviceInfo?.price as number,
+          charges: defaultCharges
+            ? (charges as number)
+            : (serviceInfo?.price as number),
           proposedTimeSlots: slots.map((timeSlot) => {
             const [startDate, ...startTime] = timeSlot.startDate.split(" ");
             const [endDate, ...endTime] = timeSlot.endDate.split(" ");
