@@ -160,7 +160,7 @@ function AppointmentReschedule(props: Props) {
       <p className="text-red text-center">
         {isRescheduledAppointment
           ? "Payment has already been submitted and processed."
-          : "* Processing fee is not refundable in the event you cancel your appointment."}
+          : "*Processing fee is not refundable in the event you cancel your appointment."}
       </p>
     </div>
   );
