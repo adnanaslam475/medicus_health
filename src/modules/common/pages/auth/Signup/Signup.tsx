@@ -75,7 +75,9 @@ function Signup() {
         },
         okText: "Ok",
         cancelText: "Cancelar",
-        onCancel() {},
+        onCancel() {
+          setLoadingSkipBtn(false);
+        },
       })}
     </div>;
   }
@@ -119,6 +121,8 @@ function Signup() {
       user = await createUser({
         input: updatedPayload as CreateUserInput,
       });
+      setLoadingSkipBtn(false);
+
       let errorResponse = user?.error?.graphQLErrors[0]?.extensions
         ?.response as GraphQLError;
       if (user?.error?.graphQLErrors) {
@@ -152,7 +156,6 @@ function Signup() {
   const skipHealthQuestions = (e: any) => {
     setLoadingSkipBtn(true);
     showConfirm();
-    setLoadingSkipBtn(false);
   };
 
   if (authToken) {
