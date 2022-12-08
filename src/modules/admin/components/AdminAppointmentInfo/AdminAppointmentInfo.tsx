@@ -291,11 +291,7 @@ function AdminAppointmentInfo({
                   >
                     <Input
                       addonBefore="$"
-                      defaultValue={
-                        totalAmount
-                          ? currencyFormatter(Number(totalAmount))
-                          : "-"
-                      }
+                      defaultValue={totalAmount ? Number(totalAmount) : "-"}
                       placeholder="Total amount"
                       className="w-full"
                     />
