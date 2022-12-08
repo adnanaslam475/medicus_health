@@ -127,7 +127,7 @@ function StepFour(props: Props) {
         proposed by your physician.
       </p>
       <p className="text-red">
-        * Processing fee is not refundable in the event you cancel your
+        *Processing fee is not refundable in the event you cancel your
         appointment.
       </p>
     </>
