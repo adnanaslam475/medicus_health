@@ -278,28 +278,27 @@ function DoctorAppointmentInfo({ data }: Props) {
             text={appointmentTypeProposed?.type || ""}
           />
         )}
-        {appointmentTypeProposed?.dateTime?.length &&
-          status !== "Confirmed" && (
-            <LabelWithText
-              label={"Appointment(s) proposed"}
-              text={
-                appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
-                  return (
-                    <li>{`${date.formatDAYMMDDYY(
-                      String(item?.date),
-                      timeZone
-                    )} - ${date.formathhmma(
-                      String(item?.startTime),
-                      timeZone
-                    )} - ${date.formathhmma(
-                      String(item?.endTime),
-                      timeZone
-                    )}`}</li>
-                  );
-                }) as any
-              }
-            />
-          )}
+       {appointmentTypeProposed?.dateTime?.length != 0 && status !== "Confirmed" && (
+          <LabelWithText
+            label={"Appointment(s) proposed"}
+            text={
+              appointmentTypeProposed?.dateTime.map((item: DateTimeSlots) => {
+                return (
+                  <li>{`${date.formatDAYMMDDYY(
+                    String(item?.date),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.startTime),
+                    timeZone
+                  )} - ${date.formathhmma(
+                    String(item?.endTime),
+                    timeZone
+                  )}`}</li>
+                );
+              }) as any
+            }
+          />
+        )}
         {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 min-w-[150px] max-w-[150px] sm:max-w-[300px] ">
