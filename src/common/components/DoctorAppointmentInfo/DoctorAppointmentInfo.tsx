@@ -278,7 +278,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             text={appointmentTypeProposed?.type || ""}
           />
         )}
-        {appointmentTypeProposed?.dateTime?.length &&
+        {appointmentTypeProposed?.dateTime?.length !=0 &&
           status !== "Confirmed" && (
             <LabelWithText
               label={"Appointment(s) proposed"}
