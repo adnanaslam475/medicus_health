@@ -36,6 +36,7 @@ function Signup() {
   const [authToken, setAuthToken] = useState("");
   const [signupError, setSignupError] = useState<string | undefined>();
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
+  const [loadingSkipBtn, setLoadingSkipBtn] = useState<boolean>(false);
 
   const [result, createUser] = useCreateUserMutation();
   const { fetching } = result;
@@ -149,7 +150,9 @@ function Signup() {
   }
 
   const skipHealthQuestions = (e: any) => {
+    setLoadingSkipBtn(true);
     showConfirm();
+    setLoadingSkipBtn(false);
   };
 
   if (authToken) {
@@ -261,6 +264,7 @@ function Signup() {
                       signupError={signupError}
                       setNextTab={setNextTab}
                       setActiveKey={setActiveKey}
+                      loadingSkipBtn={loadingSkipBtn}
                     />
                   </TabPane>
                 </Tabs>

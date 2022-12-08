@@ -31,6 +31,7 @@ interface HealthQuesType {
   onFinishedFailed?: (value: any) => void;
   skipHealthQues?: (value: any) => void;
   handleBackChange?: (value: any) => void;
+  loadingSkipBtn?: boolean;
   isLoading?: boolean;
   disable?: boolean;
   signupError?: string | undefined;
@@ -51,6 +52,7 @@ const HealthQuestionnary = ({
   signupError,
   setNextTab,
   setActiveKey,
+  loadingSkipBtn,
 }: HealthQuesType) => {
   // const t = useTranslations("HealthQuestionary");
   const [terms, setTerms] = useState(false);
@@ -59,7 +61,6 @@ const HealthQuestionnary = ({
     setActiveKey?.("1");
     setNextTab?.((prev) => !prev);
   };
-
   i18next.changeLanguage(useLocale());
   const t = i18next.t;
 
@@ -71,9 +72,12 @@ const HealthQuestionnary = ({
     <div>
       {!isUpdateMode && disable && (
         <Button
-          className={`${_classes["btn-border"]} mb-4 ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["btn-border"]} mb-4 ${
+            isChrome && "antCustomBtn"
+          }`}
           block
           onClick={skipHealthQues}
+          loading={loadingSkipBtn}
         >
           {t("skip_for_now_and_complete_later")}
           {/* Skip for now and complete later */}
@@ -92,7 +96,9 @@ const HealthQuestionnary = ({
         <Button
           loading={isLoading}
           disabled={isLoading}
-          className={`ant-btn ant-btn-primary ant-btn mb-0 ${isChrome && 'antCustomBtn'}`}
+          className={`ant-btn ant-btn-primary ant-btn mb-0 ${
+            isChrome && "antCustomBtn"
+          }`}
           type="primary"
           onClick={() => form?.current?.submit()}
         >
@@ -103,7 +109,7 @@ const HealthQuestionnary = ({
         <div className="flex justify-center">
           <div className="inline-flex items-center">
             <div className="mb-0 ">
-              <Button type="link" className={`${isChrome && 'antCustomBtn'}`}>
+              <Button type="link" className={`${isChrome && "antCustomBtn"}`}>
                 <div className="flex items-center" onClick={handleChange}>
                   <span className="mt-1">
                     <Image
@@ -192,7 +198,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
     setRadioDrug(parsedData?.q3.ans);
     setShowDrugOthers(
       Array.isArray(parsedData?.q3?.q?.selectedOption) &&
-      parsedData?.q3?.q?.selectedOption?.includes("Otra")
+        parsedData?.q3?.q?.selectedOption?.includes("Otra")
     );
     setShowSurgicalOthers(parsedData?.q4.selectedOption.includes("Otros"));
     formInstance.setFieldsValue({
@@ -208,12 +214,14 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       [HealthQuestionnaryData.q3.name]: parsedData?.q3.ans,
       [HealthQuestionnaryData.q3.q.name]: parsedData?.q3?.q?.ans?.length
         ? [
-          ...(new Set([
-            ...parsedData?.q3.q.selectedOption,
-            ...parsedData?.q3?.q?.ans,
-          ]) as unknown as string[]),
-        ]
-        : Array.isArray(parsedData?.q3.q.selectedOption) ? [...parsedData?.q3.q.selectedOption] : [],
+            ...(new Set([
+              ...parsedData?.q3.q.selectedOption,
+              ...parsedData?.q3?.q?.ans,
+            ]) as unknown as string[]),
+          ]
+        : Array.isArray(parsedData?.q3.q.selectedOption)
+        ? [...parsedData?.q3.q.selectedOption]
+        : [],
       [HealthQuestionnaryData.q3.q2.name]: parsedData?.q3?.q2?.ans,
 
       //q4
@@ -339,8 +347,9 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
       onFinish={onFinishHealthQuestionnary}
       onFinishFailed={onFinishHealthQuestionnaryFailed}
       form={formInstance}
-      className={`${_classes[disabled ? "disabled-class" : "questionnary-css"]
-        } `}
+      className={`${
+        _classes[disabled ? "disabled-class" : "questionnary-css"]
+      } `}
     >
       <Form.Item
         name={HealthQuestionnaryData.q1.name}
@@ -493,7 +502,7 @@ export const QuestionnaireForm = React.forwardRef(function QuestionnaireForm(
             setRadioDrug(e.target.value);
           }}
           disabled={disabled || isDisabled}
-        // disabled
+          // disabled
         >
           <Radio value={1}>{t("yes")}</Radio>
           <Radio value={0}>{t("no")}</Radio>
