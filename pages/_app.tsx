@@ -50,6 +50,10 @@ function MyApp({ Component, pageProps }: AppProps | any) {
     <>
       <Head>
         <title>Medicus</title>
+        <meta
+          name="facebook-domain-verification"
+          content="r51vngnom3ax1hwbgplshzyhhqwe7"
+        />
         {process.env.NEXT_PUBLIC_PRODUCTION === "true" && (
           <>
             <script
