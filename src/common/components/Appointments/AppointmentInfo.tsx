@@ -116,7 +116,7 @@ function AppointmentInfo(props: Props) {
     "Proposed",
   ].includes(status as string);
 
-  let formatedDueDate = date.formatMMMMDDYYYY(
+  let formatedDueDate = date.formatDAYMMDDYY(
     String(appointment?.appointmentDateTime?.startTime),
     timeZone
   );
@@ -230,12 +230,13 @@ function AppointmentInfo(props: Props) {
                 ? "Appointment date"
                 : "Requested date"
             }
+            // pointer
             value={
               (appointment?.appointmentDateTime?.startTime &&
                 status === "Completed") ||
               status === "Confirmed"
                 ? `${formatedDueDate}`
-                : date.formatMMMMDDYYYY(requestedDate, timeZone)
+                : date.formatDAYMMDDYY(requestedDate, timeZone)
             }
           />
           {/* <LabelValueRow

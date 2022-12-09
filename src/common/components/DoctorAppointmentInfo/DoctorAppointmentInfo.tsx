@@ -210,7 +210,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             (appointmentDateTime?.startTime && status === "Completed") ||
             status === "Confirmed"
               ? `${formatedDueDate}`
-              : date.formatMMMMDDYYYY(requestedDate, timeZone)
+              : date.formatDAYMMDDYY(requestedDate, timeZone)
           }
         />
 
