@@ -36,6 +36,7 @@ function Signup() {
   const [authToken, setAuthToken] = useState("");
   const [signupError, setSignupError] = useState<string | undefined>();
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
+  const [loadingSkipBtn, setLoadingSkipBtn] = useState<boolean>(false);
 
   const [result, createUser] = useCreateUserMutation();
   const { fetching } = result;
@@ -74,7 +75,9 @@ function Signup() {
         },
         okText: "Ok",
         cancelText: "Cancelar",
-        onCancel() {},
+        onCancel() {
+          setLoadingSkipBtn(false);
+        },
       })}
     </div>;
   }
@@ -118,6 +121,8 @@ function Signup() {
       user = await createUser({
         input: updatedPayload as CreateUserInput,
       });
+      setLoadingSkipBtn(false);
+
       let errorResponse = user?.error?.graphQLErrors[0]?.extensions
         ?.response as GraphQLError;
       if (user?.error?.graphQLErrors) {
@@ -149,6 +154,7 @@ function Signup() {
   }
 
   const skipHealthQuestions = (e: any) => {
+    setLoadingSkipBtn(true);
     showConfirm();
   };
 
@@ -261,6 +267,7 @@ function Signup() {
                       signupError={signupError}
                       setNextTab={setNextTab}
                       setActiveKey={setActiveKey}
+                      loadingSkipBtn={loadingSkipBtn}
                     />
                   </TabPane>
                 </Tabs>

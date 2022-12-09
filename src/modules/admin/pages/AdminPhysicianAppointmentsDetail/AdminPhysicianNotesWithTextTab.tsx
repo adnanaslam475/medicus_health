@@ -2,6 +2,8 @@ import React from "react";
 import NotesWithText from "common/components/NotesWithText/NotesWithText";
 import { Appointment, AppointmentNote } from "generated/graphql";
 import { Spin } from "antd";
+import EditableNotes from "common/components/EditableNotes/EditableNotes";
+import NotesTab from "common/components/NotesTab/NotesTab";
 
 type Props = {
   appointment?: Appointment | undefined;
@@ -19,8 +21,8 @@ function AdminPhysicianNotesWithTextTab({
       <Spin />
     </div>
   ) : (
-    <div className="max-w-1/2">
-      <NotesWithText appointment={appointment} doctorNotes={doctorNotes} />
+    <div className="">
+      <NotesTab />
     </div>
   );
 }

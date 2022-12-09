@@ -4,7 +4,7 @@ import {
   DeleteOutlined,
   VideoCameraFilled,
 } from "@ant-design/icons";
-import { Button, Form, notification, Select } from "antd";
+import { Button, Form, InputNumber, notification, Select } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
 
 import chat from "../../../../../public/assets/icon/chat-bubble.svg";
@@ -294,6 +294,7 @@ function AdminAppointmentInfo({
                       defaultValue={totalAmount ? Number(totalAmount) : "-"}
                       placeholder="Total amount"
                       className="w-full"
+                      // formatter={(value: any) => value!.replace(".", "")}
                     />
                   </Form.Item>
                   {/* <Form.Item name="appointmentType">
