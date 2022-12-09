@@ -650,7 +650,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     appointmentTimeSlots,
     appointmentDateTime,
     appointmentTypeProposed,
-    appointmentCharges,
   } = data || {};
   const [slot, setSlot] = useState<dateArray>({
     startDate: "",
@@ -684,12 +683,10 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
-
   const [defaultCharges, setDefaultCharges] = useState<boolean>(true);
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
   const [endDateValue, setEndDateValue] = useState<string>("");
-
   useEffect(() => {
     if (data) {
       prepareAndSetEditPayload();
