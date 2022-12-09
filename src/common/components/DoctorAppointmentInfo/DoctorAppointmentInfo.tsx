@@ -684,8 +684,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
   const [defaultCharges, setDefaultCharges] = useState<boolean>(true);
-
-  const [defaultCharges, setDefaultCharges] = useState<boolean>(true);
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
   const [endDateValue, setEndDateValue] = useState<string>("");
