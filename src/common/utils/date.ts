@@ -55,7 +55,7 @@ export function formatDAYMMDD(date: string, timezone?: string) {
 
 export function formatDAYMMDDYY(date: string, timezone?: string) {
   return timezone
-    ? dayjs(date).utc().tz(timezone).format("MMMM D, YYYY")
+    ? dayjs(date).utc().tz(timezone).format("dddd, MMMM D, YYYY")
     : dayjs(date).format("dddd, MMMM D, YYYY");
 }
 
