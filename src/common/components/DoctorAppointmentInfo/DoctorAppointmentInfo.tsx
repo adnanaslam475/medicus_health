@@ -210,7 +210,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             (appointmentDateTime?.startTime && status === "Completed") ||
             status === "Confirmed"
               ? `${formatedDueDate}`
-              : date.formatMMMMDDYYYY(requestedDate, timeZone)
+              : date.formatDAYMMDDYY(requestedDate, timeZone)
           }
         />
 
@@ -278,27 +278,28 @@ function DoctorAppointmentInfo({ data }: Props) {
             text={appointmentTypeProposed?.type || ""}
           />
         )}
-       {appointmentTypeProposed?.dateTime?.length != 0 && status !== "Confirmed" && (
-          <LabelWithText
-            label={"Appointment(s) proposed"}
-            text={
-              appointmentTypeProposed?.dateTime.map((item: DateTimeSlots) => {
-                return (
-                  <li>{`${date.formatDAYMMDDYY(
-                    String(item?.date),
-                    timeZone
-                  )} - ${date.formathhmma(
-                    String(item?.startTime),
-                    timeZone
-                  )} - ${date.formathhmma(
-                    String(item?.endTime),
-                    timeZone
-                  )}`}</li>
-                );
-              }) as any
-            }
-          />
-        )}
+        {appointmentTypeProposed?.dateTime?.length != 0 &&
+          status !== "Confirmed" && (
+            <LabelWithText
+              label={"Appointment(s) proposed"}
+              text={
+                appointmentTypeProposed?.dateTime.map((item: DateTimeSlots) => {
+                  return (
+                    <li>{`${date.formatDAYMMDDYY(
+                      String(item?.date),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.startTime),
+                      timeZone
+                    )} - ${date.formathhmma(
+                      String(item?.endTime),
+                      timeZone
+                    )}`}</li>
+                  );
+                }) as any
+              }
+            />
+          )}
         {status === "Canceled" && (
           <li className="flex border-b border-gray-5 py-3">
             <div className="w-full text-gray-1 min-w-[150px] max-w-[150px] sm:max-w-[300px] ">
@@ -649,7 +650,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     appointmentTimeSlots,
     appointmentDateTime,
     appointmentTypeProposed,
-    appointmentCharges,
   } = data || {};
   const [slot, setSlot] = useState<dateArray>({
     startDate: "",
@@ -684,7 +684,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
   const [defaultCharges, setDefaultCharges] = useState<boolean>(true);
-
   const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType>();
   const [visible, setVisible] = useState<boolean>(true);
   const [endDateValue, setEndDateValue] = useState<string>("");
@@ -706,11 +705,11 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         serviceType?.id,
       requestedDate: getDayJsObject(requestedDate),
     });
-
     setServiceInfo(serviceType as AppointmentServiceType);
   }
 
   function handleServiceChange(value: any) {
+    // setflag
     setDefaultCharges(false);
     let charge = allAppoinments?.find(
       (serviceType) => serviceType.id === value
@@ -860,7 +859,6 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
         onOk={onCancelRequestedAppointment}
         message="Are you sure you want to reject appointment?"
       />
-
       <Modal
         visible={isModalVisible}
         onOk={handleOk}

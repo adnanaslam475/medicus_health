@@ -119,7 +119,7 @@ function BankInfo() {
           });
           setStepNumber(2);
           notification.success({
-            message: "Card saved successfully",
+            message: "Bank information saved successfully",
           });
         }
       } catch (error: any) {
@@ -236,7 +236,17 @@ function BankInfo() {
                   style={{ color: "#77c926" }}
                 />
               ),
-              subTitle: "Accept Terms and Condition",
+              subTitle: (
+                <>
+                  Accept{" "}
+                  <a
+                    href="https://stripe.com/legal/connect-account"
+                    target="blank"
+                  >
+                    Terms and Condition
+                  </a>
+                </>
+              ),
             },
             {
               title: "STEP-2",

@@ -173,7 +173,7 @@ function DoctorCard({
               <span className="text-secondary text-sm">
                 {yearOfExperience}+ {t("years_of_experience")}
               </span>
-              <h6 className="font-rubik text-gray mt-3 font-normal break-all">
+              <h6 className="font-rubik text-gray mt-3 font-normal break-words">
                 {aboutMe}
               </h6>
               <Divider />
