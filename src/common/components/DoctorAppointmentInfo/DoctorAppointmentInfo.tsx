@@ -283,7 +283,7 @@ function DoctorAppointmentInfo({ data }: Props) {
             <LabelWithText
               label={"Appointment(s) proposed"}
               text={
-                appointmentTypeProposed.dateTime.map((item: DateTimeSlots) => {
+                appointmentTypeProposed?.dateTime.map((item: DateTimeSlots) => {
                   return (
                     <li>{`${date.formatDAYMMDDYY(
                       String(item?.date),
