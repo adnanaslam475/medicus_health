@@ -1,269 +1,367 @@
-import React from "react";
-import { Divider, Radio, Checkbox, Form, Input, Button, Select, DatePicker } from "antd";
+import React, { useEffect, useState } from "react";
+import { Radio, Checkbox, Form, Input } from "antd";
+import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
+import {
+  Appointment,
+  DoctorProfile,
+  useDoctorQuestionnaireQuery,
+  usePatientLastQuestionnaireQuery,
+} from "generated/graphql";
+import { useRouter } from "next/router";
+import { NamePath } from "antd/lib/form/interface";
+import { parseJson } from "common/utils/helper";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import { getUserData } from "common/utils/userData";
+import styles from "./styles.module.scss";
+import { FieldData } from "rc-field-form/es/interface";
 
-function StepThree() {
+type Props = {
+  physicianData?: DoctorProfile | undefined | null;
+  adminApp_Details?: DoctorData;
+  rebookData?: Appointment;
+  clear?: boolean | undefined;
+};
+
+type DoctorData = {
+  doctor: {
+    doctor_Id: number;
+    doctor_first_name: string;
+    doctor_last_name: string;
+  };
+  patient: {
+    patient_id: number;
+  };
+};
+
+type Item = {
+  type: NamePath | undefined;
+  label: {} | null | undefined;
+  name: NamePath | undefined;
+  options: {
+    dependent: any;
+    value: any;
+    label: any;
+    dependents: any;
+  }[];
+  dependent?: Item;
+};
+
+const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
+  const { query } = useRouter();
+  const { physicianData, adminApp_Details, rebookData, clear } = props || {};
+  const { id } = physicianData?.user || {};
+  const { saveStepThree, data } = useBookAppointment();
+  const [formInstance] = Form.useForm();
+  const physicianId = data?.stepOne?.physician?.split(":")[0];
+  const patientIdFromStepOne = data?.stepOne?.patient?.split(":")[0];
+  const [dependent, setDependent] = useState<any>({});
+  const [check, setCheck] = useState(false);
+
+  let doctorQuestionnaireId =
+    Number(rebookData?.doctorId) ||
+    Number(adminApp_Details?.doctor?.doctor_Id) ||
+    Number(physicianId) ||
+    Number(id) ||
+    Number(query?.id);
+
+  const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
+    variables: {
+      doctorId: doctorQuestionnaireId,
+      languageId: 2,
+    },
+    pause: !doctorQuestionnaireId,
+  });
+  const { doctorQuestionnaire } = dataList || {};
+  const { user } = getUserData();
+  const role = user?.role;
+  const loggedinPatientId =
+    role === "Admin"
+      ? patientIdFromStepOne
+      : rebookData
+      ? Number(rebookData?.patientId)
+      : user?.id;
+  const physicianQuestionnairePatientId = rebookData
+    ? Number(rebookData?.patientId)
+    : Number(loggedinPatientId) ||
+      Number(adminApp_Details?.patient?.patient_id);
+
+  const physicianQuestionnaireDoctorId = rebookData
+    ? Number(rebookData?.doctorId)
+    : Number(id) ||
+      Number(physicianId) ||
+      Number(adminApp_Details?.doctor?.doctor_Id);
+
+  const [
+    { data: patientLastQuestionaryData },
+    executeUsePatientHealthHistoryQuery,
+  ] = usePatientLastQuestionnaireQuery({
+    variables: {
+      patientId: physicianQuestionnairePatientId,
+      doctorId: physicianQuestionnaireDoctorId,
+    },
+    pause: !physicianQuestionnaireDoctorId || !physicianQuestionnairePatientId,
+  });
+  const { patientLastQuestionnaire } = patientLastQuestionaryData || {};
+  function onFinishLocal(values: any) {
+    saveStepThree?.({ ...values, isLastFilled: data?.stepThree?.isLastFilled });
+  }
+  useEffect(() => {
+    if (ref) {
+      ref.current = formInstance;
+    }
+  }, []);
+  useEffect(() => {
+    executeUsePatientHealthHistoryQuery({ requestPolicy: "network-only" });
+
+    prepareAndSetEditPayload();
+    if (clear) {
+      formInstance.resetFields();
+      let updatedDepedencies = { ...dependent };
+      Object.keys(dependent).forEach((dep) => {
+        updatedDepedencies[dep] = false;
+      });
+      setDependent(updatedDepedencies);
+    }
+  }, [data.stepThree, clear, data?.stepThree?.isLastFilled]);
+  function prepareAndSetEditPayload() {
+    formInstance.setFieldsValue({
+      doctorId: doctorQuestionnaire?.doctorId,
+      id: doctorQuestionnaire?.id,
+      ...data.stepThree,
+    });
+  }
+  let questionnair = parseJson(doctorQuestionnaire?.questionnaire);
+  const checkBoxHandler = (e: CheckboxChangeEvent) => {
+    let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
+    if (e?.target?.checked) {
+      setCheck(true);
+      saveStepThree?.({
+        ...formatedQuestioner,
+        isLastFilled: e?.target?.checked,
+      });
+      // let updatedDepedencies = { ...dependent };
+      // Object.keys(dependent).forEach((dep) => {
+      //   updatedDepedencies[dep] = true;
+      // });
+      // setDependent(updatedDepedencies);
+    } else {
+      setCheck(false);
+      saveStepThree?.(undefined);
+      formInstance.resetFields();
+    }
+  };
+
+  const setDepedentState = (
+    item: Item | undefined,
+    value: boolean,
+    depedency: any
+  ): any => {
+    let updatedDepedencies = { ...depedency };
+    updatedDepedencies = {
+      ...updatedDepedencies,
+      [item?.name as string]: value,
+    };
+    if (item?.dependent) {
+      return setDepedentState(item?.dependent, value, updatedDepedencies);
+    } else {
+      return updatedDepedencies;
+    }
+  };
+  useEffect(() => {
+    let updatedDepedencies = {};
+    questionnair?.forEach((item: Item) => {
+      if (item.dependent) {
+        updatedDepedencies = setDepedentState(item, false, updatedDepedencies);
+      }
+    });
+    setDependent(updatedDepedencies);
+  }, [questionnair?.length, data?.stepThree]);
+
+  useEffect(() => {
+    let updatedDepedencies = {};
+    let formatedQuestioner = parseJson(
+      patientLastQuestionaryData?.patientLastQuestionnaire?.history
+    );
+    if (check && patientLastQuestionnaire?.history.length > 1) {
+      questionnair?.forEach((item: Item) => {
+        if (item?.dependent && formatedQuestioner?.hasOwnProperty(item?.name)) {
+          updatedDepedencies = setDepedentState(
+            item,
+            !false,
+            updatedDepedencies
+          );
+        }
+      });
+      setDependent(updatedDepedencies);
+    }
+  }, [check]);
+
+  const onFieldsChange = (fieldChange: FieldData[]) => {
+    const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
+    const fieldChangedName = String(fieldChange[0]?.name).toLocaleLowerCase();
+    const filteredItem = formatedQuestionnier?.filter(
+      (item: any) => String(item?.name).toLocaleLowerCase() === fieldChangedName
+    );
+    const filteredItemLength = filteredItem?.[0]?.options?.length;
+    const isCheckbox = Array.isArray(fieldChange[0]?.value) ? true : false;
+
+    let updatedDepedencies = { ...dependent };
+    fieldChange.forEach((field) => {
+      if (isCheckbox) {
+        updatedDepedencies[field.name as string] = field.value?.includes(
+          filteredItemLength - 1
+        )
+          ? 1
+          : 0;
+      } else updatedDepedencies[field.name as string] = !field.value;
+    });
+    setDependent(updatedDepedencies);
+  };
+  const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
+
+  const renderItems = (item: Item): any => {
+    if (item.type === "text") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
+          >
+            <Input />
+          </Form.Item>
+          {item.dependent &&
+            dependent[item.name as string] &&
+            renderItems(item.dependent)}
+        </>
+      );
+    } else if (item.type === "radio") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
+          >
+            <Radio.Group>
+              {item?.options?.map(({ value, label }) => {
+                return <Radio value={value}>{label}</Radio>;
+              })}
+            </Radio.Group>
+          </Form.Item>
+          {item.dependent &&
+            dependent[item.name as string] &&
+            renderItems(item.dependent)}
+        </>
+      );
+    } else if (item.type === "checkbox") {
+      return (
+        <>
+          <Form.Item
+            label={item.label}
+            className="text-secondary"
+            name={item.name}
+            // rules={[
+            //   { required: !Boolean(item.dependent), message: "¡Requerido!" },
+            // ]}
+          >
+            <Checkbox.Group
+              className={`${styles["ant-checkbox-wrapper-cover"]} flex flex-col`}
+            >
+              {item?.options?.map(({ value, label }, index) => {
+                return (
+                  <>
+                    <Checkbox className={`${styles.checkbox}`} value={value}>
+                      {label}
+                    </Checkbox>
+                    {
+                      // @ts-ignore
+                      formInstance?.getFieldsValue()[
+                        // @ts-ignore
+                        item?.name
+                        // @ts-ignore
+                      ]?.map((value) => {
+                        // @ts-ignore
+                        return (
+                          !!item?.options[value]?.dependent &&
+                          value === index &&
+                          renderItems(item?.options[value]?.dependent as any)
+                        );
+                      })
+                    }
+                  </>
+                );
+              })}
+            </Checkbox.Group>
+            {/* <CheckboxGroup
+    options={[3]}
+    onChange={onChangeMedicalCondition}
+    style={{ display: "flex", flexDirection: "column" }}
+    disabled={disabled}
+  /> */}
+          </Form.Item>
+          {/* {
+            // @ts-ignore
+            formInstance?.getFieldsValue()[item?.name]?.map((value) => {
+              // @ts-ignore
+              return !!item?.options[value]?.dependent && renderItems(item?.options[value]?.dependent as any)
+            })} */}
+
+          {!!item.dependent &&
+            !!dependent[item.name as string] &&
+            renderItems(item.dependent)}
+        </>
+      );
+    }
+  };
+
   return (
     <>
-    <Form layout="vertical">
-        <Form.Item label="General Health Questionnaire*">
+      <h2>Request an appointment</h2>
+      <Form
+        layout="vertical"
+        form={formInstance}
+        onFinish={(val) => onFinishLocal(val)}
+        onFieldsChange={onFieldsChange}
+        scrollToFirstError
+        id="request_app_3"
+      >
+        {doctorQuestionnaire && (
+          <Form.Item valuePropName="checked">
             <div className="w-full bg-gray-4 border border-gray-3 rounded flex items-center p-3">
-                <Checkbox value="0">
-                    <span className="text-gray-2">I want to use my last filled form</span>
-                </Checkbox>
+              <Checkbox
+                value={data?.stepThree?.isLastFilled || 0}
+                onChange={(e) => checkBoxHandler(e)}
+                checked={data?.stepThree?.isLastFilled || false}
+              >
+                <span className="text-gray-2">
+                  {/* I want to use my last filled form */}
+                  Quiero usar mi último formulario completado.
+                </span>
+              </Checkbox>
             </div>
-        </Form.Item>
+          </Form.Item>
+        )}
 
-        <Divider />
-
-        <Form.Item
-            label="Please describe your main respiratory concern today?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="How long have you had these symptoms?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="How long have you had these symptoms?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Improved</Radio>
-                <Radio value={1}>Worsened</Radio>
-                <Radio value={2}>Stayed the same</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="On a scale of 0-5 (0 is not at all, 5 is intolerable) how badly does your problem bother you?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>5</Radio>
-                <Radio value={1}>4</Radio>
-                <Radio value={2}>3</Radio>
-                <Radio value={3}>2</Radio>
-                <Radio value={4}>1</Radio>
-                <Radio value={5}>0</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Does anything make the problem better?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Does anything make the problem worse?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Have you changed your lifestyle or activities because of your respiratory problem?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Please explain" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Do you have a cough?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Do you cough anything up?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Describe what you are coughing up?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Do you have a problem with acid reflux (heartburn)?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Do you have a problem with sinus or post-nasal drip?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Are you short of breath?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Does it occur at rest?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Does it occur when walking?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Does it occur when climbing a flight of stairs?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="How far can you walk on level ground before you are winded?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Do you wheeze?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            label="Can you lie flat at night to sleep?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            label="Do you get chest pain when you exercise or work hard?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            label="What is your country of birth?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-        <Form.Item
-            label="Have you traveled out of the country recently?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Where did you travel to?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Do you have a history of, or have you been exposed to, tuberculosis (TB)?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            label="Please explain." 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Do you have any pets or other animals?" 
-            className="text-secondary">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-        <Form.Item
-            label="Have you ever smoked anything besides cigarettes?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            label="What and for how long?" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Have you ever been in the hospital because of breathing problems?" 
-            className="text-secondary mb-0">
-            <Radio.Group>
-                <Radio value={0}>Yes</Radio>
-                <Radio value={1}>No</Radio>
-            </Radio.Group>
-        </Form.Item>
-        <Form.Item
-            label="Please describe." 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="Please list any known exposure to asbestos, fumes, toxins, heavy metals, grinding, solvents, etc.:" 
-            className="text-secondary">
-            <Input />
-        </Form.Item>
-
-    </Form>
+        {questionnair ? (
+          questionnair?.map((item: Item, index: any) => {
+            return renderItems(item);
+          })
+        ) : (
+          <>
+            <div className="text-center text-gray-2 py-3">
+              Physician questionnaire not available
+            </div>
+          </>
+        )}
+      </Form>
     </>
   );
-}
+});
 export default StepThree;

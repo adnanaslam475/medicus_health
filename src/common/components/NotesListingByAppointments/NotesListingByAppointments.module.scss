@@ -1,0 +1,39 @@
+.modal-custom {
+  :global .ant-modal-body {
+    padding: 20px 22px !important;
+  }
+}
+.custom-button {
+  background-color: #1a82fe !important;
+  color: white !important;
+}
+.custom-button-green {
+  background-color: #30cec2 !important;
+  border: none !important;
+  color: white !important;
+}
+
+.notesModalForm {
+  color: red;
+}
+
+.notes-wrapper {
+  background-color: white !important;
+  .site-collapse-custom-panel {
+    margin-bottom: 24px !important;
+    overflow: hidden !important;
+    background: #f6f8fa !important;
+    border: 0px !important;
+    border-radius: 2px !important;
+  }
+  :global .site-collapse-custom-collapse {
+    background-color: #ffffff !important;
+  }
+}
+.site-collapse-custom-panel {
+  :global {
+    .ant-collapse-header-text {
+      flex: 1;
+    }
+  }
+}

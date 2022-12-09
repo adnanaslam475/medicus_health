@@ -1,0 +1,187 @@
+query getAllChatChannels($filter: GetAllChannelFilterInput!) {
+  getAllChatChannels(filter: $filter) {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+    unReadMessagesCount {
+      channelMessagesCount
+    }
+    lastMessage {
+      channelId
+      senderId
+      receiverId
+      message
+      messageType
+      createdAt
+    }
+    receiverDetail {
+      id
+      first_name
+      last_name
+      role
+      email
+      adminProfilePicture {
+        profile_picture
+      }
+      doctorProfile {
+        profile_image
+      }
+      patientProfile {
+        profileImage
+      }
+    }
+    participants {
+      id
+      channelId
+      participantId
+      channel {
+        id
+        channelName
+        doctorId
+        patientId
+        isAdminChat
+      }
+      userDetails {
+        id
+        first_name
+        last_name
+        email
+        role
+        chatChannel {
+          channelName
+          doctorId
+          patientId
+          isAdminChat
+        }
+        doctorProfile {
+          user {
+            first_name
+            last_name
+          }
+          profile_image
+        }
+        patientProfile {
+          user {
+            first_name
+            last_name
+          }
+          profileImage
+        }
+        adminProfilePicture {
+          id
+          profile_picture
+          user {
+            first_name
+            last_name
+          }
+        }
+      }
+    }
+  }
+}
+
+query getChannelMessages($channelId: Int!) {
+  getChannelMessages(channelId: $channelId) {
+    id
+    channelId
+    senderId
+    message
+    messageType
+    createdAt
+    sender {
+      first_name
+      last_name
+      doctorProfile {
+        profile_image
+      }
+      patientProfile {
+        profileImage
+      }
+      adminProfilePicture {
+        id
+        profile_picture
+      }
+    }
+    receiver {
+      role
+      adminProfilePicture {
+        id
+        profile_picture
+      }
+    }
+  }
+}
+
+query checkEmailAvailability($emailAvailableInput: EmailAvailableInput!) {
+  checkEmailAvailability(emailAvailableInput: $emailAvailableInput) {
+    isEmailAvailable
+  }
+}
+
+query getAppointmentPriceForRequest($serviceId: Int!, $patientId: Int!) {
+  getAppointmentPriceForRequest(serviceId: $serviceId, patientId: $patientId) {
+    appointmentPrice
+    tax
+    systemFee
+    total
+  }
+}
+
+query getAppointmentPrice($id: Int!,$cardId:Int) {
+  getAppointmentPrice(id: $id, cardId:$cardId) {
+    appointmentPrice
+    tax
+    systemFee
+    total
+  }
+}
+
+# remove chat channel
+mutation deleteChatChannel($id: Int!) {
+  deleteChat(channelId: $id) {
+    id
+  }
+}
+
+mutation markMessagesAsReadMutation($id: Int!) {
+  markMessagesAsRead(channelId: $id) {
+    id
+  }
+}
+
+query getTimeZones {
+  getTimeZones {
+    # id
+    # timeZone
+    # countryName
+    # gmtOffset
+    id
+    countryName
+    countryCode
+    timeZone
+    gmtOffset
+    timeZoneName
+  }
+}
+
+query appointmentCountByStatus {
+  appointmentCountByStatus {
+    upcoming
+    pending
+    canceled
+    history
+    reschedule
+    propose
+  }
+}
+
+query getUnreadMessageCount($filter: GetAllChannelFilterInput!) {
+  getAllChatChannels(filter: $filter) {
+    unReadMessagesCount {
+      channelMessagesCount
+    }
+  }
+}

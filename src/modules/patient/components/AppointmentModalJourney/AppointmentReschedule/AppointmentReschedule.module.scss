@@ -1,0 +1,37 @@
+.radio-div {
+  padding: 6px 15px;
+  border-radius: 10px;
+  color: black;
+  :global span.ant-radio + span {
+    width: 100%;
+  }
+}
+.button-border {
+  border-color: red !important;
+  color: red !important;
+}
+.button-background-color {
+  background-color: #1a82fe !important ;
+  color: white !important;
+}
+.button-background-transparent {
+  background-color: transparent !important ;
+  color: #1a82fe !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+}
+.available-slots-container {
+  h5:first-child {
+    word-spacing: -5px !important;
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        word-spacing: 0px !important;
+      }
+    }
+    @media screen and (min-device-width: 360px) and (max-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+      word-spacing: 0px !important;
+    }
+  }
+}

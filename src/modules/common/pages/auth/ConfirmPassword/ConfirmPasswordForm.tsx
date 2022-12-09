@@ -2,6 +2,8 @@ import { Alert, Button, Form, Input } from "antd";
 import Password from "antd/lib/input/Password";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onFinish: (values: { password: string }) => void;
@@ -10,6 +12,7 @@ type Props = {
 };
 
 function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
+  const t = useTranslations("Confirm_pass");
   return (
     <Form
       layout="vertical"
@@ -18,12 +21,16 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
       autoComplete="off"
     >
       <Form.Item
-        label="Password"
+        // label="Password"
+        // label={t("password")}
+        label="Ingrese contraseña"
         name="password"
         rules={[
           {
             required: true,
-            message: "Please enter your new password!",
+            message: t("password_message_8_character"),
+            min: 8,
+            // message: "password must be minimum 8 characters!",
           },
         ]}
       >
@@ -31,17 +38,23 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
       </Form.Item>
 
       <Form.Item
-        label="Confirm Password"
+        // label="Confirm password"
+        // label={t("confirm_password")}
+        label="Confirme contraseña"
         name="confirmpassword"
         rules={[
-          { required: false, message: "Confirm password!" },
+          {
+            required: true,
+            message: t("confirm_password_message_8_character"),
+            min: 8,
+          },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
               return Promise.reject(
-                new Error("The two passwords that you entered do not match!")
+                new Error(t("two_passwords_mismatch_message"))
               );
             },
           }),
@@ -54,11 +67,12 @@ function ConfirmPasswordForm({ onFinish, loading, response }: Props) {
         <Button
           loading={loading}
           disabled={loading}
-          className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+          className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
           type="primary"
           htmlType="submit"
         >
-          Confirm Password
+          Confirme contraseña
+          {/* {t("confirm_password")} */}
         </Button>
       </Form.Item>
     </Form>

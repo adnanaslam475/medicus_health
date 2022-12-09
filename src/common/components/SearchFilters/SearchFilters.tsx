@@ -1,54 +1,460 @@
-import React from "react";
-import { Card, Input, Button, Select, Space, DatePicker } from "antd";
-import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { Card, Input, Button, Select, Space, DatePicker, Form } from "antd";
+import {
+  CaretDownOutlined,
+  CloseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import {
+  BookingDate,
+  DueDate,
+  useDoctorProfilesQuery,
+  useGetAllAppointmentServiceTypesQuery,
+} from "../../../generated/graphql";
+import searchStyle from "./style.module.scss";
+import Image from "next/image";
+import { calendarFilterIcon } from "../../../utils/images";
+import { getDateInFormat } from "../../utils/date";
+import _classes from "./SearchFilters.module.scss";
+import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const { Option } = Select;
 
-function handleChange(value: any) {
-  console.log(`selected ${value}`);
-}
+function handleChange(value: any) {}
 
 const { RangePicker } = DatePicker;
 
-function onChange(date: any, dateString: any) {
-  console.log(date, dateString);
-}
+type Props = {
+  setDataListPhysician: string | any;
+  placeholder?: string;
+  setDoctorId: number | any;
+  setAppointmentId: string | any;
+  setServiceIds: number | any;
+  setStartDate: Date | null | any;
+  setEndDate: Date | null | any;
+  isFromPhysician?: boolean | null | any;
+  setSearchPatient?: string | any;
+  setSearchString?: string | any;
+  setStatusFilter?: string | any;
+  setBookingDate?: React.Dispatch<React.SetStateAction<BookingDate>>;
+  setDueDate?: React.Dispatch<React.SetStateAction<DueDate>>;
+  setClearFilter?: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-function SearchFilters() {
+function SearchFilters(props: Props) {
+  const t = useTranslations("SearchFilters");
+  const {
+    setServiceIds,
+    setDoctorId,
+    setEndDate,
+    placeholder,
+    setStartDate,
+    setSearchPatient,
+    isFromPhysician,
+    setAppointmentId,
+    setSearchString,
+    setBookingDate,
+    setDueDate,
+    setClearFilter,
+    setStatusFilter,
+  } = props;
+  const [selectedPhysicianItems, setSelectedPhysicianItems] = useState<
+    string | null
+  >();
+  const [selectedServiceItems, setSelectedServiceItems] = useState<
+    string | null
+  >();
+  const [selectedFilterItems, setSelectedFilterItems] = useState<
+    string | null
+  >();
+  const [dueDateRangeValues, selectDueDateRangeValues] = useState(null);
+  const [bookingDateRangeValues, selectBookingDateRangeValues] = useState(null);
+  const [openBookingDateRange, setOpenBookingDateRange] = useState(false);
+  const [openDueDateRange, setOpenDueDateRange] = useState(false);
+  const [bookingDateRange, selectBookingDateRange] = useState(null);
+  const [dueDateRange, selectDueDateRange] = useState(null);
+  const [patientName, setPatientName] = useState<string>();
+  const [localAppointment_Id, setLocalAppointment_Id] = useState<string>();
+  const [dueDateRangeState, setDueDateRangeState] = useState<DueDate>({});
+  const [bookingDateRangeState, setBookingDateRangeState] =
+    useState<BookingDate>({});
+  // const [dueDate, setDueDate] = useState<BookingDate>({});
+
+  const [{ data: dataList }] = useDoctorProfilesQuery();
+  const { doctorProfiles } = dataList || {};
+
+  const [{ data }] = useGetAllAppointmentServiceTypesQuery();
+  const { appointmentServiceTypes } = data || {};
+
+  function handleAppointmentId(event: React.ChangeEvent<HTMLInputElement>) {
+    setAppointmentId(String(event.target.value));
+    setLocalAppointment_Id(String(event.target.value));
+  }
+
+  function handlePaitentName_ID(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchPatient(event.target.value);
+    setPatientName(event.target.value);
+  }
+
+  const handlePhysicianChange = (selectedItem: any, name: any) => {
+    setSelectedPhysicianItems(name.children);
+    setDoctorId(selectedItem);
+  };
+  function handlePaitentName_IDSearch(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setSearchString(event.target.value);
+    console.log(event.target.value, "Sss");
+  }
+
+  const handleServiceChange = (selectedItem: any, name: any) => {
+    setSelectedServiceItems(name.children);
+    setServiceIds(selectedItem);
+  };
+  const handleAppointmentStatus = (selectedItem: any, name: any) => {
+    setStatusFilter(selectedItem);
+    setSelectedFilterItems(name.children);
+  };
+
+  function BookingDateChangeHandler(date: any, dateString: any) {
+    selectBookingDateRangeValues(date);
+    selectBookingDateRange(date);
+    setBookingDateRangeState({
+      startDate: dateString[0],
+      endDate: dateString[1],
+    });
+  }
+
+  function onDueDateChangeHandler(date: any, dateString: any) {
+    selectDueDateRangeValues(date);
+    selectDueDateRange(date);
+    setDueDateRangeState({
+      startDate: dateString[0],
+      endDate: dateString[1],
+    });
+  }
+
+  const onClear = () => {
+    setSelectedPhysicianItems(null);
+    setSelectedServiceItems(null);
+    setStatusFilter(null);
+    setSelectedFilterItems(null);
+    setDoctorId(undefined);
+    setServiceIds(undefined);
+    selectBookingDateRangeValues(null);
+    selectDueDateRangeValues(null);
+    setEndDate(null);
+    setStartDate(null);
+    setOpenBookingDateRange(false);
+    setOpenDueDateRange(false);
+    selectBookingDateRange(null);
+    selectDueDateRange(null);
+    selectDueDateRange(null);
+    setPatientName("");
+    setSearchPatient && setSearchPatient(null);
+    setAppointmentId("");
+    setLocalAppointment_Id("");
+    setBookingDate?.({});
+    setDueDate?.({});
+    setClearFilter?.((prev: boolean) => !prev);
+  };
+  const applyBookingDateRange = () => {
+    setOpenBookingDateRange(false);
+    setBookingDate?.(bookingDateRangeState);
+  };
+
+  const applyDueDateRange = () => {
+    setOpenDueDateRange(false);
+    setDueDate?.(dueDateRangeState);
+  };
+
   return (
-    <div className="page-filters flex-none lg:flex items-center mb-5">
-      <span className="text-gray-1">Filter</span>
-      <div className="flex-none sm:flex sm:mb-3 lg:mb-0">
-        <div className="lg:ml-3 sm:w-full md:w-full lg:w-70">
+    <div
+      className={`${_classes["page-filters"]} flex flex-col sm:flex-row items-center mb-5 gap-y-2 gap-2 flex-wrap`}
+    >
+      <span className="text-gray-1  w-full 2xl:w-fit mr-0 mb-3 2xl:mr-3">
+        {t("search_by")}
+        {/* Search by */}
+      </span>
+      {/* <div className="flex gap-x-2 gap-2"> */}
+      {/* <div className="  w-full  lg:w-60  ">
+        <Input
+          placeholder={"ID#"}
+          prefix={<SearchOutlined />}
+          onChange={(event) => handleAppointmentId(event)}
+          value={localAppointment_Id || undefined}
+          type="number"
+        />
+      </div> */}
+      {isFromPhysician ? (
+        <div className="w-full sm:w-full md:w-full lg:w-96 ">
           <Input
-            placeholder="Search by ID or physician name"
+            placeholder={placeholder || t("id_or_patient_name")}
             prefix={<SearchOutlined />}
+            onChange={(event) => handlePaitentName_ID(event)}
+            value={patientName}
           />
         </div>
-        <div className="sm:ml-3 mt-3 sm:mt-0">
-          <Select placeholder="Physician" className="w-full sm:w-40">
-            <Option value="Dr.Paul Wallner">Dr.Paul Wallner</Option>
-            <Option value="Dr.Carolina Giménez">Dr.Carolina Giménez</Option>
-            <Option value="Dr.Megan Perkins">Dr.Megan Perkins</Option>
-          </Select>
+      ) : (
+        // <div className=" w-full md:w-44 xl:w-60   ">
+        //   <Select
+        //     placeholder={t("physician")}
+        //     className={`${searchStyle.placeholderColor} w-full`}
+        //     onChange={handlePhysicianChange}
+        //     value={selectedPhysicianItems}
+        //   >
+        //     {doctorProfiles?.map((item) => (
+        //       <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+        //         {/* {item?.user?.first_name}  {item?.user?.last_name} */}
+        //         {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
+        //       </Select.Option>
+        //     ))}
+        //   </Select>
+        // </div>
+        <div className="w-full sm:w-full md:w-full lg:w-96 ">
+          <Input
+            placeholder={placeholder || t("id_or_physician_name")}
+            prefix={<SearchOutlined />}
+            onChange={(event) => handlePaitentName_IDSearch(event)}
+            // value={patientNam}
+          />
         </div>
+        // <div className=" w-full md:w-44 xl:w-60   ">
+        //   <Select
+        //     placeholder={t("physician")}
+        //     className={`${searchStyle.placeholderColor} w-full`}
+        //     onChange={handlePhysicianChange}
+        //     value={selectedPhysicianItems}
+        //   >
+        //     {doctorProfiles?.map((item) => {
+        //       let formatedDoctorFirstName = item?.user?.first_name?.includes(
+        //         "Dr."
+        //       )
+        //         ? item?.user?.first_name
+        //         : `Dr. ${item?.user?.first_name}`;
+        //       return (
+        //         <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+        //           {`${formatedDoctorFirstName} ${item?.user?.last_name}`}
+        //         </Select.Option>
+        //       );
+        //     })}
+        //   </Select>
+        // </div>
+        // <div className=" w-full md:w-44 xl:w-60   ">
+        //   <Select
+        //     placeholder={t("physician")}
+        //     className={`${searchStyle.placeholderColor} w-full`}
+        //     onChange={handlePhysicianChange}
+        //     value={selectedPhysicianItems}
+        //   >
+        //     {doctorProfiles?.map((item) => (
+        //       <Select.Option key={item?.doctor_id} value={item?.doctor_id}>
+        //         {/* {item?.user?.first_name}  {item?.user?.last_name} */}
+        //         {`Dr.${item?.user?.first_name} ${item?.user?.last_name}`}
+        //       </Select.Option>
+        //     ))}
+        //   </Select>
+        // </div>
+      )}
+
+      <div className="w-full md:w-44 xl:w-60  sm:mt-0">
+        <Select
+          suffixIcon={
+            <div className="text-gray">
+              <CaretDownOutlined className="text-sm text-gray" />
+            </div>
+          }
+          placeholder={t("appointment_type")}
+          className={`${searchStyle.placeholderColor} w-full`}
+          onChange={handleServiceChange}
+          value={selectedServiceItems}
+        >
+          {appointmentServiceTypes?.map((item) => (
+            <Select.Option key={item?.id} value={item?.id}>
+              {item?.name}
+            </Select.Option>
+          ))}
+        </Select>
       </div>
-      <div className="flex-none sm:flex">
-        <div className="lg:ml-3 mt-3 sm:mt-0">
-          <Select placeholder="Service" className="w-full sm:w-40">
-            <Option value="First Consultation">First Consultation</Option>
-            <Option value="Second Opinion">Second Opinion</Option>
-          </Select>
-        </div>
-        <Space direction="vertical" size={12} className="sm:ml-3 mt-3 sm:mt-0">
-          <RangePicker />
+
+      {/* </div> */}
+      {/* <div className="flex w-full sm:w-60 ">
+        <Space
+          direction="vertical"
+          size={0}
+          className="w-full  sm:w-60"
+        >
+          <div className="relative">
+            <RangePicker
+              value={bookingDateRangeValues}
+              onChange={BookingDateChangeHandler}
+              open={openBookingDateRange}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className="bg-gray-300"
+                    onClick={() => {
+                      setOpenBookingDateRange(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className=" text-white"
+                    type="primary"
+                    onClick={() => {
+                      applyBookingDateRange();
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className="flex date-btn"
+              block
+              type="default"
+              onClick={() => setOpenBookingDateRange?.(!openBookingDateRange)}
+            >
+              {bookingDateRange ? (
+                <div>
+                  {bookingDateRange
+                    ? `${getDateInFormat(
+                        bookingDateRange?.[0]
+                      )} -> ${getDateInFormat(bookingDateRange?.[1])}`
+                    : "Booking date"}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3">
+                  <div className="flex items-center font-thin">
+                    <span className=" mt-1">
+                      <Image
+                        priority={true}
+                        width={18}
+                        height={18}
+                        src={calendarFilterIcon}
+                        alt=""
+                      />
+                    </span>
+                    Booking date
+                  </div>
+                  <div>
+                    <CaretDownOutlined style={{ color: `primary` }} />
+                  </div>
+                </div>
+              )}
+            </Button>
+          </div>
+        </Space>
+      </div> */}
+      <div className="flex w-full md:w-60 ">
+        <Space direction="vertical" size={0} className="w-full  md:w-60 ">
+          <div className="relative">
+            <RangePicker
+              value={dueDateRangeValues}
+              onChange={onDueDateChangeHandler}
+              open={openDueDateRange}
+              className="h-0 overflow-hidden text-black p-0 absolute bottom-0 invisible"
+              renderExtraFooter={() => (
+                <div className="flex gap-3 justify-end p-3">
+                  <Button
+                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
+                    onClick={() => {
+                      setOpenDueDateRange(false);
+                    }}
+                  >
+                    {t("cancel")}
+                  </Button>
+                  <Button
+                    className={`text-white ${isChrome && 'antCustomBtn'}`}
+                    type="primary"
+                    onClick={() => {
+                      applyDueDateRange();
+                    }}
+                  >
+                    {t("apply")}
+                  </Button>
+                </div>
+              )}
+            />
+            <Button
+              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
+              block
+              type="default"
+              onClick={() => setOpenDueDateRange?.(!openDueDateRange)}
+            >
+              {dueDateRange ? (
+                <div>
+                  {dueDateRange
+                    ? `${getDateInFormat(
+                        dueDateRange?.[0]
+                      )} -> ${getDateInFormat(dueDateRange?.[1])}`
+                    : t("appointment_date")}
+                </div>
+              ) : (
+                <div className="flex justify-between items-center w-full px-3">
+                  <div className="flex items-center font-thin">
+                    <span className=" mt-1 mr-2">
+                      <Image
+                        priority={true}
+                        width={18}
+                        height={18}
+                        src={calendarFilterIcon}
+                        alt=""
+                      />
+                    </span>
+                    <span className="font-rubik font-normal">
+                      {t("appointment_date")}
+                    </span>
+                    {/* Appointment date */}
+                  </div>
+                  <div>
+                    <CaretDownOutlined style={{ color: `primary` }} />
+                  </div>
+                </div>
+              )}
+            </Button>
+          </div>
           {/* <DatePicker onChange={onChange} /> */}
         </Space>
-        <Button type="text" className="sm:ml-3">
-          <CloseOutlined className="text-sm" />
-          <span className="text-gray-1">Clear</span>
-        </Button>
       </div>
+      {isFromPhysician && (
+        <div className="w-full md:w-44 xl:w-60  sm:mt-0">
+          <Select
+            suffixIcon={
+              <div className="text-gray">
+                <CaretDownOutlined className="text-sm text-gray" />
+              </div>
+            }
+            placeholder={t("appointment_statustype")}
+            className={`${searchStyle.placeholderColor} w-full`}
+            onChange={handleAppointmentStatus}
+            value={selectedFilterItems}
+          >
+            <Select.Option key="Proposed" value="Proposed">
+              Proposed
+            </Select.Option>
+            <Select.Option key="Requested" value="Requested">
+              Requested
+            </Select.Option>
+
+            <Select.Option key="Rescheduled" value="Rescheduled">
+              Rescheduled
+            </Select.Option>
+          </Select>
+        </div>
+      )}
+      <Button
+        onClick={onClear}
+        type="text"
+        className={`${_classes["btn-clear"]} ml-2 mr-auto sm:mr-0 sm:ml-0 ${isChrome && 'antCustomBtn'}`}
+      >
+        <CloseOutlined className="text-sm mb-0.5" />
+        <span className="text-gray-1 text-sm">{t("clear")}</span>
+      </Button>
     </div>
   );
 }

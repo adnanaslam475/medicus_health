@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Menu, Badge } from "antd";
+import { Badge, Menu } from "antd";
 import {
   AppointmentIcon,
-  ChatBubbleIcon,
   ProfileIcon,
   PhysicianIcon,
+  DollarIcon,
+  PatientIcon,
+  StaffIcon,
+  MessageIcon,
+  DashboardIcon,
+  ReportIcon,
 } from "../CustomIcon";
-// styles
 import _classes from "./SidebarMenuItem.module.scss";
 
 import { getRole } from "../../utils/userData";
@@ -16,127 +20,528 @@ import {
   PATIENT_ROUTES,
   ADMIN_ROUTES,
   DOCTOR_ROUTES,
+  STAFF_ROUTES,
 } from "../../constants/routes";
+import { SettingIcon } from "../CustomIcon/SettingIcon";
+import {
+  useAppointmentCountByStatusQuery,
+  useGetUnreadMessageCountQuery,
+} from "generated/graphql";
 
-const IconsList = [
-  <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
-  <ChatBubbleIcon className={_classes["sidebar-icon-hover"]} />,
-  <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
-  <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
-];
+type AppointmentStatusCount = {
+  upcoming: number | undefined;
+  canceled: number | undefined;
+  history: number | undefined;
+  pending: number | undefined;
+  propose: number | undefined;
+  reschedule: number | undefined;
+  firstLogin: boolean;
+};
 
 function SidebarMenuItem() {
+  const IconsListPhysician = [
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <DollarIcon className={_classes["sidebar-icon-hover"]} />,
+    <PatientIcon className={_classes["sidebar-icon-hover"]} />,
+    <StaffIcon className={_classes["sidebar-icon-hover"]} />,
+    <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
+  const IconsListStaff = [
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <PatientIcon className={_classes["sidebar-icon-hover"]} />,
+
+    <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <StaffIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
+
+  const IconsListPatient = [
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
+    <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
+
+  const IconsListAdmin = [
+    <DashboardIcon className={_classes["sidebar-icon-hover"]} />,
+    <AppointmentIcon className={_classes["sidebar-icon-hover"]} />,
+    <PhysicianIcon className={_classes["sidebar-icon-hover"]} />,
+    <PatientIcon className={_classes["sidebar-icon-hover"]} />,
+    <MessageIcon className={_classes["sidebar-icon-hover"]} />,
+    <ReportIcon className={_classes["sidebar-icon-hover"]} />,
+    <StaffIcon className={_classes["sidebar-icon-hover"]} />,
+    <ProfileIcon className={_classes["sidebar-icon-hover"]} />,
+    <SettingIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
+  const IconsListPhysicianMainMenu = [
+    <AppointmentIcon className={_classes["sidebar-icon-hover1"]} />,
+    <DollarIcon className={_classes["sidebar-icon-hover"]} />,
+  ];
+
   const router = useRouter();
 
+  // API FOR Appointment COUNT Notificaiton
+  const [{ data: countsData, fetching }] = useAppointmentCountByStatusQuery({
+    // variables: {},
+    requestPolicy: "network-only",
+  });
+  const { appointmentCountByStatus } = countsData || {};
+
+  const { canceled, history, pending, upcoming, propose, reschedule } =
+    appointmentCountByStatus || {};
+
+  const [localAppointmentAlertData, setLocalAppointmentAlertData] =
+    useState<any>();
+
+  useEffect(() => {
+    try {
+      if (appointmentCountByStatus) {
+        let appointmentsAlertData = localStorage.getItem(
+          "appointmentsAlertData"
+        );
+        if (appointmentsAlertData) {
+          appointmentsAlertData = JSON.parse(appointmentsAlertData);
+          if (!Object.values(appointmentsAlertData || {}).every((val) => val)) {
+            setLocalAppointmentAlertData({
+              ...(appointmentsAlertData as unknown as AppointmentStatusCount),
+            });
+          }
+          let updatedAlertData = {
+            ...(appointmentsAlertData as unknown as AppointmentStatusCount),
+          };
+          if (router.asPath.includes("/upcoming")) {
+            if (updatedAlertData?.firstLogin) {
+              updatedAlertData = {
+                ...updatedAlertData,
+                upcoming,
+                canceled,
+                history,
+                pending,
+                firstLogin: false,
+              };
+            } else {
+              updatedAlertData = {
+                ...updatedAlertData,
+                upcoming,
+              };
+            }
+          } else if (router.asPath.includes("/canceled")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              canceled,
+            };
+          } else if (router.asPath.includes("/pending")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              pending,
+              propose,
+              reschedule,
+            };
+          } else if (router.asPath.includes("/history")) {
+            updatedAlertData = {
+              ...updatedAlertData,
+              history,
+            };
+          }
+          localStorage.setItem(
+            "appointmentsAlertData",
+            JSON.stringify(updatedAlertData)
+          );
+          setLocalAppointmentAlertData({
+            ...(appointmentsAlertData as unknown as AppointmentStatusCount),
+            ...updatedAlertData,
+          });
+        }
+      }
+    } catch (error) {
+      localStorage.removeItem("appointmentsAlertData");
+    }
+  }, [
+    canceled,
+    history,
+    pending,
+    upcoming,
+    propose,
+    reschedule,
+    appointmentCountByStatus,
+    router.asPath,
+  ]);
+
+  // API FOR MESSAGES COUNT
+
+  const [{ data: msgCountsData }] = useGetUnreadMessageCountQuery({
+    variables: { filter: { searchString: "" } },
+    requestPolicy: "network-only",
+  });
+  const { getAllChatChannels } = msgCountsData || {};
+  const [msgCount, setMsgCount] = React.useState<number | undefined>(0);
+  useEffect(() => {
+    if (getAllChatChannels?.length !== 0) {
+      const msgCountfinal = getAllChatChannels
+        ?.map((channel) => channel.unReadMessagesCount?.channelMessagesCount)
+        .reduce((total, currentValue, index, arr) => {
+          return (total || 0) + (currentValue || 0);
+        });
+      setMsgCount(msgCountfinal);
+    } else {
+      setMsgCount(0);
+    }
+
+    // return () => {
+    //   setMsgCount;
+    // };
+  }, [msgCount, setMsgCount, getAllChatChannels]);
+
   return (
-    <Menu
-      defaultSelectedKeys={["/"]}
-      selectedKeys={[router.pathname]}
-      mode="inline"
-      className={`${_classes["side-menu-cover"]} bg-gray-4 border-r-0`}
-    >
-      {getRole() === "User" &&
-        PATIENT_ROUTES?.map((el, i) => {
-          return el.submenu && el.submenu.length > 0 ? (
-            <Menu.SubMenu
-              className={_classes["side-bar-submenu-item"]}
-              key="sub1"
-              icon={
-                <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
-              }
-              title="Appointments"
-            >
-              {el.submenu?.map((el2, i2) => {
-                return (
-                  <Menu.Item
-                    key={el2.route}
-                    // icon={IconsList[i2]}
-                  >
-                    <Link href={el2.route}>{el2.name}</Link>
-                  </Menu.Item>
-                );
-              })}
-            </Menu.SubMenu>
-          ) : (
-            <Menu.Item
-              key={el.route}
-              className={_classes["side-bar-submenu-item"]}
-              icon={IconsList[i]}
-            >
-              <Link href={el.route}>{el.name}</Link>
-            </Menu.Item>
-          );
-        })}
-      {getRole() === "Admin" &&
-        ADMIN_ROUTES?.map((el, i) => {
-          return el.submenu && el.submenu.length > 0 ? (
-            <Menu.SubMenu
-              className={_classes["side-bar-submenu-item"]}
-              key="sub1"
-              icon={
-                <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
-              }
-              title="Appointments"
-            >
-              {el.submenu?.map((el2, i2) => {
-                return (
-                  <Menu.Item
-                    key={el2.route}
-                    className={_classes["side-bar-submenu-item"]}
-                    // icon={IconsList[i2]}
-                  >
-                    <Link href={el2.route}>{el2.name}</Link>
-                  </Menu.Item>
-                );
-              })}
-            </Menu.SubMenu>
-          ) : (
-            <Menu.Item
-              key={el.route}
-              icon={IconsList[i]}
-              className={_classes["side-bar-submenu-item"]}
-            >
-              <Link href={el.route}>{el.name}</Link>
-            </Menu.Item>
-          );
-        })}
-      {getRole() === "Doctor" &&
-        DOCTOR_ROUTES?.map((el, i) => {
-          return el.submenu && el.submenu.length > 0 ? (
-            <Menu.SubMenu
-              className={_classes["side-bar-submenu-item"]}
-              key="sub1"
-              icon={
-                <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
-              }
-              title="Appointments"
-            >
-              {el.submenu?.map((el2, i2) => {
-                type: {
-                  route: String;
+    <div className={`${_classes["side-menu-cover"]} w-full`}>
+      <Menu
+        defaultSelectedKeys={["/"]}
+        selectedKeys={[router.pathname]}
+        mode="inline"
+      >
+        {getRole() === "User" &&
+          PATIENT_ROUTES?.map((el, i) => {
+            return el.submenu && el.submenu.length > 0 ? (
+              <Menu.SubMenu
+                className={_classes["side-bar-submenu-item"]}
+                key="sub1"
+                icon={
+                  <AppointmentIcon className={_classes["sidebar-icon-hover"]} />
                 }
-                return (
-                  <Menu.Item
-                    key={el2.route}
-                    // icon={IconsList[i2]}
-                    className={_classes["side-bar-submenu-item"]}
-                  >
-                    <Link href={el2.route}>{el2.name}</Link>
-                  </Menu.Item>
-                );
-              })}
-            </Menu.SubMenu>
-          ) : (
-            <Menu.Item
-              key={el.route}
-              icon={IconsList[i]}
-              className={_classes["side-bar-submenu-item"]}
-            >
-              <Link href={el.route}>{el.name}</Link>
-            </Menu.Item>
-          );
-        })}
-    </Menu>
+                // title="Equipo"
+                // title="Appointments"
+                title={
+                  <div className="relative">
+                    Appointments
+                    {(localAppointmentAlertData?.upcoming < Number(upcoming) ||
+                      localAppointmentAlertData?.pending < Number(pending) ||
+                      localAppointmentAlertData?.propose < Number(propose) ||
+                      localAppointmentAlertData?.reschedule <
+                        Number(reschedule) ||
+                      localAppointmentAlertData?.canceled <
+                        Number(canceled)) && (
+                      // localAppointmentAlertData?.history !== history
+                      <span className={_classes["red-dot"]}></span>
+                    )}
+                  </div>
+                }
+              >
+                {el.submenu?.map((el2, i2) => {
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (
+                        localAppointmentAlertData?.upcoming < Number(upcoming)
+                      )
+                        dot = true;
+                      break;
+                    case "2":
+                      if (
+                        localAppointmentAlertData?.pending < Number(pending) ||
+                        localAppointmentAlertData?.propose < Number(propose) ||
+                        localAppointmentAlertData?.reschedule <
+                          Number(reschedule)
+                      )
+                        dot = true;
+                      break;
+                    case "3":
+                      if (
+                        localAppointmentAlertData?.canceled < Number(canceled)
+                      )
+                        dot = true;
+                      break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
+                    default:
+                      break;
+                  }
+                  return (
+                    <Menu.Item key={el2.route}>
+                      {el.id == "1" ? (
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
+                            <>{el2.name}</>
+                          </Badge>
+                        </Link>
+                      ) : (
+                        <Link href={el2.route}>
+                          <>{el2.name}</>
+                        </Link>
+                      )}
+                    </Menu.Item>
+                  );
+                })}
+              </Menu.SubMenu>
+            ) : (
+              <Menu.Item
+                key={el.route}
+                icon={IconsListPatient[i]}
+                className={_classes["side-bar-submenu-item"]}
+              >
+                {el.id == "3" ? (
+                  // <Badge
+                  //   count={100}
+                  //   className={_classes["side-bar-submenu-count"]}
+                  // >
+                  //   <Link href={el.route}>{el.name}</Link>
+                  // </Badge>
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={msgCount}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+              </Menu.Item>
+            );
+          })}
+        {getRole() === "Admin" &&
+          ADMIN_ROUTES?.map((el, i) => {
+            return el.submenu && el.submenu.length > 0 ? (
+              <Menu.SubMenu
+                className={_classes["side-bar-submenu-item"]}
+                key="sub1"
+                icon={<ReportIcon className={_classes["sidebar-icon-hover"]} />}
+                title="Reports"
+              >
+                {el.submenu?.map((el2, i2) => {
+                  return (
+                    <Menu.Item
+                      key={el2.route}
+                      className={_classes["side-bar-submenu-item"]}
+                    >
+                      <Link href={el2.route}>{el2.name}</Link>
+                    </Menu.Item>
+                  );
+                })}
+              </Menu.SubMenu>
+            ) : (
+              <Menu.Item
+                key={el.route}
+                icon={IconsListAdmin[i]}
+                className={_classes["side-bar-submenu-item"]}
+              >
+                {el.id == "5" ? (
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={msgCount}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+              </Menu.Item>
+            );
+          })}
+        {getRole() === "Doctor" &&
+          DOCTOR_ROUTES?.map((el, i) => {
+            return el.submenu && el.submenu.length > 0 ? (
+              <Menu.SubMenu
+                className={_classes["side-bar-submenu-item"]}
+                key={i}
+                icon={IconsListPhysicianMainMenu[i]}
+                // title={el.toggleName}
+                title={
+                  <div className="relative improved-word-spacing  ">
+                    {el.toggleName}
+                    {el.id === "1" &&
+                      (localAppointmentAlertData?.upcoming < Number(upcoming) ||
+                        localAppointmentAlertData?.pending <
+                          Number(pending)) && (
+                        // localAppointmentAlertData?.canceled !== canceled ||
+                        // localAppointmentAlertData?.history !== history
+                        <span className={_classes["red-dot"]}></span>
+                      )}
+                  </div>
+                }
+              >
+                {el.submenu?.map((el2, i2) => {
+                  type: {
+                    route: String;
+                  }
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (
+                        localAppointmentAlertData?.upcoming < Number(upcoming)
+                      )
+                        dot = true;
+                      break;
+                    case "2":
+                      if (localAppointmentAlertData?.pending < Number(pending))
+                        dot = true;
+                      break;
+                    // case "3":
+                    //   if (localAppointmentAlertData?.canceled !== canceled)
+                    //     dot = true;
+                    // break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
+                    default:
+                      break;
+                  }
+                  return (
+                    <Menu.Item
+                      key={el2.route}
+                      className={_classes["side-bar-submenu-item"]}
+                    >
+                      {el.id === "1" ? (
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
+                            <>{el2.name}</>
+                          </Badge>
+                        </Link>
+                      ) : (
+                        // <Link href={el2.route}>
+                        //   <>{el2.name}</>
+                        // </Link>
+                        <Link href={el2.route}>{el2.name}</Link>
+                      )}
+                      {/* <Link href={el2.route}>{el2.name}</Link> */}
+                    </Menu.Item>
+                  );
+                })}
+              </Menu.SubMenu>
+            ) : (
+              <Menu.Item
+                key={el.route}
+                icon={IconsListPhysician[i]}
+                className={_classes["side-bar-submenu-item"]}
+              >
+                {el.id == "5" ? (
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={msgCount}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+                {/* <Link href={el.route}>{el.name}</Link> */}
+              </Menu.Item>
+            );
+          })}
+
+        {getRole() === "Staff" &&
+          STAFF_ROUTES?.map((el, i) => {
+            return el.submenu && el.submenu.length > 0 ? (
+              <Menu.SubMenu
+                className={_classes["side-bar-submenu-item"]}
+                key={i}
+                icon={IconsListStaff[i]}
+                title={el.toggleName}
+              >
+                {el.submenu?.map((el2, i2) => {
+                  type: {
+                    route: String;
+                  }
+                  let dot = false;
+                  switch (el2.subId) {
+                    case "1":
+                      if (localAppointmentAlertData?.upcoming !== upcoming)
+                        dot = true;
+                      break;
+                    case "2":
+                      if (localAppointmentAlertData?.pending !== pending)
+                        dot = true;
+                      break;
+                    case "3":
+                      if (localAppointmentAlertData?.canceled !== canceled)
+                        dot = true;
+                      break;
+                    // case "4":
+                    //   if (localAppointmentAlertData?.history !== history)
+                    //     dot = true;
+                    //   break;
+                    default:
+                      break;
+                  }
+                  return (
+                    <Menu.Item
+                      key={el2.route}
+                      className={_classes["side-bar-submenu-item"]}
+                    >
+                      {el.id == "1" ? (
+                        // <Badge
+                        //   dot
+                        //   count={100}
+                        //   className={_classes["side-bar-submenu-count"]}
+                        // >
+                        //   <Link href={el2.route}>
+                        //     <>{el2.name}</>
+                        //   </Link>
+                        // </Badge>
+                        <Link passHref href={el2.route}>
+                          <Badge
+                            dot={dot}
+                            // count={100}
+                            className={_classes["side-bar-submenu-count"]}
+                          >
+                            <>{el2.name}</>
+                          </Badge>
+                        </Link>
+                      ) : (
+                        <Link href={el2.route}>
+                          <>{el2.name}</>
+                        </Link>
+                      )}
+                      {/* <Link href={el2.route}>{el2.name}</Link> */}
+                    </Menu.Item>
+                  );
+                })}
+              </Menu.SubMenu>
+            ) : (
+              <Menu.Item
+                key={el.route}
+                icon={IconsListStaff[i]}
+                className={_classes["side-bar-submenu-item"]}
+              >
+                {el.id == "3" ? (
+                  <Link passHref href={el.route}>
+                    <Badge
+                      count={msgCount}
+                      className={_classes["side-bar-submenu-count"]}
+                    >
+                      <>{el.name}</>
+                    </Badge>
+                  </Link>
+                ) : (
+                  <Link href={el.route}>{el.name}</Link>
+                )}
+                {/* <Link href={el.route}>{el.name}</Link> */}
+              </Menu.Item>
+            );
+          })}
+      </Menu>
+    </div>
   );
 }
 

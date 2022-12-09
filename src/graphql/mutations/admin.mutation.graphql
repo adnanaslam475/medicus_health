@@ -1,0 +1,36 @@
+mutation updateAdminUser(
+  $updateAdminUserInput: UpdateAdminUserInput!
+  $id: Int!
+) {
+  updateAdminUser(updateAdminUserInput: $updateAdminUserInput, id: $id) {
+    id
+    first_name
+    last_name
+    email
+    password
+    contact_number
+  }
+}
+
+mutation updateAppointment($updateAppointmentInput: UpdateAppointmentInput!) {
+  updateAppointment(updateAppointmentInput: $updateAppointmentInput) {
+    doctor {
+      first_name
+    }
+    appointmentTypeProposed {
+      type
+      serviceId
+    }
+    serviceType {
+      id
+      name
+      price
+    }
+  }
+}
+
+mutation deleteDoctor($id: Int!) {
+  deleteDoctor(id: $id) {
+    id
+  }
+}

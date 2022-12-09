@@ -1,4 +1,8 @@
 .side-bar-submenu-item {
+  font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
   &:hover {
     svg.sidebar-icon-hover {
       g {
@@ -8,101 +12,184 @@
       }
     }
   }
-}
 
-.ant-layout-header {
-  background: #fff !important;
+  .side-bar-submenu-count {
+    position: relative;
+    width: 85%;
+    display: inline-block;
+
+    :global .ant-badge-count {
+      position: absolute;
+      right: 0;
+      top: 5px;
+    }
+
+    :global .ant-badge-dot {
+      position: absolute;
+      right: 0px;
+      top: 5px;
+    }
+
+    :global
+      sup.ant-scroll-number.ant-badge-count
+      span.ant-scroll-number-only
+      .ant-scroll-number-only-unit {
+      color: #fff !important;
+    }
+  }
+
+  .red-dot {
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 18px;
+  }
 }
 
 .side-menu-cover {
-  border: none !important;
-  background-color: #f6f8fa !important;
-  :global .ant-menu-submenu-open {
-    background-color: #f6f8fa !important;
-    ul.ant-menu.ant-menu-sub {
-      background-color: white !important;
-      padding: 0 15px;
-      li.ant-menu-item {
-        .ant-menu-title-content {
+  .ant-menu-item {
+    &:hover {
+      svg.sidebar-icon-hover {
+        g {
+          path {
+            fill: url(#linear-gradient);
+          }
+        }
+      }
+    }
+  }
+  .side-bar-submenu-item {
+    :global .ant-menu-title-content {
+      // border: 1px solid red !important;
+      // height: 30px;
+    }
+
+    &:hover {
+      svg.sidebar-icon-hover {
+        g {
+          path {
+            fill: url(#linear-gradient);
+          }
+        }
+      }
+    }
+  }
+  :global .ant-menu {
+    color: #272b4c !important;
+    font-size: 16px;
+    background-color: transparent;
+    border: 0;
+    .ant-menu-item {
+      height: 50px;
+      line-height: 50px;
+      border-radius: 6px;
+      svg {
+        min-width: 23px;
+        max-width: 23px;
+      }
+    }
+    .ant-menu-submenu {
+      min-height: 50px;
+      line-height: 50px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      i {
+        color: #848a9d !important;
+      }
+      > .ant-menu-sub {
+        padding: 0px 20px 10px 40px;
+        .ant-menu-item {
+          font-size: 14px;
+          // padding: 0px 15px !important;
+          padding-left: 15px !important;
+          margin: 0px 0px 5px 0px !important;
+          height: 30px;
           a {
             color: #272b4c !important;
           }
         }
-      }
-    }
-    .ant-menu-submenu-title {
-      .ant-menu-title-content {
-        color: #272b4c !important;
+        .ant-menu-item-selected {
+          background-color: #f6f8fa !important;
+          box-shadow: none !important;
+        }
       }
     }
 
-    ul.ant-menu.ant-menu-sub {
-      li.ant-menu-item {
-        .ant-menu-title-content {
-          a {
-            color: #272b4c !important;
+    .ant-menu .ant-menu-submenu > .ant-menu-sub {
+      font-size: 14px !important;
+    }
+    .ant-menu-item,
+    .ant-menu-submenu {
+      padding: 0px;
+      margin: 0 0 10px 0 !important;
+      a,
+      span {
+        color: #8f95a7 !important;
+        font-weight: 300 !important;
+      }
+      &:hover {
+        background-color: #edf1f4 !important;
+      }
+    }
+    .ant-menu-submenu-open {
+      background-color: #fff !important;
+      border-radius: 3px !important;
+      span {
+        color: #272b4c !important;
+      }
+      &:hover {
+        background-color: #fff !important;
+      }
+    }
+    .ant-menu-item-selected,
+    .ant-menu-submenu-selected {
+      background-color: #fff !important;
+      box-shadow: 0px 1px 1px #00000012;
+      border-radius: 4px !important;
+      a {
+        color: #272b4c !important;
+      }
+      svg {
+        color: #fff !important;
+        g {
+          path {
+            fill: url(#linear-gradient);
+            @media only screen and (min-width: 360px) and (max-width: 991px) {
+              fill: #1a82fe !important;
+            }
+            @media not all and (min-resolution: 0.001dpcm) {
+              @supports (-webkit-appearance: none) {
+                fill: url(#linear-gradient) !important;
+              }
+            }
           }
         }
       }
+      &:hover {
+        background-color: #fff !important;
+      }
+      &:after {
+        display: none !important;
+      }
     }
   }
-  :global .ant-menu-submenu {
-    &:hover {
-      background-color: #edf1f4;
-      cursor: pointer;
-      color: #272b4c !important;
+}
 
-      .ant-menu-submenu {
-        .ant-menu-title-content {
-          a {
-            color: #272b4c;
+.side-menu-cover {
+  ul.ant-menu.ant-menu-root {
+    li.ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open {
+      ul.ant-menu.ant-menu-sub.ant-menu-inline {
+        li.ant-menu-item {
+          .ant-menu-title-content {
+            .ant-scroll-number.ant-badge-dot {
+              visibility: hidden;
+            }
           }
         }
-      }
-    }
-
-    .ant-menu-submenu-title {
-      .ant-menu-title-content {
-        color: #8f95a7;
-      }
-      i.ant-menu-submenu-arrow::before,
-      i.ant-menu-submenu-arrow::after {
-        color: #8f95a7;
-      }
-    }
-  }
-  :global .ant-menu-item {
-    &:hover {
-      background-color: #edf1f4;
-      cursor: pointer;
-      color: #272b4c !important;
-      .ant-menu-title-content {
-        a {
-          color: #272b4c;
-        }
-      }
-    }
-    &:active {
-      background-color: #edf1f4;
-      cursor: pointer;
-    }
-    .ant-menu-title-content {
-      a {
-        color: #8f95a7;
-      }
-    }
-  }
-  :global .ant-menu-item-selected {
-    background-color: #ffffff !important;
-    border-radius: 5px;
-    box-shadow: 0px 1px 0px #e9e9e9;
-
-    &:after {
-      border-right: 3px solid #ffffff !important;
-    }
-    .ant-menu-title-content {
-      a {
-        color: #272b4c !important;
       }
     }
   }

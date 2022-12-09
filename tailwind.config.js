@@ -1,9 +1,6 @@
 const colors = require("tailwindcss/colors");
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     // antd break points
     screens: {
@@ -13,6 +10,16 @@ module.exports = {
       lg: "992px",
       xl: "1200px",
       "2xl": "1600px",
+    },
+    maxWidth: {
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
+    },
+    minWidth: {
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
     },
     colors: {
       transparent: "transparent",
@@ -34,21 +41,34 @@ module.exports = {
         4: "#F6F8FA",
         5: "#E7E9ED",
         6: "#F4F4F8",
-      },      
+        7: "#E5E5E5",
+        8: "#DEE2EA",
+        9: "#E0EEFD",
+        10:"#F5F8FA"
+      },
       lightBlue: {
         DEFAULT: "#ebf3ff",
         1: "#272B4C",
       },
       yellow: {
         DEFAULT: "#FFAF02",
+        1: "#FFF6E0",
       },
       cyan: {
         DEFAULT: "#30cec2",
+        1: "#30CEC2",
       },
       red: {
         DEFAULT: "#D53E4F",
-      },      
-
+        1: "#FCE8EB",
+        2:"#DD3434",
+      },
+      green: {
+        DEFAULT: "#E2F8F7",
+        1: "#30CEC2",
+        2: "#166534",
+        3: "#16a34a",
+      },
     },
     extend: {},
   },

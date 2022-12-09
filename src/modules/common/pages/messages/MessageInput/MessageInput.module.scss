@@ -1,0 +1,27 @@
+.message-input {
+  background-color: #f6f8fa;
+  :global .ant-input {
+    border-radius: inherit !important;
+    border: none !important;
+    background-color: #f6f8fa;
+    width: calc(100% - 78px);
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+  ::-webkit-input-placeholder {
+    color: #9295af !important;
+  }
+  .attachment-upload-btn {
+    background: #f6f8fa;
+    border: 1px solid #f6f8fa;
+    height: 45px;
+    :global .ant-upload.ant-upload-btn {
+      padding: 0;
+      padding-top: 10px;
+    }
+    // &:hover {
+    //   border-color: transparent !important;
+    // }
+  }
+}

@@ -30,6 +30,26 @@ mutation login($input: LoginUserInput!) {
       id
       email
       role
+      first_name
+      last_name
+      doctorId
+      patientProfile {
+        profileImage
+      }
+      doctorProfile {
+        profile_image
+        specialization
+      }
+      adminProfilePicture {
+        profile_picture
+      }
+      timeZone {
+        countryName
+        countryCode
+        timeZone
+        id
+        gmtOffset
+      }
     }
   }
 }
@@ -46,6 +66,13 @@ mutation UserResetPassword($input: ResetPasswordInput!) {
   }
 }
 
+# SET ADMIN PHYSICIAN PASSWORD
+mutation setDoctorPassword($setPasswordInput: ResetPasswordInput!) {
+  setDoctorPassword(setPasswordInput: $setPasswordInput) {
+    id
+  }
+}
+
 # CREATE CARD MUTATION
 mutation createCard($input: CreatePaymentInput!) {
   createCard(createPaymentInput: $input) {
@@ -57,6 +84,7 @@ mutation createCard($input: CreatePaymentInput!) {
     is_default
     exp_month
     exp_year
+    card_holder_name
   }
 }
 
@@ -83,6 +111,17 @@ mutation DefaultCard($input: Int!) {
     is_default
   }
 }
+#REMOVE Staff
+
+mutation removeStaff($id: Int!) {
+  removeStaff(id: $id) {
+    id
+    first_name
+    last_name
+    email
+    contact_number
+  }
+}
 
 # UPDATE USER MUTATION
 mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
@@ -100,5 +139,264 @@ mutation updateUserProfile($id: Int!, $updateUserInput: UpdateUserInput!) {
     role
     zip_code
     streetAddress
+  }
+}
+
+# CREATE DOCTOR MUTATION
+mutation createDoctor($createDoctorInput: CreateDoctorInput!) {
+  createDoctor(createDoctorInput: $createDoctorInput) {
+    first_name
+    last_name
+    email
+    streetAddress
+    country_id
+    state_id
+    city_id
+    zip_code
+    # specialization
+    id
+  }
+}
+
+# DOCTOR UPDATE MUTATION
+mutation updateDoctorProfile(
+  $updateDoctorProfileInput: UpdateDoctorProfileInput!
+) {
+  updateDoctorProfile(updateDoctorProfileInput: $updateDoctorProfileInput) {
+    id
+    doctor_id
+    year_of_experience
+    specialization
+    condition_treated
+    educational_background
+    professional_experience
+    certification_and_licensure
+    awards_honors_recognition
+    language
+    about_me
+    profile_image
+    profile_video
+    user {
+      id
+      first_name
+      last_name
+      email
+      gender
+      streetAddress
+      contact_number
+      country_id
+      state_id
+      city_id
+      contact_number
+      timeZoneId
+      city {
+        city_name
+      }
+      state {
+        state_name
+      }
+      country {
+        country_name
+      }
+      zip_code
+      password
+      status
+      role
+    }
+  }
+}
+
+#ENABLE OR DISABLE DOCTOR
+mutation enableOrDisableDoctor($id: Int!) {
+  enableOrDisableDoctor(id: $id) {
+    id
+    is_active
+  }
+}
+# PUBLISH OR UNPUBLISH DOCTOR
+mutation publishOrUnpublishDoctor($id: Int!) {
+  publishOrUnpublishDoctor(id: $id) {
+    id
+    status
+  }
+}
+
+#CREATE APPOINTMENT
+mutation createAppointment($createAppointment: CreateAppointmentInput!) {
+  createAppointment(createAppointmentInput: $createAppointment) {
+    patientId
+    doctorId
+    serviceId
+    requestedDate
+    scheduleId
+    reportUrl
+  }
+}
+
+mutation createDoctorBillingMethod(
+  $createDoctorBillingMethodInput: CreateDoctorBillingMethodInput!
+) {
+  createDoctorBillingMethod(
+    createDoctorBillingMethodInput: $createDoctorBillingMethodInput
+  ) {
+    id
+    bankId
+    bankName
+    bankAccountNumber
+    accountTitle
+    routingNumber
+  }
+}
+
+mutation removeDoctorBillingMethod($id: Int!) {
+  removeDoctorBillingMethod(id: $id) {
+    id
+  }
+}
+
+#CANCEL APPOINTMENT BY APPOINTMENT
+mutation cancelAppointmentByPatient($id: Int!) {
+  cancelAppointmentByPatient(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+    requestedDate
+    reportUrl
+    status
+    createdAt
+  }
+}
+
+#Book and Appointment
+mutation bookAppointment($bookAppointmentInput: BookAppointmentInput!) {
+  bookAppointment(bookAppointmentInput: $bookAppointmentInput) {
+    id
+    status
+  }
+}
+
+#Add Note Appointment
+mutation createOrUpdateAppointmentNote(
+  $createAppointmentNoteInput: CreateAppointmentNoteInput!
+) {
+  createOrUpdateAppointmentNote(
+    createAppointmentNoteInput: $createAppointmentNoteInput
+  ) {
+    id
+  }
+}
+
+# cancel Requested Appointment
+mutation cancelAppointmentByDoctor($id: Int!) {
+  cancelAppointment(id: $id) {
+    id
+    patientId
+    doctorId
+    serviceId
+    scheduleId
+  }
+}
+
+# add Staff User
+mutation createStaff($createStaffInput: CreateStaffInput!) {
+  createStaff(createStaffInput: $createStaffInput) {
+    email
+    contact_number
+    first_name
+    last_name
+    email
+    doctorId
+  }
+}
+
+# UPDATE USER MUTATION
+mutation updateStaffProfile($id: Int!, $updateStaffInput: UpdateStaffInput!) {
+  updateStaff(id: $id, updateStaffInput: $updateStaffInput) {
+    first_name
+    last_name
+    email
+    contact_number
+    doctorId
+  }
+}
+
+# create admin User
+mutation createAdmin($createAdminInput: CreateAdminInput!) {
+  createAdminUser(createAdminInput: $createAdminInput) {
+    email
+    first_name
+    last_name
+  }
+}
+
+# update admin User
+mutation updateAdmin($id: Int!, $updateAdminUserInput: UpdateAdminUserInput!) {
+  updateAdminUser(id: $id, updateAdminUserInput: $updateAdminUserInput) {
+    first_name
+    last_name
+    email
+    password
+    status
+    contact_number
+  }
+}
+
+#ENABLE OR DISABLE DOCTOR
+mutation enableOrDisablePatient($id: Int!) {
+  enableOrDisablePatient(id: $id) {
+    id
+    status
+  }
+}
+#REMOVE APPOINTMENT BY ADMIN
+mutation removeAppointmentByAdmin($id: Int!) {
+  removeAppointment(id: $id) {
+    id
+  }
+}
+
+# remove patient user
+mutation removePatientUser($id: Int!) {
+  removeUser(id: $id) {
+    id
+  }
+}
+
+# Enable or Disable  Physicians or Admin Staff
+mutation enableOrDisableStaff($id: Int!) {
+  enableOrDisableStaff(id: $id) {
+    id
+    status
+  }
+}
+
+# CREATE PATIENT BY ADMIN
+mutation createPatientByAdmin($createPatientInput: CreateUserByAdminInput!) {
+  createPatientByAdmin(createPatientInput: $createPatientInput) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    contact_number
+    streetAddress
+    country_id
+    # deletedAt
+    state_id
+    city_id
+    zip_code
+    password
+    status
+    role
+    doctorId
+    createdAt
+    patientHealthHistory {
+      id
+      user_id
+      history
+    }
   }
 }

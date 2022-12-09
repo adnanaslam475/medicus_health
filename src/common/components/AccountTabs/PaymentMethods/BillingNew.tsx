@@ -8,9 +8,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/elements";
 import {
-  GetAllCardsQuery,
   useCreateCardMutation,
   useGetAllCardsQuery,
   UserCard,
@@ -18,69 +16,82 @@ import {
 import { getUserData } from "../../../utils/userData";
 import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
 import _classes from "./StripeCard.module.scss";
+import { GraphQLError } from "graphql";
+import { isChrome } from "utils/helper";
 
 type Props = {
   title: string;
   description: string;
   isDefault: boolean;
-  onRemove: () => void;
-  onMakeDefault: () => void;
+  onRemove?: (() => void) | undefined;
+  onMakeDefault?: (() => void) | undefined;
+  showRemoveBtn?: boolean;
 };
 export const Payment = (props: Props) => {
-  const { title, description, isDefault, onRemove, onMakeDefault } = props;
+  const {
+    title,
+    description,
+    isDefault,
+    onRemove,
+    onMakeDefault,
+    showRemoveBtn,
+  } = props;
+
   return (
     <div
       className={`${_classes["stripeCard"]} bg-gray-4 p-5 rounded-md border-primary mb-4`}
     >
-      <div className="text-md capitalize text-dark font-bold">{title}</div>
-      <div className="text-gray-2">{description}</div>
-      {isDefault && (
-        <div className="mt-3">
-          <Tag
-            color="#30CEC2"
-            className={`${_classes["btn-stripe-card "]} rounded-full`}
-          >
-            DEFAULT
-          </Tag>
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-dark font-medium pb-0 mb-0">
+            <h6 className="text-md mb-0 pb-0">{title}</h6>
+          </div>
+          <div className="text-dark font-normal pb-0 mb-0">
+            <p className="text-sm mb-0 pb-0 text-secondary ">{description}</p>
+          </div>
         </div>
-      )}
+        <div>{isDefault && <Tag>Default</Tag>}</div>
+      </div>
       {!isDefault && (
-        <div className={`${_classes["btn-stripe-card"]} mt-3`}>
-          <Button
-            type="link"
-            size="small"
-            className="text-primary p-0"
-            onClick={() => {
-              Modal.confirm({
-                content: "Do you want to make this card default?",
-                okText: "Yes",
-                onOk() {
-                  onMakeDefault();
-                },
-                onCancel() {},
-              });
-            }}
-          >
-            Make Default
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            className="text-danger ml-2 p-0"
-            danger
-            onClick={() => {
-              Modal.confirm({
-                content: "Do you want to remove this card?",
-                okText: "Remove",
-                onOk() {
-                  onRemove();
-                },
-                onCancel() {},
-              });
-            }}
-          >
-            Remove
-          </Button>
+        <div className={`${_classes["btn-stripe-card"]} mt-3 flex gap-2`}>
+          {onMakeDefault && (
+            <Button
+              type="link"
+              size="small"
+              className={`text-primary p-0 ${isChrome && "antCustomBtn"}`}
+              onClick={() => {
+                Modal.confirm({
+                  content: "Do you want to make this card default?",
+                  okText: "Yes",
+                  onOk() {
+                    onMakeDefault?.();
+                  },
+                  onCancel() {},
+                });
+              }}
+            >
+              <p className="text-sm pb-0 mb-0"> Make default</p>
+            </Button>
+          )}
+          {showRemoveBtn !== false && (
+            <Button
+              type="link"
+              size="small"
+              className={`text-red-2 p-0 text-sm ${isChrome && "antCustomBtn"}`}
+              onClick={() => {
+                Modal.confirm({
+                  content: "Do you want to remove this card?",
+                  okText: "Remove",
+                  onOk() {
+                    onRemove?.();
+                  },
+                  onCancel() {},
+                });
+              }}
+            >
+              <p className="text-red-2 text-sm pb-0 mb-0"> Remove</p>
+            </Button>
+          )}
         </div>
       )}
     </div>
@@ -88,15 +99,15 @@ export const Payment = (props: Props) => {
 };
 
 Payment.defaultProps = {
-  title: "Visa Ending with ****",
+  title: "Visa ending with ****",
   description: "MM/YYYY",
   isDefault: false,
-  onRemove: () => {},
-  onMakeDefault: () => {},
+  // onRemove: () => {},
+  // onMakeDefault: () => {},
 };
 
 type propsBilling = {
-  data: UserCard[];
+  data: UserCard[] | any;
   loading: string;
   onSubmit: (id: {} | undefined) => void;
   onRemove: (id: number) => void;
@@ -110,12 +121,17 @@ function Billing({
   onMakeDefault,
   onSubmit,
 }: propsBilling) {
+  const [formInstance] = Form.useForm();
   const stripe = useStripe();
   const elements = useElements();
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
+  const [cardNumber, setCardNumber] = useState<boolean | undefined>();
+  const [cvv, setCvv] = useState<boolean | undefined>();
+  const [cardExpiry, setCardExpiry] = useState<boolean | undefined>();
   const closeModal = () => {
+    formInstance.resetFields();
     setModalVisible(false);
   };
 
@@ -134,10 +150,6 @@ function Billing({
       }
       const cardElement = elements.getElement(CardNumberElement);
 
-      const { token } =
-        (await stripe?.createToken(cardElement as StripeCardNumberElement)) ||
-        {};
-
       const { source, error } =
         (await stripe?.createSource(
           cardElement as StripeElement,
@@ -145,7 +157,7 @@ function Billing({
         )) || {};
 
       const { user } = getUserData();
-      await executeCardMutation({
+      const res = await executeCardMutation({
         input: {
           card_digits: Number(source?.card?.last4) || 0,
           card_type: source?.card?.brand || "",
@@ -154,6 +166,9 @@ function Billing({
           user_id: user?.id as number,
           exp_month: String(source?.card?.exp_month),
           exp_year: String(source?.card?.exp_year),
+          card_holder_name: "",
+          currency: String(source?.currency),
+          country: String(source?.card?.country),
         },
       });
 
@@ -169,6 +184,21 @@ function Billing({
         setModalVisible(false);
         cardElement?.clear();
         setLoadingSubmit(false);
+        if (res?.error) {
+          let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+            ?.response as GraphQLError;
+          let customError = res?.error?.graphQLErrors[0]?.extensions
+            ?.exception as GraphQLError;
+          let errorGraphQLMessage = res?.error?.graphQLErrors[0]?.message;
+          let errorMessage =
+            errorGraphQLMessage ||
+            graphQLError?.message ||
+            customError?.message ||
+            "Something went wrong";
+          notification.error({
+            message: errorMessage,
+          });
+        }
       }
     } catch (error) {
       setModalVisible(true);
@@ -179,8 +209,10 @@ function Billing({
   return (
     <>
       <div className="col-start-1 col-end-8 flex justify-between align-middle">
-        <div className="mb-8 flex flex-col w-full">
-          <h4 className="font-medium text-lg mt-5">Payment Methods</h4>
+        <div
+          className={`${_classes["payment_method_head"]} mb-8 flex flex-col w-full`}
+        >
+          <h4 className=" text-lg mt-5">Payment methods</h4>
           <div className="flex md:flex-row gap-0 w-full">
             <div className="user-details-list w-full rounded-lg">
               {loading ? (
@@ -190,11 +222,11 @@ function Billing({
                   </Space>
                 </div>
               ) : (
-                data.map((card) => (
+                data.map((card: any) => (
                   <Payment
                     isDefault={card?.is_default}
-                    title={`${card?.card_type} Ending with ${card?.card_digits}`}
-                    description={`Expires at: ${card?.exp_month}/${card?.exp_year}`}
+                    title={`${card?.card_type} ending with ${card?.card_digits}`}
+                    description={`Expires on: ${card?.exp_month}/${card?.exp_year}`}
                     onRemove={() => {
                       onRemove(card?.id);
                     }}
@@ -206,71 +238,93 @@ function Billing({
               )}
               <Button
                 icon={<PlusOutlined />}
-                className="text-primary"
+                className={`text-primary cursor-pointer ${
+                  isChrome && "antCustomBtn"
+                }`}
                 onClick={() => setModalVisible(true)}
               >
-                Add a Payment Method
+                Add payment method
               </Button>
             </div>
           </div>
         </div>
       </div>
       <Modal
-        title="Make Payment"
+        title="Add card"
         centered
         visible={modalVisible}
         onOk={closeModal}
         onCancel={closeModal}
         footer={null}
       >
-        <Form className="" onFinish={handleSubmit} layout="vertical">
-          <span className="text-base text-secondary my-2">Card Number*</span>
-          <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-            <CardNumberElement
-              options={{
-                placeholder: "",
-                style: {
-                  base: {
-                    "::placeholder": {
-                      color: "gray",
+        <Form
+          form={formInstance}
+          className=""
+          onFinish={handleSubmit}
+          layout="vertical"
+        >
+          <Form.Item name="cardnumber">
+            <span className="text-base text-secondary my-2">Card number*</span>
+            <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+              <CardNumberElement
+                onChange={(e) => setCardNumber(e?.complete)}
+                options={{
+                  placeholder: "",
+                  style: {
+                    base: {
+                      "::placeholder": {
+                        color: "gray",
+                      },
                     },
                   },
-                },
-              }}
-            />
-          </div>
+                }}
+              />
+            </div>
+          </Form.Item>
+
           <div className="sm:grid grid-cols-2 gap-4">
-            <div>
-              <span className="text-base text-secondary">CVV*</span>
-              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                <CardCvcElement
-                  options={{
-                    placeholder: "",
-                  }}
-                />
+            <Form.Item name="cvv">
+              <div>
+                <span className="text-base text-secondary">CVV*</span>
+                <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+                  <CardCvcElement
+                    onChange={(e) => setCvv(e?.complete)}
+                    options={{
+                      placeholder: "",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            <div>
-              <span className="text-base text-secondary my-2">Expiry*</span>
-              <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
-                <CardExpiryElement />
+            </Form.Item>
+            <Form.Item name="expires">
+              <div>
+                <span className="text-base text-secondary my-2">
+                  Expires on*
+                </span>
+                <div className="border border-gray-3 p-3 rounded mb-5 hover:border-primary">
+                  <CardExpiryElement
+                    onChange={(e) => setCardExpiry(e?.complete)}
+                  />
+                </div>
               </div>
-            </div>
+            </Form.Item>
           </div>
           <div className="flex justify-end">
             <Form.Item>
-              <Button 
+              <Button
                 onClick={closeModal}
-                className={`${_classes["btn-stripe-cancel"]}`}
-                >
-                  Cancel
-                </Button>
+                className={`${_classes["btn-stripe-cancel"]} ${
+                  isChrome && "antCustomBtn"
+                }`}
+              >
+                Cancel
+              </Button>
               <Button
                 loading={loadingSubmit}
-                disabled={loadingSubmit}
+                disabled={!cardNumber || !cvv || !cardExpiry || loadingSubmit}
                 type="primary"
                 htmlType="submit"
-                className={`${_classes["btn-stripe-primary"]} ml-4`}
+                className={`ml-4 ${isChrome && "antCustomBtn"}`}
               >
                 Submit
               </Button>
@@ -284,8 +338,6 @@ function Billing({
 
 Billing.defaultProps = {
   data: [],
-  onRemove: () => {},
-  onMakeDefault: () => {},
   onSubmit: async () => {},
   loading: false,
 };

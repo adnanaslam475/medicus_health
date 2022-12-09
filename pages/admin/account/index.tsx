@@ -1,9 +1,7 @@
-import ProfileDetail from "../../../src/modules/admin/pages/ProfileDetail/ProfileDetail";
+import AdminAccount from "../../../src/modules/admin/components/AdminAccount/AdminAccount";
 
-function ProfileDetailPage() {
-  return <ProfileDetail />;
+function account() {
+  return <AdminAccount />;
 }
 
-export default ProfileDetailPage;
-
-
+export default account;

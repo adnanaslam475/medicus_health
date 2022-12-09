@@ -1,0 +1,116 @@
+query userEmailPreferences {
+  userEmailPreferences {
+    patient_registration_update
+    physician_registration_update
+    appointment_accepted_by_doctor
+    appointment_rescheduled_by_doctor
+    appointment_reminder
+    admin_appointment_create_update
+    new_message_received
+    appointment_slot_suggested_by_doctor
+    appointment_requested
+    appointment_accepted_by_patient
+    transaction_successful_alert
+  }
+}
+
+query patientLastQuestionnaire($doctorId: Int!, $patientId: Int!) {
+  patientLastQuestionnaire(doctorId: $doctorId, patientId: $patientId) {
+    history
+  }
+}
+
+query getDoctorNotesByAppId($id: Int!) {
+  appointment(id: $id) {
+    id
+    patientId
+    status
+    doctor {
+      first_name
+      last_name
+    }
+
+    currentAppointmentNote {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
+    }
+    notesHistory {
+      appointment {
+        id
+        doctor {
+          id
+          first_name
+          last_name
+        }
+      }
+      createdAt
+      id
+      subjective
+      objective
+      assessment
+      plan
+      note
+      isPublished
+    }
+  }
+}
+
+query currentAppointments(
+  $filter: GetCurrentAppointmentInput!
+  $pagination: PaginationParams
+  $sorting: SortingParams
+) {
+  currentAppointments(
+    filter: $filter
+    pagination: $pagination
+    sorting: $sorting
+  ) {
+    items {
+      id
+      doctorId
+      patientId
+      appointmentDateTime {
+        startTime
+        endTime
+      }
+      appointmentTimeSlots {
+        startTime
+        endTime
+        selected
+      }
+      doctor {
+        first_name
+        last_name
+      }
+      serviceType {
+        name
+      }
+      status
+    }
+    meta {
+      totalPages
+      currentPage
+      totalItems
+    }
+  }
+}
+
+mutation reBookAppointment($rebookAppointmentInput: ReBookAppointmentInput!) {
+  reBookAppointment(rebookAppointmentInput: $rebookAppointmentInput) {
+    status
+  }
+}

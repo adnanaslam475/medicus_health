@@ -1,4 +1,5 @@
 import { Button, Form, Input } from "antd";
+import { isChrome } from "utils/helper";
 
 type Props = {
   onFinish: (values: any) => void;
@@ -9,11 +10,11 @@ function ForgotPasswordForm({ onFinish }: Props) {
     <Form
       layout="vertical"
       initialValues={{ remember: true }}
-      onFinish={onFinish}      
+      onFinish={onFinish}
       autoComplete="off"
     >
       <Form.Item
-        label="Email Address"
+        label="Email address"
         name="email"
         className="mb-1"
         rules={[
@@ -32,11 +33,13 @@ function ForgotPasswordForm({ onFinish }: Props) {
 
       <Form.Item>
         <Button
-          className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+          className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
           type="primary"
           htmlType="submit"
         >
-          Reset Password
+          {/* Reset password */}
+          {/* {t("reset_password")} */}
+          Enviar instrucciones
         </Button>
       </Form.Item>
     </Form>

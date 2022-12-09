@@ -14,6 +14,7 @@ import {
   DatePicker,
 } from "antd";
 import { PlusCircleFilled } from "@ant-design/icons";
+import { isChrome } from "utils/helper";
 
 const { Option } = Select;
 
@@ -35,12 +36,12 @@ const GUI = () => {
       <hr />
       <Row className="pt-5">
         <Col span={6}>
-          <Button type="primary">Primary Button</Button>
+          <Button type="primary" className={`${isChrome && 'antCustomBtn'}`}>Primary Button</Button>
         </Col>
         <Col span={6}>
           <Button
             icon={<PlusCircleFilled />}
-            className="default"
+            className={`default ${isChrome && 'antCustomBtn'}`}
             type="primary"
           >
             Primary Button
@@ -54,7 +55,7 @@ const GUI = () => {
         <Col span={6}>
           <Button
             icon={<PlusCircleFilled />}
-            className="default"
+            className={`default ${isChrome && 'antCustomBtn'}`}
             type="default"
           >
             Primary Button outline icon
@@ -64,7 +65,7 @@ const GUI = () => {
 
       <Row className="pt-5">
         <Col span={6}>
-          <Button type="link">Primary Button</Button>
+          <Button type="link" className={`${isChrome && 'antCustomBtn'}`}>Primary Button</Button>
         </Col>
       </Row>
 

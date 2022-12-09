@@ -1,0 +1,192 @@
+import {
+  Appointment,
+  BookingDate,
+  DueDate,
+  InputMaybe,
+  Scalars,
+  Maybe,
+} from "generated/graphql";
+
+export type Schedule = {
+  day?: number;
+  endTime: string;
+  startTime: string;
+  id?: string;
+};
+
+export type singleSchedule = {
+  startTime: string;
+  endTime: string;
+  day?: number;
+  id?: string;
+};
+
+export type staffFilterType = {
+  serviceType?: string;
+  accountCreationDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+export type physicianFilterType = {
+  searchString?: string;
+  serviceId?: number;
+  patientName?: string;
+  bookingDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  paymentStatus?: string;
+  status?: string;
+};
+
+export type cancelledAppointmentFilterType = {
+  searchString?: string;
+  serviceId?: number;
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  paymentStatus?: string;
+};
+
+export type DateType = {
+  startDate: string;
+  endDate: string;
+};
+
+export type AdminPatientUpdateInput = {
+  confirm_password: string;
+  first_name: string;
+  country_name: number;
+  state_name: number;
+  city_name: number;
+  last_name: string;
+  gender: string;
+  date_of_birth: string;
+  email: string;
+  contact_number: string;
+  country_id: string;
+  password: string;
+  state_id: string;
+  city_id: string;
+  streetAddress: string;
+  zip_code: string;
+  maritalStatus: string;
+  children: string;
+  occupation: string;
+  occupationalExposure: string;
+  pets: string;
+  No_of_childrens?: number;
+  Occupational_Exposure_duration?: string;
+  haveChildren?: string;
+  exposureDuration?: string;
+};
+
+export type physicianMyEarningsFilterType = {
+  searchString?: string;
+  serviceId?: number;
+  earnings?: { initial: number; final: number };
+  DateRange?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+  paymentStatus?: string;
+  status?: string;
+  refunds?: { initialRefunds: number; finalRefunds: number };
+  charges?: { initialCharges: number; finalCharges: number };
+};
+
+export type cancelAppointmentFilterType = {
+  patientName?: string;
+  serviceId?: number;
+  bookingDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
+export type ServiceTypes = {
+  id?: number;
+  name?: string;
+  price: number;
+};
+
+export type AdminAppointmentHistoryDetailType = {
+  id: number | undefined;
+  bookingDate: any;
+  patient: Maybe<string> | undefined;
+  physician: string;
+  service: string;
+  dueDate: string;
+  time: string;
+  totalAmount: number | undefined;
+  appointmentStatus: Maybe<string> | undefined;
+  paymentStatus: string;
+};
+
+export type adminUserFilterType = {
+  searchUser?: string;
+  status?: string;
+  creationDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
+export type patientAppointmentHistoryFilterType = {
+  appointmentId?: number;
+  doctorId?: number;
+  serviceId?: number;
+  dueDate?: {
+    startDate?: string;
+    endDate?: string;
+  };
+};
+
+export type PatientListFilterType = {
+  searchField?: string;
+  stateId?: number;
+  countryId?: number;
+};
+
+export type CustomTimeSlot = {
+  __typename?: "AppointmentTimeSlots";
+  appointment?: Appointment;
+  endTime: Scalars["DateTime"];
+  id: Scalars["Int"];
+  selected: Scalars["Boolean"];
+  startTime: Scalars["DateTime"];
+};
+
+export type StatusName =
+  | "UPCOMING"
+  | "COMPLETED"
+  | "PENDING"
+  | "SUCCEEDED"
+  | "CONFIRMED"
+  | "REQUESTED"
+  | "PROPOSED"
+  | "CANCELED"
+  | "REFUNDED";
+
+export type AttachmentObject = {
+  name: string;
+  url: string;
+};
+
+export type AppointmentTimeSlots = {
+  appointment?: Maybe<Appointment>;
+  endTime: Scalars["DateTime"];
+  id: Scalars["Int"];
+  selected: Scalars["Boolean"];
+  startTime: Scalars["DateTime"];
+};

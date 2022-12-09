@@ -1,0 +1,68 @@
+# video call
+
+mutation generateRTCToken($generateRTCTokenInput: GenerateRTCTokenInput!) {
+  generateRTCToken(generateRTCTokenInput: $generateRTCTokenInput) {
+    rtmAccessToken
+    rtcAccessToken
+    channelName
+    privilegeExpireTime
+  }
+}
+
+mutation createChatChannel($createChatChannelInput: CreateChatChannelInput!) {
+  createChatChannel(createChatChannelInput: $createChatChannelInput) {
+    id
+    channelName
+    doctorId
+    patientId
+    isAdminChat
+    createdAt
+  }
+}
+
+mutation createChatMessage($createChatMessageInput: CreateChatMessageInput!) {
+  createChatMessage(createChatMessageInput: $createChatMessageInput) {
+    id
+    channelId
+    senderId
+    receiverId
+    message
+    isRead
+    messageType
+    createdAt
+    sender {
+      id
+      first_name
+      last_name
+    }
+    receiver {
+      id
+      first_name
+      last_name
+    }
+    # isRead
+  }
+}
+
+mutation resendActivationLink($email: String!) {
+  resendActivationLink(email: $email) {
+    id
+    first_name
+    last_name
+    email
+    gender
+    date_of_birth
+    contact_number
+    streetAddress
+    country_id
+    # deletedAt
+    state_id
+    city_id
+    zip_code
+    password
+    status
+    role
+    doctorId
+    createdAt
+  }
+}

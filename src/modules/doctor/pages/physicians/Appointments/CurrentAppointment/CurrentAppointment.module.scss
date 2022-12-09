@@ -1,0 +1,16 @@
+.button-wrap{
+    :global .ant-btn{
+        padding:0 6px !important;
+        margin:0 0 !important;
+        height:40px !important;
+
+    }
+}
+.button-wrap1{
+    :global .ant-btn{
+        padding:0 16px !important;
+        margin:0 0 !important;
+        height:40px !important;
+
+    }
+}

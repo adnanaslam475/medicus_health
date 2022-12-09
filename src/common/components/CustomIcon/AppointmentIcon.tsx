@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 interface props {
   className?: string | undefined;
 }
@@ -27,7 +28,7 @@ export function AppointmentIcon({ className }: props) {
       <g
         id="appointment_1_"
         data-name="appointment (1)"
-        transform="translate(-5 -5)"
+        transform="translate(-5.4 -5.4)"
       >
         <path
           id="Path_105"

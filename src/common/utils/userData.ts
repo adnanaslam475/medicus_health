@@ -1,5 +1,7 @@
+import { UserDataInLocalStorage } from "common/types/auth";
+
 export function getUserData() {
-  let userData;
+  let userData = <UserDataInLocalStorage>{};
   if (
     typeof window !== "undefined" &&
     localStorage?.getItem("loggedInUserData")
@@ -10,11 +12,15 @@ export function getUserData() {
 }
 
 export function getToken() {
-  let data = getUserData();
-  return data?.access_token;
+  return getUserData().access_token;
 }
 
 export function getRole() {
-  let data = getUserData();
-  return data?.user?.role;
+  return getUserData().user?.role;
+}
+
+export function sorter(arr = [], column = "") {
+  arr.sort(function (a, b) {
+    return ("" + b[column]).localeCompare(a[column]);
+  });
 }

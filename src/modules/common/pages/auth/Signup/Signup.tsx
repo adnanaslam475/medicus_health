@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
+import { Tabs, Badge, Modal, notification } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import {
   useCreateUserMutation,
@@ -10,12 +10,15 @@ import {
   CreateUserInput,
 } from "../../../../../generated/graphql";
 import Container from "../../../../../common/components/Container/Container";
-import HealthQuestionnary from "../../../../../common/components/Questionnary/questionnary";
+import HealthQuestionnary from "../../../../../common/components/Questionnary/Questionnary";
 import PersonalInfo from "./components/PersonalInfo/PersonalInfo";
 import { date } from "../../../../../common/utils";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import successSmall from "../../../../../../public/assets/icon/success-small.svg";
+import { GraphQLError } from "graphql";
+import { useTranslations } from "next-intl";
+import _classes from "./SignUp.module.scss";
 
 const { TabPane } = Tabs;
 const { confirm } = Modal;
@@ -25,12 +28,15 @@ interface CreateUserPayload extends CreateUserInput {
 }
 
 function Signup() {
+  const t = useTranslations("Signup");
+
   const router = useRouter();
   const [activeKey, setActiveKey] = useState("1"); // should be 1
   const [nextTab, setNextTab] = useState(true);
-  const [authToken, setAuthToken] = useState(false);
-
+  const [authToken, setAuthToken] = useState("");
+  const [signupError, setSignupError] = useState<string | undefined>();
   const [signUpPayload, setSignUpPaylod] = useState<CreateUserPayload>();
+  const [loadingSkipBtn, setLoadingSkipBtn] = useState<boolean>(false);
 
   const [result, createUser] = useCreateUserMutation();
   const { fetching } = result;
@@ -40,7 +46,7 @@ function Signup() {
       setAuthToken(token);
       router.push("/");
     } else {
-      setAuthToken(false);
+      setAuthToken("");
     }
   }, []);
 
@@ -55,18 +61,25 @@ function Signup() {
   };
 
   function showConfirm() {
-    confirm({
-      title: "",
-      icon: <ExclamationCircleOutlined />,
-      content:
-        "These are the mandatory fields for Book an Appointment you can Skip it for now and can Add/Edit later from My Profile section",
-      onOk() {
-        submitPersonalInfo();
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
+    <div className="confirmation-signup">
+      {confirm({
+        // title: t("signup_modal_skip_questionaire_message"),
+        title:
+          "Tenga en cuenta que estas preguntas deben responderse antes de solicitar una cita con un médico. Puede omitir por ahora y completar más tarde",
+        icon: <ExclamationCircleOutlined />,
+        // content:
+        //   "These are the mandatory fields for Book an appointment you can skip it for now and can Add/Edit later from my profile section",
+        content: "",
+        onOk() {
+          submitPersonalInfo();
+        },
+        okText: "Ok",
+        cancelText: "Cancelar",
+        onCancel() {
+          setLoadingSkipBtn(false);
+        },
+      })}
+    </div>;
   }
   const onFinishHealthQuestionnaryFailed = (err: any) => {};
 
@@ -74,35 +87,66 @@ function Signup() {
     const user = await submitPersonalInfo();
     const healthQuesJson = JSON.stringify(quesPayload);
     try {
-      await createPatientHealthHistory({
-        input: {
-          history: healthQuesJson,
-          user_id: user?.data?.createUser.id as number,
-        },
-      });
-      handleChange();
-      setActiveKey("2");
-      setNextTab(false);
+      if (user?.data?.createUser.id) {
+        await createPatientHealthHistory({
+          input: {
+            history: healthQuesJson,
+            user_id: user?.data?.createUser.id as number,
+          },
+        });
+        handleChange();
+        setActiveKey("2");
+        setNextTab(false);
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
   async function submitPersonalInfo() {
-    let pyaload = signUpPayload;
-    if (pyaload) {
-      pyaload.date_of_birth = date.convertToUTC(pyaload?.date_of_birth);
-      delete pyaload.confirmPassword;
+    let payload = signUpPayload;
+    let updatedPayload = {
+      ...payload,
+      city_id: payload?.city_id || 0,
+      state_id: payload?.state_id || 0,
+    };
+    if (updatedPayload) {
+      updatedPayload.date_of_birth = date.convertToUTC(
+        updatedPayload?.date_of_birth
+      );
+      delete updatedPayload.confirmPassword;
     }
     let user = null;
     try {
       user = await createUser({
-        input: pyaload as CreateUserInput,
+        input: updatedPayload as CreateUserInput,
       });
-      Router.push({
-        pathname: "/successScreen",
-        query: { email: pyaload?.email },
-      });
+      setLoadingSkipBtn(false);
+
+      let errorResponse = user?.error?.graphQLErrors[0]?.extensions
+        ?.response as GraphQLError;
+      if (user?.error?.graphQLErrors) {
+        let graphQLError = user?.error?.graphQLErrors[0]?.extensions
+          ?.response as GraphQLError;
+        let customError = user?.error?.graphQLErrors[0]?.extensions
+          ?.exception as GraphQLError;
+        let errorGraphQLMessage = user?.error?.graphQLErrors[0]?.message;
+        let errorMessage =
+          graphQLError?.message[0] ||
+          customError?.message ||
+          errorGraphQLMessage ||
+          "Something went wrong";
+        notification.error({
+          message: errorMessage,
+        });
+      }
+      if (!user.error?.message) {
+        Router.push({
+          pathname: "/successScreen",
+          query: { email: updatedPayload?.email },
+        });
+      }
+      setSignupError(errorResponse?.message[0]);
       return user;
     } catch (err) {
       console.log(err);
@@ -110,6 +154,7 @@ function Signup() {
   }
 
   const skipHealthQuestions = (e: any) => {
+    setLoadingSkipBtn(true);
     showConfirm();
   };
 
@@ -117,12 +162,14 @@ function Signup() {
     return <PageLoader />;
   } else {
     return (
-      <Container className="login-bg w-full mx-auto">
+      <Container className="login-bg w-full">
         <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
-            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white py-12 px-6">
+          <div className="w-full sm:w-full md:min-w-[700px] lg:w-1/2 xl:min-w-[700px] px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-2xl bg-white py-12 px-6">
               <div className="flex justify-center mb-6">
                 <Image
+                  priority={true}
+                  unoptimized={true}
                   alt=""
                   className="main-logo mx-auto"
                   height={34}
@@ -131,12 +178,13 @@ function Signup() {
                 />
               </div>
               <h1 className="text-center text-secondary mb-3">
-                Create Your Account
+                {/* {t("createAccount")} */}
+                Crea tu perfil
               </h1>
               <div className="text-center text-gray font-rubik font-normal text-sm">
-                Create your account to start using Medicus
+                {/* {t("createYourAccountToStart")} */}
               </div>
-              <div className="mt-5">
+              <div className={`${_classes["signupTabs"]} mt-5`}>
                 <Tabs
                   defaultActiveKey="1"
                   centered
@@ -151,6 +199,7 @@ function Signup() {
                             className="mr-3"
                             count={
                               <Image
+                                priority={true}
                                 alt=""
                                 className="success-small mx-auto"
                                 height={22}
@@ -169,11 +218,11 @@ function Signup() {
                         )}
                         {!nextTab ? (
                           <span className="ml-3 text-cyan text-xs sm:text-base">
-                            Personal Info
+                            {t("personalInfo")}
                           </span>
                         ) : (
                           <span className="ml-3 text-xs sm:text-base">
-                            Personal Info
+                            {t("personalInfo")}
                           </span>
                         )}
                       </span>
@@ -201,7 +250,7 @@ function Signup() {
                           }
                         ></Badge>
                         <span className="ml-3 text-xs sm:text-base">
-                          Health Questionnaire
+                          {t("healthQuestionnaire")}
                         </span>
                       </span>
                     }
@@ -214,6 +263,11 @@ function Signup() {
                       handleBackChange={handleChange}
                       skipHealthQues={skipHealthQuestions}
                       isLoading={fetching}
+                      disable={true}
+                      signupError={signupError}
+                      setNextTab={setNextTab}
+                      setActiveKey={setActiveKey}
+                      loadingSkipBtn={loadingSkipBtn}
                     />
                   </TabPane>
                 </Tabs>

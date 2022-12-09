@@ -1,0 +1,39 @@
+.page-filters-parent {
+  .dropdown {
+    border: 1px solid #9295af !important;
+    & > div {
+      // font-weight: 300 !important;
+      font-size: 15px;
+    }
+  }
+
+  .btn-clear {
+    border: none !important;
+    .text-gray-1 {
+      margin-top: 1px !important;
+    }
+    &:hover,
+    &:focus {
+      background-color: transparent;
+    }
+  }
+}
+
+.rangePicker-cover {
+  :global .ant-space-item {
+    .ant-picker-range {
+      position: absolute;
+    }
+    .ant-picker.ant-picker-range {
+      padding: 0;
+    }
+    .ant-picker.ant-picker-range + button {
+      @media screen and (min-width: 808px) {
+        top: 5px;
+        // & > div {
+        //   font-weight: 300 !important;
+        // }
+      }
+    }
+  }
+}

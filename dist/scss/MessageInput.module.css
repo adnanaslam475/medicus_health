@@ -1,0 +1,24 @@
+.message-input {
+  background-color: #f6f8fa;
+}
+.message-input :global .ant-input {
+  border-radius: inherit !important;
+  border: none !important;
+  background-color: #f6f8fa;
+  width: calc(100% - 78px);
+}
+.message-input :global .ant-input:focus {
+  box-shadow: none !important;
+}
+.message-input ::-webkit-input-placeholder {
+  color: #9295af !important;
+}
+.message-input .attachment-upload-btn {
+  background: #e7e9ed;
+  border: 1px solid #e7e9ed;
+  height: 45px;
+}
+.message-input .attachment-upload-btn :global .ant-upload.ant-upload-btn {
+  padding: 0;
+  padding-top: 10px;
+}/*# sourceMappingURL=MessageInput.module.css.map */

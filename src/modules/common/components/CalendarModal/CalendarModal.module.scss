@@ -1,0 +1,21 @@
+.join-now-btn {
+  display: flex !important;
+  background-color: #1a82fe !important;
+  color: white !important;
+  padding: 20px !important;
+  margin-right: 10px;
+
+  :first-child {
+    margin-top: -3px;
+  }
+}
+.details-btn {
+  display: flex !important;
+  padding: 20px !important;
+}
+
+.appointments-btn {
+  display: flex;
+	align-items: center;
+	justify-content: center;
+}

@@ -1,0 +1,19 @@
+.label-design {
+  font-weight: 600 !important;
+}
+.mb-custom {
+  :global .ant-form-item {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
+}
+
+.total-field{
+  width: 250px !important;
+}
+
+@media screen and (max-width:330px) {
+  .total-field{
+    width:100% !important;
+  } 
+}

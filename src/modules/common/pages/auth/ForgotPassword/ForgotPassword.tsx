@@ -6,13 +6,15 @@ import Image from "next/image";
 import { getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import Container from "../../../../../common/components/Container/Container";
-
 import { useUserForgotPasswordMutation } from "../../../../../generated/graphql";
+import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const ForgotPassword = () => {
+  const t = useTranslations("ForgotPass");
   const [form] = Form.useForm();
   const router = useRouter();
-  const [authToken, setAuthToken] = useState(false);
+  const [authToken, setAuthToken] = useState("");
 
   useEffect(() => {
     const token = getToken();
@@ -20,7 +22,7 @@ const ForgotPassword = () => {
       setAuthToken(token);
       router.push("/");
     } else {
-      setAuthToken(false);
+      setAuthToken("");
     }
   }, []);
 
@@ -54,23 +56,31 @@ const ForgotPassword = () => {
   } else {
     return (
       <Container className="login-bg w-full">
-        <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
-          <div className="w-full sm:w-2/3 md:w-2/3 lg:w-2/3 xl:w-1/2 px-0">
-            <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-12 pb-6 px-6">
+        <div className="flex items-center justify-center min-h-screen w-h-100 py-16 rounded-3xl">
+          <div className="w-full sm:w-full md:w-full lg:w-1/2 xl:max-w-[500px] px-0">
+            <div className="card p-4 shadow-lg drop-shadow-2xl  bg-white pt-12 pb-6 px-6 rounded-2xl">
               <div className="flex justify-center mb-16">
                 <Image
+                  priority={true}
+                  unoptimized={true}
                   alt=""
                   className="main-logo mx-auto"
                   height={34}
                   width={216}
                   src="/assets/images/logo-medi.svg"
+                  // loading="eager"
                 />
               </div>
-              <h1 className="text-center text-secondary mb-0">
-                Forgot Password
+              <h1 className="text-center text-secondary mb-0 pt-6">
+                {/* Forgot password */}
+                {/* {t("forgot_pass")} */}
+                ¿Olvidó su contraseña?
               </h1>
               <h5 className="text-center text-gray font-rubik font-normal">
-                Enter your email below to reset password.
+                {/* Enter your email below to reset password. */}
+                {/* {t("enter_your_email_below_to_reset_password")} */}
+                Por favor confirma tu correo debajo para recibir las
+                instrucciones de reinicio de contraseña.
               </h5>
               <div className="mt-5">
                 <Form
@@ -83,33 +93,39 @@ const ForgotPassword = () => {
                   autoComplete="off"
                 >
                   <Form.Item
-                    label="Email Address"
+                    label="Correo electrónico"
+                    // label={t("email_address")}
                     name="email"
                     className="mb-1"
                     rules={[
                       {
                         required: true,
                         type: "email",
-                        message: "Please enter your email address",
+                        message: t("email_address_message"),
                       },
                       {
                         type: "email",
-                        message: "Email is invalid",
+                        message: t("email_is_invalid"),
+                        // message: "Email is invalid",
                       },
                     ]}
                   >
-                    <Input />
+                    <Input
+                      // title="Escriba tú coreo electrónico"
+                      placeholder="Escriba tú coreo electrónico"
+                    />
                   </Form.Item>
 
                   <Form.Item>
                     <Button
                       loading={fetching}
                       disabled={fetching}
-                      className="ant-btn ant-btn-secondary ant-btn-block nb-button"
+                      className={`ant-btn ant-btn-secondary ant-btn-block nb-button ${isChrome && 'antCustomBtn'}`}
                       type="primary"
                       htmlType="submit"
                     >
-                      Reset Password
+                      {/* {t("reset_password")} */}
+                      Enviar instrucciones
                     </Button>
                   </Form.Item>
 
@@ -123,29 +139,35 @@ const ForgotPassword = () => {
                   {data?.UserForgotPassword && (
                     <Alert
                       className=""
-                      message={
-                        "Your password reset link has been sent on your email please check!"
-                      }
+                      // message={
+                      //   "Your password reset link has been sent on your email please check!"
+                      // }
+                      message={t(
+                        "your_password_reset_link_has_been_sent_on_your_email_please_check"
+                      )}
                       type="success"
                     />
                   )}
                 </Form>
               </div>
               <Form.Item>
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-center pt-16">
                   <span className="ml-2">
                     <Link href="/login">
                       <div className="inline-flex items-center">
                         <div className="mb-0 mr-3 inline-flex items-center">
                           <Image
+                            priority={true}
                             alt=""
                             className="left-arrow-icon mx-auto"
                             height={16}
                             width={16}
                             src="/assets/icon/arrow-left.svg"
+                            // loading="eager"
                           />
                           <span className="cursor-pointer text-primary ml-3">
-                            Back to log in
+                            {/* {t("back_to_log_in")} */}
+                            Atrás
                           </span>
                         </div>
                       </div>

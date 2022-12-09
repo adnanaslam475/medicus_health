@@ -1,0 +1,142 @@
+import React, { useRef, useState, useEffect } from "react";
+import CalendarView from "../../../common/components/CalendarView/CalendarView";
+import AppLayout from "../../../../common/components/AppLayout/AppLayout";
+import {
+  Appointment,
+  usePhysicianAppointmentsHistoryQuery,
+} from "generated/graphql";
+import CalendarModalComponent from "../../../common/components/CalendarModal";
+import FullCalendar from "@fullcalendar/react";
+import Router from "next/router";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
+import dayjs from "dayjs";
+
+type events = {
+  calenderEvents: Appointment | undefined | any;
+};
+function AdminAppointmentsCalendar() {
+  const calendarComponentRef = useRef<FullCalendar>();
+  const [calender, setCalender] = useState<events>({
+    calenderEvents: [],
+  });
+  const [modalData, setModalData] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
+  const [{ data }] = usePhysicianAppointmentsHistoryQuery({
+    variables: {
+      filter: {},
+      pagination: { limit: -1, page: 1 },
+    },
+  });
+
+  const redirectToListing = function () {
+    Router.push("/admin/appointments");
+  };
+  const { appointments } = data || {};
+
+  const handleDateClick = (arg: any) => {
+    const data = arg?.event?.toJSON();
+    setModalData({
+      id: data?.id,
+      patient: data?.extendedProps?.patient,
+      doctor: data?.extendedProps?.doctor,
+      serviceType: data?.extendedProps?.serviceType,
+      dateValue: data?.createdAt,
+      className: data?.extendedProps?.extraData?.class_name,
+      startDate: data?.extendedProps?.appointmentDateTime?.startTime,
+      endDate: data?.extendedProps?.appointmentDateTime?.endTime,
+      status: data?.status,
+      charges: data?.extendedProps?.total || data?.extendedProps?.charges,
+      appointmentTimeSlots: data?.extendedProps?.appointmentTimeSlots,
+      type: "Assignment",
+    });
+
+    setModalVisible(true);
+  };
+  const timeZone = getCurrentUserTimeZone();
+
+  const closeModal = () => {
+    setModalVisible(!modalVisible);
+  };
+  const setCalendarData = () => {
+    setCalender({
+      ...calender,
+      calenderEvents: appointments?.items?.map(
+        ({
+          id,
+          patient,
+          requestedDate,
+          doctor,
+          serviceType,
+          charges,
+          status,
+          appointmentDateTime,
+          appointmentTimeSlots,
+        }) => {
+          const startTime = appointmentDateTime?.endTime;
+          const endTime = appointmentDateTime?.endTime;
+
+          return {
+            id: id,
+            title: doctor?.first_name,
+            mobileName: doctor?.first_name,
+            start: startTime,
+            end: endTime,
+            patient: patient?.first_name + " " + patient?.last_name,
+            serviceType: serviceType?.name,
+            total: charges,
+            status: status,
+            doctor: doctor,
+            appointmentDateTime: appointmentDateTime,
+            appointmentTimeSlots:appointmentTimeSlots
+          };
+        }
+      ),
+    });
+  };
+  useEffect(() => {
+    setCalendarData();
+  }, [appointments]);
+
+  const handleDateChange = (arg: string) => {
+    setCalender({
+      ...calender,
+    });
+    const calenderApi: any =
+      calendarComponentRef.current?.getApi()?.currentDataManager;
+    switch (arg) {
+      case "next":
+        calenderApi?.data.calendarApi.next();
+        break;
+      case "prev":
+        calenderApi?.data.calendarApi.prev();
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <AppLayout>
+      <div className="w-full">
+        <div className="">
+          <CalendarView
+            calender={calender}
+            handleDateChange={handleDateChange}
+            calendarComponentRef={calendarComponentRef}
+            handleDateClick={handleDateClick}
+            redirectToListing={redirectToListing}
+            enableButton={true}
+          />
+        </div>
+        {!!modalVisible && <CalendarModalComponent
+          modalVisible={modalVisible}
+          closeModal={closeModal}
+          data={modalData}
+          okText="Edit"
+        />}
+      </div>
+    </AppLayout>
+  );
+}
+
+export default AdminAppointmentsCalendar;

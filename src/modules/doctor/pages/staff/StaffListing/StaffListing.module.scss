@@ -1,0 +1,15 @@
+.clr-black {
+  color: black !important;
+}
+
+.staff-Modal {
+  :global .ant-modal-content {
+    .ant-modal-body {
+      form.ant-form {
+        .account-creation-date {
+          display: none;
+        }
+      }
+    }
+  }
+}

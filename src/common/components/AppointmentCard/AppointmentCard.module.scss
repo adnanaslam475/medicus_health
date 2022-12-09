@@ -1,15 +1,67 @@
 .appointment-card {
-    background-color: #f6f8fa;
-    .card-btn {
-        font-size: 14px !important;
-        padding: 0px 10px !important;
-        height: 35px !important;
-        line-height: 35px !important;
-    
+  font-family: Circular Std;
+  background-color: #f6f8fa;
+  border: none !important;
+  max-width: 352px !important;
+  @media screen and (min-width: 769px) and (max-width: 1199px) {
+    max-width: 332px !important;
+  }
+  .card-btn {
+    font-size: 14px !important;
+    padding: 0px 10px !important;
+    height: 35px !important;
+    line-height: 35px !important;
+    @media screen and (min-width: 769px) and (max-width: 1199px) {
+      margin: 0px auto 10px 0;
+      width: 95%;
     }
-    // .btn-transparent{
-    //     background-color: transparent !important;
-    // }   
+
+    @media screen and (max-width: 768px) {
+      margin-top: 10px;
+    }
+  }
+  // .btn-transparent{
+  //     background-color: transparent !important;
+  // }
+  :global .ant-card-body {
+    min-width: 352px !important;
+    @media screen and (min-width: 768px) and (max-width: 1199px) {
+      min-width: 350px !important;
+    }
+
+    & div:last-child {
+      @media screen and (min-width: 768px) and (max-width: 1199px) {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      & button {
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          display: block;
+          width: 95%;
+        }
+      }
+
+      & button:last-child {
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          margin-left: 0;
+          // margin-top: 10px;
+        }
+      }
+    }
+
+    // & button:nth-last-child(2) {
+    //   @media screen and (min-width: 768px) and (max-width: 1199px) {
+    //     margin: 10px 0;
+    //     margin-left: 0;
+    //   }
+    // }
+  }
+
+  .appointments-btn-message {
+    font-size: 14px !important;
+    padding: 0 4px !important;
+    font-weight: 600 !important;
+    // height: 38px !important;
+  }
 }
-
-

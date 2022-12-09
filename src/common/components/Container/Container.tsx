@@ -30,8 +30,8 @@ function Container({ children, style, fluid, className }: Props) {
     ? {
         position: "relative",
         padding: "1rem 1rem",
-        maxWidth: "1400px",
-        margin: "0 auto",
+        // maxWidth: "1400px", its global change width of the layput
+        margin: "0 0",
       }
     : {
         margin: "0 auto",

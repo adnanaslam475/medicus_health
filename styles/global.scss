@@ -6,9 +6,41 @@
 
 // for default button
 button.ant-btn {
+  font-family: Circular Std;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0px;
+  // word-spacing: -4px;
+}
+
+.antCustomBtn {
+  word-spacing: -4px !important;
+}
+
+button.ant-btn.ant-btn-link {
+  font-family: Circular Std;
+  word-spacing: 0px !important;
+
+  @media not all and (min-resolution: 0.001dpcm) {
+    word-spacing: 0px;
+
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px;
+    }
+  }
+}
+
+@supports (-moz-appearance: none) {
+  button.ant-btn {
+    word-spacing: 0px;
+  }
+}
+
+// for all modal headers
+.ant-modal-header {
+  padding: 16px 24px 0px 24px !important;
+  border-bottom: none !important;
 }
 
 // for all tags
@@ -55,7 +87,9 @@ button.ant-btn {
 }
 
 .ant-form-item-label
-  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
   display: none !important;
 }
 
@@ -89,37 +123,45 @@ label.ant-radio-wrapper {
 
 // CSS FOR ANT MODAL
 
-.ant-modal {
-  .ant-modal-content {
-    .ant-modal-body {
-      button.ant-btn {
-        line-height: 1;
-        position: relative;
-        display: inline-block;
-        font-weight: 400;
-        /* white-space: nowrap; */
-        text-align: center;
-        background-image: none;
-        // border: 1px solid transparent;
-        // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
-        // cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        touch-action: manipulation;
-        height: 2.2rem;
-        padding: 0 1.5rem;
-        font-size: 14px;
-        border-radius: 0.4rem;
-        color: #1a82fe;
-        border-color: #1a82fe;
-        background: #fff;
-      }
-    }
-  }
-}
+// .ant-modal {
+//   .ant-modal-header {
+//     .ant-modal-title {
+//       font-family: "Circular Std";
+//       font-weight: medium;
+//     }
+//   }
+//   .ant-modal-content {
+//     border-radius: 13px;
+//     .ant-modal-body {
+//       padding: 30px 45px;
+//       button.ant-btn {
+//         line-height: 1;
+//         position: relative;
+//         display: inline-block;
+//         font-weight: 400;
+//         /* white-space: nowrap; */
+//         text-align: center;
+//         background-image: none;
+//         // border: 1px solid transparent;
+//         // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+//         // cursor: pointer;
+//         transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+//         -webkit-user-select: none;
+//         -moz-user-select: none;
+//         -ms-user-select: none;
+//         user-select: none;
+//         touch-action: manipulation;
+//         height: 2.2rem;
+//         padding: 0 1.5rem;
+//         font-size: 14px;
+//         border-radius: 0.4rem;
+//         color: #1a82fe;
+//         border-color: #1a82fe;
+//         background: #fff;
+//       }
+//     }
+//   }
+// }
 
 .profile-tabs {
   .ant-tabs {
@@ -127,6 +169,7 @@ label.ant-radio-wrapper {
       &:before {
         border-bottom: 0px !important;
       }
+
       .ant-tabs-nav-wrap {
         .ant-tabs-nav-list {
           .ant-tabs-tab {
@@ -134,16 +177,27 @@ label.ant-radio-wrapper {
             background-color: transparent;
             border: 0;
             border-bottom: 1px solid #f0f0f0 !important;
+
             &:hover {
               background-color: #ebf1ff;
               color: #000;
               border-bottom-left-radius: 5px;
               border-bottom-right-radius: 5px;
+
+              svg.tabs-icon-hover {
+                g {
+                  path {
+                    fill: #000 !important;
+                  }
+                }
+              }
             }
+
             .ant-tabs-tab-btn {
               font-size: 14px !important;
             }
           }
+
           .ant-tabs-tab-active {
             background-color: #1a82fe;
             border-bottom-left-radius: 5px;
@@ -166,16 +220,12 @@ label.ant-radio-wrapper {
   }
 }
 
-// .ant-modal-footer button {
-//   display: inline-block;
-// }
-
 @layer base {
   body {
     font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   h1,
@@ -188,8 +238,12 @@ label.ant-radio-wrapper {
       Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
       "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       "Noto Color Emoji";
-    word-spacing: -5px;
     margin-bottom: 0px;
+    word-spacing: -5px;
+  }
+
+  h1 {
+    word-spacing: -10px !important;
   }
 
   h1 {
@@ -197,30 +251,35 @@ label.ant-radio-wrapper {
     font-size: 1.875rem !important;
     // font-size: 30px !important;
   }
+
   h2 {
     font-weight: bold;
     font-size: 1.5rem !important;
     // font-size: 24px !important;
   }
+
   h3 {
     font-weight: bold;
     font-size: 1.375rem !important;
     // font-size: 22px !important;
   }
+
   h4 {
     font-weight: bold;
     font-size: 1.25rem !important;
     // font-size: 20px !important;
   }
+
   h5 {
     font-weight: medium;
     font-size: 1rem !important;
     // font-size: 16px !important;
   }
+
   h6 {
     font-weight: book;
-    font-size: 1rem !important;
-    // font-size: 16px !important;
+    // font-size: 1rem !important;
+    font-size: 16px !important;
   }
 }
 
@@ -232,6 +291,7 @@ label.ant-radio-wrapper {
   display: flex;
   flex-flow: column;
   flex-direction: column;
+
   label {
     color: #9295af !important;
   }
@@ -241,6 +301,7 @@ label.ant-radio-wrapper {
   max-width: 300px;
   max-height: 300px;
   overflow: auto;
+
   span.notificationBody {
     display: flex;
     flex-flow: column;
@@ -263,15 +324,11 @@ label.ant-radio-wrapper {
   word-spacing: 1.5px;
   letter-spacing: 0.4px;
 }
+
 .font-circular {
   font-family: "Circular Std", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-}
-
-.ant-checkbox-checked .ant-checkbox-inner {
-  border-color: #429eff !important;
-  background-color: #429eff !important;
 }
 
 .ant-tabs
@@ -288,29 +345,38 @@ label.ant-radio-wrapper {
 }
 
 // Faizan CSS
-.ant-table-wrapper {
-  .ant-table-content {
-    table {
-      .ant-table-thead {
-        tr > {
-          th {
-            // white-space: nowrap;
+.custom-table-ui {
+  .ant-table-wrapper {
+    .ant-table-content {
+      table {
+        .ant-table-thead {
+          tr > {
+            th {
+              background-color: #f6f8fa;
+              // white-space: nowrap;
+            }
           }
         }
-      }
-      .ant-table-tbody {
-        .ant-table-cell {
-          &.table-action-icon {
-            span {
-              background: #f5f5f5;
-              border-radius: 50px;
-              color: #fff;
-              font-size: 14px;
-              width: 25px;
-              height: 25px;
-              line-height: 25px;
-              svg {
-                color: #1a82fe;
+
+        .ant-table-tbody {
+          .ant-table-cell {
+            &.ant-table-cell-row-hover {
+              background-color: #f6f8fa;
+            }
+
+            &.table-action-icon {
+              span {
+                background: #f5f5f5;
+                border-radius: 50px;
+                color: #fff;
+                font-size: 14px;
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+
+                svg {
+                  color: #1a82fe;
+                }
               }
             }
           }
@@ -319,41 +385,296 @@ label.ant-radio-wrapper {
     }
   }
 }
+
 .ant-form-item-control-input {
   .ant-form-item-control-input-content {
     .ant-checkbox-group {
       .ant-checkbox-wrapper {
         &.ant-checkbox-group-item {
-          color: #9295AF;
+          color: #9295af;
           width: 100%;
         }
       }
     }
   }
 }
-.btn-transparent{
+
+.btn-transparent {
   background-color: transparent !important;
 }
-.page-filters {
-  .ant-btn {
-    padding: 0px !important;
-    &:hover {
-      color: rgba(0, 0, 0, 0.85);
-      background-color: transparent;
-      span {
-        color: rgba(0, 0, 0, 0.85);
-      }
-    }
-    &:focus {
-      background-color: transparent;
-    }
-  }
-}
+
 .ant-btn {
   padding: 0 20px !important;
 }
+
 .ant-card {
   .ant-card-body {
     padding: 20px;
+  }
+}
+
+.ant-tooltip {
+  .ant-tooltip-content {
+    .ant-tooltip-inner {
+      color: #272b4c !important;
+      text-transform: inherit;
+      box-shadow: 0 3px 4px -4px rgb(0 0 0 / 8%), 0 6px 10px 0 rgb(0 0 0 / 6%),
+        0 9px 15px 6px rgb(0 0 0 / 4%) !important;
+      background-color: #fff !important;
+
+      & a {
+        text-transform: inherit;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.ant-picker-range-separator {
+  margin-right: 30px !important;
+}
+
+.primary-checkbox {
+  .ant-checkbox.ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background-color: #1d80fa;
+      border-color: #1d80fa;
+    }
+  }
+}
+
+.published-button {
+  height: 34px;
+  background: #e2f8f7 !important;
+  border-color: #e2f8f7 !important;
+  color: #30cec2 !important;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(
+    .ant-select-customize-input
+  ) {
+  .ant-select-selector {
+    border-color: #9295af !important;
+    box-shadow: 0 0 0 0 rgba(26, 130, 254, 0.2) !important;
+    border-right-width: 1px;
+    outline: 0;
+  }
+}
+
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: none !important;
+  box-shadow: none !important;
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: #9295af !important;
+}
+
+.tab-active-style {
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #1d84fe !important;
+  }
+}
+
+.profile-avatar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.resendClass {
+  & a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
+
+// to remove up and down arrow on input type button
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+.ant-menu-inline.ant-menu-root
+  .ant-menu-submenu-title
+  > .ant-menu-title-content {
+  word-spacing: -6px !important;
+
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px !important;
+    }
+  }
+}
+
+.link_button {
+  word-spacing: -3px;
+
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px !important;
+    }
+  }
+}
+
+.ant-modal-wrap
+  .ant-modal
+  .ant-modal-content
+  .ant-modal-footer
+  button.ant-btn.ant-btn-primary
+  span {
+  text-transform: lowercase;
+}
+
+.ant-modal-wrap
+  .ant-modal
+  .ant-modal-content
+  .ant-modal-footer
+  button.ant-btn.ant-btn-primary
+  span:first-letter {
+  text-transform: uppercase;
+}
+
+.improved-word-spacing {
+  word-spacing: -5px !important;
+
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+      word-spacing: 0px !important;
+    }
+  }
+}
+
+.ant-modal-confirm-warning .ant-modal-confirm-body > .anticon,
+.ant-modal-confirm-confirm
+  .ant-modal-confirm-body
+  > .anticon
+  + span.ant-modal-confirm-title {
+  font-weight: 400;
+  color: gray;
+  line-height: 1.3;
+}
+
+.terms-n-conditions,
+.terms-n-conditions span {
+  padding: 0 3px !important;
+  // word-spacing: -5px !important;
+  font-weight: 400 !important;
+  font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@media screen and (max-width: 586px) {
+  .ant-picker-panel-container .ant-picker-panels {
+    flex-direction: column !important;
+  }
+}
+
+.ant-select-item-option-content {
+  white-space: inherit !important;
+}
+
+.ant-pagination,
+.ant-table-pagination,
+.ant-table-pagination-right {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-right: 8px !important;
+}
+
+.ant-table-footer {
+  align-items: center !important;
+  display: flex !important;
+  height: 80px;
+}
+
+@media screen and (max-width: 1065px) {
+  .ant-table-footer {
+    justify-content: center !important;
+  }
+
+  .ant-pagination,
+  .ant-table-pagination,
+  .ant-table-pagination-right {
+    position: relative !important;
+  }
+}
+
+.ant-modal {
+  .ant-modal-content {
+    .ant-modal-body {
+      p {
+        max-width: 97% !important;
+      }
+    }
+  }
+}
+
+.font-xs {
+  font-size: 8px !important;
+}
+
+.admin-filter {
+  color: #9295af !important;
+}
+
+body.ant-scrolling-effect {
+  width: calc(100% - 0px);
+}
+
+@media screen and (min-width: 992px) and (max-width: 1099px) {
+  .profile-tabs .lg\:w-3\/6 {
+    width: 100%;
+  }
+}
+
+.table-with-fixed-header {
+  margin: 0;
+}
+
+.joinNowBtn {
+  word-spacing: normal;
+}
+
+.ant-table-wrapper {
+  ul.ant-pagination.ant-table-pagination {
+    li.ant-pagination-options {
+      display: block;
+    }
+  }
+}
+
+/* ----------- Retina Screens Safari Specific CSS ----------- */
+@media screen and (min-device-width: 360px) and (max-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+  .improved-word-spacing {
+    word-spacing: 0px !important;
+  }
+  .antCustomBtn {
+    word-spacing: 0px !important;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    word-spacing: 0px !important;
   }
 }

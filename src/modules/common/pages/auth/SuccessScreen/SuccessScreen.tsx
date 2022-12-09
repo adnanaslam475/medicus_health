@@ -5,8 +5,11 @@ import Container from "../../../../../common/components/Container/Container";
 import Image from "next/image";
 
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+import { isChrome } from "utils/helper";
 
 const SuccessScreen = () => {
+  const t = useTranslations("SuccessScreen");
   const onFinish = async (values: object) => {
     console.log("Success:", values);
   };
@@ -16,8 +19,6 @@ const SuccessScreen = () => {
   };
 
   const { query } = useRouter();
-  console.log(query, "query");
-
   return (
     <Container className="login-bg w-full">
       <div className="flex items-center justify-center min-h-screen w-h-100 py-16">
@@ -25,31 +26,46 @@ const SuccessScreen = () => {
           <div className="card p-4 shadow-lg drop-shadow-2xl rounded-lg bg-white pt-24 pb-12 px-6">
             <div className="flex flex-col justify-center mb-6">
               <Image
+                priority={true}
+                unoptimized={true}
                 alt=""
                 className="mx-auto"
                 height={34}
                 width={216}
                 src="/assets/images/logo-medi.svg"
+                // loading="eager"
               />
               <div className="flex justify-center mt-10">
                 <Image
+                  priority={true}
                   alt=""
                   className="success-icon mx-auto mt-10"
                   height={84}
                   width={84}
                   src="/assets/icon/success-big.svg"
+                  // loading="eager"
                 />
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              Success! Your account has been created.
+              {/* {t("success_your_account_has_been_created")} */}
+              ¡Su cuenta ha sido creada exitosamente!
             </h2>
-            <p className="text-gray text-center text-xs px-7">
-              We have sent you an email on
-              <span className="text-secondary">{` ${query?.email} `}</span>
-              Please click on the verification link and your account will be
-              verified.
+            <p className="text-base text-gray text-center px-7">
+              {/* {t("we_have_sent_you_an_email_on")} */}
+              Le hemos enviado un correo electrónico a
+              <span className="text-secondary">{` ${query?.email}`}. </span>
+              {/* {t("verify_your_account_by_click")} */}
+              Haga clic en el enlace de verificación para finalizar el registro
+              de su cuenta.
             </p>
+            <p className="text-red-2 text-base text-center px-7">
+              Si no ve el correo electrónico en unos minutos, revise su carpeta
+              de &quot;junk mail&quot; o carpeta de &quot;spam&quot;. Si no
+              recibe una confirmación, envíenos un correo electrónico a
+              support@medicusdigitalclinic.com.
+            </p>
+
             <div className="mt-5">
               <Form
                 layout="vertical"
@@ -62,11 +78,14 @@ const SuccessScreen = () => {
                 <Form.Item>
                   <div className="text-center flex justify-center">
                     <Button
-                      className="ant-btn ant-btn-secondary ant-btn nb-button"
+                      className={`ant-btn ant-btn-secondary ant-btn nb-button ${isChrome && 'antCustomBtn'}`}
                       type="primary"
                       htmlType="submit"
                     >
-                      <Link href="/login">Login</Link>
+                      <Link href="/login">
+                        {t("login")}
+                        {/* Login */}
+                      </Link>
                     </Button>
                   </div>
                 </Form.Item>
