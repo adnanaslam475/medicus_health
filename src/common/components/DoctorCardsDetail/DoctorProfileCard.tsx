@@ -305,7 +305,9 @@ function DoctorProfileCard(props: Props) {
           {/* Conditions treated */}
         </h4>
         <h6 className="text-secondary">
-          {doctorData?.condition_treated?.replaceAll?.(",", " // ")?.slice(4)}
+          {doctorData?.condition_treated?.includes(",")
+            ? doctorData?.condition_treated?.replaceAll?.(",", " // ")?.slice(4)
+            : doctorData?.condition_treated}
         </h6>
         <Divider />
 

@@ -184,7 +184,9 @@ function DoctorCard({
                 </span>
               </h6>
               <h6 className="font-normal font-rubik">
-                {conditionTreated.slice(4)}
+                {conditionTreated.includes(" // ")
+                  ? conditionTreated?.slice(4)
+                  : conditionTreated}
               </h6>
             </div>
           </div>
