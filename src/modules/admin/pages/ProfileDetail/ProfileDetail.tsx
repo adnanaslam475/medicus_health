@@ -255,7 +255,7 @@ function ProfileDetail() {
               tab={
                 <span className="flex items-center">
                   <ScheduleOutlined style={{ fontSize: "20px" }} />
-                  Schedules
+                  Availability
                 </span>
               }
               key="6"
