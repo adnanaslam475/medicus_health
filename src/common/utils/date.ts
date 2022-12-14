@@ -103,7 +103,7 @@ export function time24HrConvert(time: any) {
 export function time12HrConvert(time: any) {
   return dayjs(`${dayjs().format("MM/DD/YYYY")} ${time}`).format("H:mm");
 }
-
+// pointer
 export function UTCPrettierTime(time: any, date?: any) {
   const timeZone =
     typeof window !== "undefined" &&
@@ -116,8 +116,8 @@ export function UTCPrettierTime(time: any, date?: any) {
   const [hours, minute] = convertedTime.split(":");
   const formatedTime = dayjs
     .tz(date ? dayjs(date) : dayjs(), timeZone)
-    .set("hours", +hours)
-    .set("minute", +minute)
+    // .set("hours", +hours)
+    // .set("minute", +minute)
     .toISOString();
 
   return date ? formatedTime : formatedTime?.split("T")[1]?.slice(0, 5);

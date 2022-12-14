@@ -732,7 +732,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [{ fetching }, executeProposeTimeSlotMutation] =
     useProposeNewTimeMutation();
-
+  // pointer
   async function onProposeNewTimeSlot() {
     const serviceTypeSelected =
       formInstance.getFieldValue("service") || serviceType?.id;
