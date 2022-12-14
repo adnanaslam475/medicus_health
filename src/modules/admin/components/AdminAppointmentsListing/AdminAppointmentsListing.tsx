@@ -23,7 +23,8 @@ import BookAppointmentJourney from "common/components/BookAppointmentJourney/Boo
 import { StatusName } from "common/types/types";
 import { isChrome, tableFooter } from "utils/helper";
 import _classes from "./AdminAppointmentsListing.module.scss"
-import { currencyFormatter } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
+const timeZone = getCurrentUserTimeZone()
 
 const appointmentColumns = [
   {
@@ -116,10 +117,10 @@ const appointmentColumns = [
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = date.formathhmma(
-        String(appointmentDateTime?.startTime)
+        String(appointmentDateTime?.startTime),timeZone
       );
       let formatedEndTime = date.formathhmma(
-        String(appointmentDateTime?.endTime)
+        String(appointmentDateTime?.endTime),timeZone
       );
       return (
         <div>
