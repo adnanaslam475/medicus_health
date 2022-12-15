@@ -1,7 +1,7 @@
 import React from "react";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
-import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
+import { formatMMMM_Dcoma_YYYY, getCurrentUserTimeZone } from "common/utils/date";
 import { date } from "common/utils";
 import { Appointment } from "generated/graphql";
 import { Spin } from "antd";
@@ -23,6 +23,8 @@ type DoctorData = {
 };
 
 function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
+  const timeZone = getCurrentUserTimeZone();
+
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected
   );
@@ -37,9 +39,9 @@ function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
     dueDate: formatMMMM_Dcoma_YYYY(String(appointment?.appointmentDateTime?.startTime)),
     time: `${appointment?.appointmentDateTime?.startTime
         ? `${date?.formathhmma(
-          appointment?.appointmentDateTime?.startTime
+          appointment?.appointmentDateTime?.startTime,timeZone
         )} - ${date?.formathhmma(
-          appointment?.appointmentDateTime?.startTime
+          appointment?.appointmentDateTime?.startTime,timeZone
         )}`
         : "--"
       }`,
