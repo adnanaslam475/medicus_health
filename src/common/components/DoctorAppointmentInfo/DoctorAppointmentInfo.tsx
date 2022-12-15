@@ -40,6 +40,7 @@ import {
   getCurrentUserTimeZone,
   getDayJsObject,
   isAppointmentTimeValid,
+  UTCPrettierDateTime,
   UTCPrettierTime,
 } from "common/utils/date";
 import { date } from "common/utils";
@@ -732,10 +733,15 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
 
   const [{ fetching }, executeProposeTimeSlotMutation] =
     useProposeNewTimeMutation();
-  // pointer
   async function onProposeNewTimeSlot() {
     const serviceTypeSelected =
       formInstance.getFieldValue("service") || serviceType?.id;
+      console.log('slots.map((timeSlot) => ', slots.map((timeSlot) => {
+            return {
+              startTime: UTCPrettierDateTime(timeSlot.startDate),
+              endTime: UTCPrettierDateTime(timeSlot.endDate)
+            };
+          }))
     try {
       const { error } = await executeProposeTimeSlotMutation({
         proposeNewTimeInput: {
@@ -745,17 +751,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
             ? (charges as number)
             : (serviceInfo?.price as number),
           proposedTimeSlots: slots.map((timeSlot) => {
-            const [startDate, ...startTime] = timeSlot.startDate.split(" ");
-            const [endDate, ...endTime] = timeSlot.endDate.split(" ");
             return {
-              startTime: UTCPrettierTime(
-                startTime.join(" "),
-                dayjs(startDate, "MM-DD-YYYY")
-              ),
-              endTime: UTCPrettierTime(
-                endTime.join(" "),
-                dayjs(endDate, "MM-DD-YYYY")
-              ),
+              startTime: UTCPrettierDateTime(timeSlot.startDate),
+              endTime: UTCPrettierDateTime(timeSlot.endDate)
             };
           }) as any,
         },
