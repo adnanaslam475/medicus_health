@@ -736,7 +736,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   async function onProposeNewTimeSlot() {
     const serviceTypeSelected =
       formInstance.getFieldValue("service") || serviceType?.id;
-         try {
+    try {
       const { error } = await executeProposeTimeSlotMutation({
         proposeNewTimeInput: {
           id: id as number,
@@ -747,7 +747,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
           proposedTimeSlots: slots.map((timeSlot) => {
             return {
               startTime: UTCPrettierDateTime(timeSlot.startDate),
-              endTime: UTCPrettierDateTime(timeSlot.endDate)
+              endTime: UTCPrettierDateTime(timeSlot.endDate),
             };
           }) as any,
         },
