@@ -131,9 +131,7 @@ export function UTCPrettierDateTime(date: any) {
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
       : "America/New_York";
 
-    const formatedTime = dayjs(date)
-      .tz(timeZone, true)
-      .toISOString();
+  const formatedTime = dayjs(date).tz(timeZone, true).toISOString();
 
   return date ? formatedTime : formatedTime?.split("T")[1]?.slice(0, 5);
 }
