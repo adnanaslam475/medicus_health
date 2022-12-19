@@ -24,7 +24,6 @@ type DoctorData = {
 
 function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
   const timeZone = getCurrentUserTimeZone();
-
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected
   );
@@ -37,11 +36,11 @@ function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
     dueDate: formatMMMM_Dcoma_YYYY(String(appointment?.appointmentDateTime?.startTime)),
-    time: `${appointment?.appointmentDateTime?.startTime
+    time: `${String(appointment?.appointmentDateTime?.startTime)
         ? `${date?.formathhmma(
-          appointment?.appointmentDateTime?.startTime,timeZone
+          String(appointment?.appointmentDateTime?.startTime),timeZone
         )} - ${date?.formathhmma(
-          appointment?.appointmentDateTime?.startTime,timeZone
+          String(appointment?.appointmentDateTime?.endTime),timeZone
         )}`
         : "--"
       }`,
