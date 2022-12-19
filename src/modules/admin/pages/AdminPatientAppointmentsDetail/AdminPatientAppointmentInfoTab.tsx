@@ -24,7 +24,6 @@ type DoctorData = {
 
 function AdminPatientAppointmentInfoTab({ appointment, loading }: Props) {
   const timeZone = getCurrentUserTimeZone();
-console.log('appointment :>> ', appointment);
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
     (item) => item.selected
   );
