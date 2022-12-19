@@ -230,7 +230,6 @@ function AppointmentInfo(props: Props) {
                 ? "Appointment date"
                 : "Requested date"
             }
-            // pointer
             value={
               (appointment?.appointmentDateTime?.startTime &&
                 status === "Completed") ||

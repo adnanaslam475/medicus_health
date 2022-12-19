@@ -519,7 +519,7 @@ function EditProfile({
                 <div className=" grid grid-cols-2 gap-3">
                   <div className="lg:ml-0 mt-0 sm:mt-0 pt-2">
                     <Tooltip
-                      title={doctorData ? "" : "Please complete doctor profile"}
+                      title={doctorData ? "" : "Please complete physician profile"}
                     >
                       <Button
                         type="primary"

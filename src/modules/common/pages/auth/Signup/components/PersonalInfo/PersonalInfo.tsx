@@ -247,7 +247,7 @@ export default function PersonalInfo({ onFinish }: props) {
           {
             required: true,
             // message: t("email_address_message"),
-            message: "Por favor, introduzca su Correo electrónico",
+            message: "Por favor, introduzca su correo electrónico",
           },
           {
             type: "email",

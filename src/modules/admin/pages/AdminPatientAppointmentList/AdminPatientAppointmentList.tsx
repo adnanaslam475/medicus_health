@@ -20,7 +20,7 @@ import AdminPatientAppointmentSearchFilters from "./AdminPatientAppointmentSearc
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { date } from "common/utils";
 import { tableFooter } from "utils/helper";
-import { currencyFormatter } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 
 type StatusName =
   | "UPCOMING"
@@ -31,6 +31,7 @@ type StatusName =
   | "REQUESTED"
   | "PROPOSED"
   | "CANCELED";
+  const timeZone = getCurrentUserTimeZone();
 
 const columns = [
   {
@@ -65,10 +66,10 @@ const columns = [
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = date.formathhmma(
-        String(appointmentDateTime?.startTime)
+        String(appointmentDateTime?.startTime),timeZone
       );
       let formatedEndTime = date.formathhmma(
-        String(appointmentDateTime?.endTime)
+        String(appointmentDateTime?.endTime),timeZone
       );
       return (
         <div>

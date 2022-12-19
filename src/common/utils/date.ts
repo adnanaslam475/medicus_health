@@ -123,6 +123,17 @@ export function UTCPrettierTime(time: any, date?: any) {
   return date ? formatedTime : formatedTime?.split("T")[1]?.slice(0, 5);
 }
 
+export function UTCPrettierDateTime(date: any) {
+  const timeZone =
+    typeof window !== "undefined" &&
+    localStorage?.getItem("timeZone") !== "undefined" &&
+    localStorage?.getItem("timeZone")
+      ? JSON.parse(String(localStorage?.getItem("timeZone")))
+      : "America/New_York";
+  const formatedTime = dayjs(date,"MM-DD-YYYY HH:mm A").tz(timeZone, true).toISOString();
+
+  return date ? formatedTime : formatedTime?.split("T")[1]?.slice(0, 5);
+}
 // to get day name from date day
 export function dayName(date: number) {
   return dayjs().day(date).format("dddd");

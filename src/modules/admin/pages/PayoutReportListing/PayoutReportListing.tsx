@@ -151,6 +151,18 @@ function PayoutReportListing() {
       sorter: true,
     },
     {
+      title: "Total sales ($)",
+      dataIndex: "transaction",
+      key: "amountReceived",
+      render: (transaction: Transaction) => {
+        return (
+          <div>
+            {addDecimaltoAmount(transaction.amountReceived as any) || "0"}
+          </div>
+        );
+      },
+    },
+    {
       title: "Net medicus fee($)",
       dataIndex: "transaction",
       key: "medicus_percentage",
@@ -172,18 +184,7 @@ function PayoutReportListing() {
         );
       },
     },
-    {
-      title: "Total sales ($)",
-      dataIndex: "transaction",
-      key: "amountReceived",
-      render: (transaction: Transaction) => {
-        return (
-          <div>
-            {addDecimaltoAmount(transaction.amountReceived as any) || "0"}
-          </div>
-        );
-      },
-    },
+    
   ];
 
   const [{ data, fetching }] = useDoctorPayoutsByAdminQuery();

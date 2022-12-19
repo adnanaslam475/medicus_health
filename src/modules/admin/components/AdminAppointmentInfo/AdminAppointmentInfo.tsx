@@ -26,7 +26,11 @@ import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationM
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import RescheduleAppointmentModal from "common/components/RescheduleAppointment/RescheduleAppointment";
-import { currencyFormatter, isAppointmentTimeValid } from "common/utils/date";
+import {
+  currencyFormatter,
+  getCurrentUserTimeZone,
+  isAppointmentTimeValid,
+} from "common/utils/date";
 import Image from "next/image";
 import { getRole } from "common/utils/userData";
 import Input from "antd/lib/input/Input";
@@ -118,6 +122,8 @@ function AdminAppointmentInfo({
       console.error(error);
     }
   }
+
+  const timeZone = getCurrentUserTimeZone();
 
   // MUTATION FOR DELETE APPOINTMENT
 
@@ -379,19 +385,24 @@ function AdminAppointmentInfo({
           )}
 
           {appointmentTypeProposed &&
-            appointmentTypeProposed?.dateTime?.length > 0 &&
+            appointmentTypeProposed?.dateTime?.length != 0 &&
             status !== "Confirmed" && (
               <LabelWithText
                 label={"Appointment(s) proposed"}
                 text={
-                  appointmentTypeProposed.dateTime.map(
+                  appointmentTypeProposed?.dateTime.map(
                     (item: DateTimeSlots) => {
                       return (
-                        <div>{`${date.formatDAYMMDDYY(
-                          String(item?.date)
+                        <li>{`${date.formatDAYMMDDYY(
+                          String(item?.date),
+                          timeZone
                         )} - ${date.formathhmma(
-                          String(item?.startTime)
-                        )} - ${date.formathhmma(String(item?.endTime))}`}</div>
+                          String(item?.startTime),
+                          timeZone
+                        )} - ${date.formathhmma(
+                          String(item?.endTime),
+                          timeZone
+                        )}`}</li>
                       );
                     }
                   ) as any
