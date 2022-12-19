@@ -23,6 +23,7 @@ import {
   currencyFormatter,
   getCurrentUserTimeZone,
   getDayJsObject,
+  UTCPrettierDateTime,
   UTCPrettierTime,
 } from "common/utils/date";
 import { date, userData } from "common/utils";
@@ -81,7 +82,10 @@ function RescheduleAppointmentModal(props: Props) {
     setServiceInfo(serviceType as AppointmentServiceType);
   }
 
-  const parentRoute = userData.getRole() === "Admin" ? "/admin/appointments/" : "/physician/appointments/upcoming"
+  const parentRoute =
+    userData.getRole() === "Admin"
+      ? "/admin/appointments/"
+      : "/physician/appointments/upcoming";
   const onChangeDatePicker = (dateString: string, name: string): void => {
     let formatedDate = moment(dateString, "MM-DD-YYYY hh:mm A")
       .add(30, "minutes")
@@ -100,17 +104,9 @@ function RescheduleAppointmentModal(props: Props) {
       suggestNewTime: {
         id: Number(data?.id),
         proposedTimeSlots: slots.map((timeSlot) => {
-          const [startDate, ...startTime] = timeSlot.startTime.split(" ");
-          const [endDate, ...endTime] = timeSlot.endTime.split(" ");
           return {
-            startTime: UTCPrettierTime(
-              startTime.join(" "),
-              dayjs(startDate, "MM-DD-YYYY")
-            ),
-            endTime: UTCPrettierTime(
-              endTime.join(" "),
-              dayjs(endDate, "MM-DD-YYYY")
-            ),
+            startTime: UTCPrettierDateTime(timeSlot.startTime),
+            endTime: UTCPrettierDateTime(timeSlot.endTime),
           };
         }) as any,
       },
@@ -205,7 +201,11 @@ function RescheduleAppointmentModal(props: Props) {
             <div className="w-1/6 ml-4">
               <Form.Item label="Charges" name="charges">
                 <div className="text-primary bg-gray-6 rounded flex items-center	justify-center h-12 w-full">
-                  {appointmentTypeProposed?.price ? currencyFormatter(appointmentTypeProposed?.price) : serviceInfo?.price ? currencyFormatter(serviceInfo?.price) : ""}
+                  {appointmentTypeProposed?.price
+                    ? currencyFormatter(appointmentTypeProposed?.price)
+                    : serviceInfo?.price
+                    ? currencyFormatter(serviceInfo?.price)
+                    : ""}
                 </div>
               </Form.Item>
             </div>
@@ -278,7 +278,9 @@ function RescheduleAppointmentModal(props: Props) {
           </div>
           <div className="text-primary flex">
             <Button
-              className={`${_classes["btn_font"]} ${isChrome && 'antCustomBtn'}`}
+              className={`${_classes["btn_font"]} ${
+                isChrome && "antCustomBtn"
+              }`}
               onClick={addTimeSlot}
               disabled={Object.values(slot).some((value) => value === "")}
               type="link"
@@ -289,7 +291,9 @@ function RescheduleAppointmentModal(props: Props) {
 
           <div className="flex justify-end">
             <Button
-              className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
+              className={`${_classes["appointments-btn"]} ${
+                isChrome && "antCustomBtn"
+              }`}
               onClick={onRescheduleAppointment}
               type="primary"
               disabled={slots.length > 0 ? false : true}
@@ -364,7 +368,7 @@ function AvailabilityTimeSlots({
                 onChange={(_, date: string) => {
                   onChangeDatePicker?.(date, "startDate");
                 }}
-              // minuteStep={30}
+                // minuteStep={30}
               />
             </Space>
           </Form.Item>

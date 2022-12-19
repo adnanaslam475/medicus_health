@@ -31,7 +31,7 @@ function MessageContent({ removeCurrentChat }: Props) {
       <div className="w-full px-4 hippa client message flex justify-center bg-gray-4 py-2 text-xs text-gray-2 mb-0">
         <div className="flex items-center justify-center w-[200px]">
           <LockOutlined className="mr-1" />
-          Messages are HIPPA compliant
+          Messages are HIPAA compliant
         </div>
       </div>
       {currentChannelMessages && !removeCurrentChat ? (

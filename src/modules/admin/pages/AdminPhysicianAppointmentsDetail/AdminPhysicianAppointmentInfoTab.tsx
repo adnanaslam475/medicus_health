@@ -1,7 +1,7 @@
 import React from "react";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
-import { formatMMMM_Dcoma_YYYY } from "common/utils/date";
+import { formatMMMM_Dcoma_YYYY, getCurrentUserTimeZone } from "common/utils/date";
 import { date } from "common/utils";
 import { Appointment } from "generated/graphql";
 import { Spin } from "antd";
@@ -21,6 +21,7 @@ type DoctorData = {
     patient_id: number;
   };
 };
+const timeZone = getCurrentUserTimeZone();
 
 function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
   let selectedAppointment = appointment?.appointmentTimeSlots?.find(
@@ -43,8 +44,8 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
       appointment?.appointmentDateTime?.startTime &&
       appointment?.appointmentDateTime?.endTime
         ? `${date?.formathhmma(
-            appointment?.appointmentDateTime?.startTime
-          )} - ${date?.formathhmma(appointment?.appointmentDateTime?.endTime)}`
+            appointment?.appointmentDateTime?.startTime,timeZone
+          )} - ${date?.formathhmma(appointment?.appointmentDateTime?.endTime,timeZone)}`
         : "--"
     }`,
     totalAmount: appointment?.appointmentCharges?.total,

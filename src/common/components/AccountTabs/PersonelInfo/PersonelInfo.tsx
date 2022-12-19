@@ -137,7 +137,7 @@ const PersonalInfo = () => {
         let customError = res?.error?.graphQLErrors[0]?.extensions
           ?.exception as GraphQLError;
         let errorMessage =
-          graphQLError?.message[0] ||
+          graphQLError?.message ||
           customError?.message ||
           "Something went wrong";
         notification.error({

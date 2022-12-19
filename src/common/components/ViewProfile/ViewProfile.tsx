@@ -287,7 +287,7 @@ export const ViewProfile = React.forwardRef(function Profile({
                       </Select.Option>
                     </Select>
                     <Tooltip
-                      title={doctorData ? "" : "Please complete doctor profile"}
+                      title={doctorData ? "" : "Please complete physician profile"}
                     >
                       <Button
                         type="primary"
