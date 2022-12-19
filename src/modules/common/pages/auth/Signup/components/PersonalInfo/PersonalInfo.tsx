@@ -155,7 +155,7 @@ export default function PersonalInfo({ onFinish }: props) {
           rules={[
             {
               required: true,
-              message: "El nombre no debe ser mayor de 30",
+              message: "El nombre no debe ser mayor de 30 caracteres",
               // message: t("first_name_message"),
               // message: "Please enter your first name",
               max: 30,
@@ -175,7 +175,7 @@ export default function PersonalInfo({ onFinish }: props) {
               required: true,
               // message: "Please enter your last name",
               // message: t("last_name_message"),
-              message: "El apellido no debe ser mayor de 30",
+              message: "El apellido no debe ser mayor de 30 caracteres",
               max: 30,
             },
           ]}
