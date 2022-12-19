@@ -22,9 +22,9 @@ import { date } from "common/utils";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { StatusName } from "common/types/types";
 import { isChrome, tableFooter } from "utils/helper";
-import _classes from "./AdminAppointmentsListing.module.scss"
+import _classes from "./AdminAppointmentsListing.module.scss";
 import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
-const timeZone = getCurrentUserTimeZone()
+const timeZone = getCurrentUserTimeZone();
 
 const appointmentColumns = [
   {
@@ -90,22 +90,25 @@ const appointmentColumns = [
       let appointmentDateTime = value?.appointmentDateTime;
       let status = value?.status;
       let formatedDueDate = date?.formatDAYMMDDYY(
-        String(appointmentDateTime?.startTime)
+        String(appointmentDateTime?.startTime),
+        timeZone
       );
       return (
         <div>
           {status === "Proposed" || status === "Rescheduled"
             ? (value?.appointmentTypeProposed?.dateTime.map(
-              (item: DateTimeSlots) => {
-                return (
-                  <li>{`${date.formatDAYMMDDYY(
-                    String(item?.date))}`}</li>
-                );
-              }
-            ) as any)
+                (item: DateTimeSlots) => {
+                  return (
+                    <li>{`${date.formatDAYMMDDYY(
+                      String(item?.date),
+                      timeZone
+                    )}`}</li>
+                  );
+                }
+              ) as any)
             : status === "Requested" && value?.requestedDate
-              ? `${date?.formatMMMMDDYYYY(value?.requestedDate)} `
-              : formatedDueDate}
+            ? `${date?.formatMMMMDDYYYY(value?.requestedDate)} `
+            : formatedDueDate}
         </div>
       );
     },
@@ -117,10 +120,12 @@ const appointmentColumns = [
     sorter: true,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = date.formathhmma(
-        String(appointmentDateTime?.startTime),timeZone
+        String(appointmentDateTime?.startTime),
+        timeZone
       );
       let formatedEndTime = date.formathhmma(
-        String(appointmentDateTime?.endTime),timeZone
+        String(appointmentDateTime?.endTime),
+        timeZone
       );
       return (
         <div>
@@ -173,7 +178,11 @@ const appointmentColumns = [
     key: "appointmentCharges",
     sorter: true,
     render: (appointmentCharges: AppointmentPriceResponse) => (
-      <div>{appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "-"}</div>
+      <div>
+        {appointmentCharges?.total
+          ? currencyFormatter(appointmentCharges?.total)
+          : "-"}
+      </div>
     ),
   },
   {
@@ -202,7 +211,7 @@ type AdminData = {
 
 type Props = {};
 
-function AdminAppointmentsListing({ }: Props) {
+function AdminAppointmentsListing({}: Props) {
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );
@@ -282,19 +291,21 @@ function AdminAppointmentsListing({ }: Props) {
         sorter.order?.replace("end", "") ||
         "",
       column:
-        `${(["status"].includes(sorter.field) && "appointment") ||
-        (["transaction"].includes(sorter.field) && "transaction") ||
-        (sorter.columnKey === "name" && "appointment_service_type") ||
-        (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
-        (/(status|charges|requestedDate|createdAt|id)/.test(
-          sorter.columnKey
-        ) &&
-          "appointment") ||
-        (/doctor/.test(sorter.field) && "user") ||
-        "patient"
-        }.${/(doctor|patient)/.test(sorter.field)
-          ? "first_name"
-          : /(transaction)/.test(sorter.field)
+        `${
+          (["status"].includes(sorter.field) && "appointment") ||
+          (["transaction"].includes(sorter.field) && "transaction") ||
+          (sorter.columnKey === "name" && "appointment_service_type") ||
+          (/startTime/.test(sorter.columnKey) && "appointment_time_slots") ||
+          (/(status|charges|requestedDate|createdAt|id)/.test(
+            sorter.columnKey
+          ) &&
+            "appointment") ||
+          (/doctor/.test(sorter.field) && "user") ||
+          "patient"
+        }.${
+          /(doctor|patient)/.test(sorter.field)
+            ? "first_name"
+            : /(transaction)/.test(sorter.field)
             ? "status"
             : sorter.columnKey
         }` || "",
@@ -310,16 +321,29 @@ function AdminAppointmentsListing({ }: Props) {
             </div>
             <div className={"flex gap-3 flex-wrap "}>
               <Link passHref href={`/admin/appointments/calendar`}>
-                <a className={`text-sm ${isChrome && 'antCustomBtn'}  ${_classes["requestAppointmentBtn"]}`}>
-                  <Button className={`bg-primary ${isChrome && 'antCustomBtn'} ${_classes["requestAppointmentBtn"]}`} type="primary">
+                <a
+                  className={`text-sm ${isChrome && "antCustomBtn"}  ${
+                    _classes["requestAppointmentBtn"]
+                  }`}
+                >
+                  <Button
+                    className={`bg-primary ${isChrome && "antCustomBtn"} ${
+                      _classes["requestAppointmentBtn"]
+                    }`}
+                    type="primary"
+                  >
                     Calendar view
                   </Button>
                 </a>
               </Link>
-              <Button type="primary" className={`text-sm ${isChrome && 'antCustomBtn'}  ${_classes["requestAppointmentBtn"]}`} onClick={showModal}>
-                <span className="long-btn">
-                  Request an appointment
-                </span>
+              <Button
+                type="primary"
+                className={`text-sm ${isChrome && "antCustomBtn"}  ${
+                  _classes["requestAppointmentBtn"]
+                }`}
+                onClick={showModal}
+              >
+                <span className="long-btn">Request an appointment</span>
               </Button>
             </div>
           </div>
@@ -356,8 +380,8 @@ function AdminAppointmentsListing({ }: Props) {
         onOk={handleOk}
         onCancel={handleCancel}
         adminData={adminData as AdminData}
-      // doctorData={doctorData}
-      // doctorData={doctorProfile as DoctorProfile}
+        // doctorData={doctorData}
+        // doctorData={doctorProfile as DoctorProfile}
       />
     </>
   );
