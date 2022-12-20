@@ -11,7 +11,8 @@ import {
 } from "generated/graphql";
 import { date } from "../../utils";
 import { tableFooter } from "utils/helper";
-import { currencyFormatter } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
+const timeZone = getCurrentUserTimeZone();
 
 type Props = {
   data?: Appointment[] | undefined;
@@ -77,7 +78,9 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       sorter: true,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
-        return <div>{`${date?.formatMMMMDDYYYY(time?.startTime)} `}</div>;
+        return (
+          <div>{`${date?.formatMMMMDDYYYY(time?.startTime, timeZone)} `}</div>
+        );
       },
     },
     {
@@ -88,9 +91,10 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time.selected);
         return (
-          <div>{`${date?.formathhmma(time?.startTime)} - ${date?.formathhmma(
-            time?.endTime
-          )}`}</div>
+          <div>{`${date?.formathhmma(
+            time?.startTime,
+            timeZone
+          )} - ${date?.formathhmma(time?.endTime, timeZone)}`}</div>
         );
       },
     },
@@ -102,7 +106,9 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       render: (value: Transaction) => {
         return (
           <div>
-            {value?.amountReceived? currencyFormatter(value?.amountReceived) : "--"}
+            {value?.amountReceived
+              ? currencyFormatter(value?.amountReceived)
+              : "--"}
           </div>
         );
       },
@@ -148,7 +154,9 @@ function PhysicianAppointmentHistoryTable(props: Props) {
       loading={loading}
       scroll={{ x: true }}
       onChange={onChange}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
       pagination={{
         current: meta?.currentPage,
         total: meta?.totalPages * pagination.limit,
