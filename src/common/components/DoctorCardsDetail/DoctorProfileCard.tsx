@@ -391,6 +391,7 @@ function DoctorProfileCard(props: Props) {
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         message="Please request an appointment to message physician."
+        footer={false}
       />
     </>
   );
