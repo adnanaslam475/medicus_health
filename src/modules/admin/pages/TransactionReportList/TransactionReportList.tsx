@@ -15,10 +15,15 @@ import {
 } from "generated/graphql";
 import { tableFooter } from "utils/helper";
 import { date } from "common/utils";
-import { currencyFormatter, numberFormatter } from "common/utils/date";
+import {
+  currencyFormatter,
+  getCurrentUserTimeZone,
+  numberFormatter,
+} from "common/utils/date";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { addDecimaltoAmount } from "common/utils/helper";
+const timeZone = getCurrentUserTimeZone();
 
 const columns = [
   {
@@ -41,8 +46,9 @@ const columns = [
     dataIndex: "appointment",
     key: "patient",
     render: (appointment: Appointment) => {
-      const patientName = `${appointment?.patient?.first_name || ""} ${appointment?.patient?.last_name || ""
-        }`;
+      const patientName = `${appointment?.patient?.first_name || ""} ${
+        appointment?.patient?.last_name || ""
+      }`;
       return <div>{patientName}</div>;
     },
     sorter: true,
@@ -52,8 +58,9 @@ const columns = [
     dataIndex: "appointment",
     key: "physician",
     render: (appointment: Appointment) => {
-      const physicianName = `${appointment?.doctor?.first_name || ""} ${appointment?.doctor?.last_name || ""
-        }`;
+      const physicianName = `${appointment?.doctor?.first_name || ""} ${
+        appointment?.doctor?.last_name || ""
+      }`;
       return <div>{physicianName}</div>;
     },
     sorter: true,
@@ -74,7 +81,7 @@ const columns = [
     key: "requestedDate",
     render: (appointment: Appointment) => {
       const scheduleDate = appointment?.appointmentDateTime?.startTime || "";
-      return <div>{date.formatDAYMMDD(scheduleDate)}</div>;
+      return <div>{date.formatDAYMMDD(String(scheduleDate), timeZone)}</div>;
     },
     sorter: true,
   },
