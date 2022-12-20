@@ -840,7 +840,9 @@ function EditProfile({
                       </Select.Option>
                     </Select>
                     <Tooltip
-                      title={doctorData ? "" : "Please complete physician profile"}
+                      title={
+                        doctorData ? "" : "Please complete physician profile"
+                      }
                     >
                       <Button
                         type="primary"
