@@ -212,6 +212,7 @@ function BankInfo() {
         <Steps
           direction="vertical"
           current={stepNumber}
+          // @ts-ignore
           items={[
             {
               title: "STEP-1",
