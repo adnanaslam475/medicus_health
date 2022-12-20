@@ -1,4 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import MultiRangeListing from "./MultiRangeListing";
@@ -8,6 +8,7 @@ import DayPicker from "../../../utils/DayPicker";
 import { Schedule, singleSchedule } from "../../types/types";
 import { RangeValue } from "rc-picker/lib/interface";
 import { isChrome } from "utils/helper";
+import { getRole } from "common/utils/userData";
 
 const { RangePicker } = TimePicker;
 
@@ -57,9 +58,18 @@ function MultiRangeDatePicker(props: Props) {
   ) {
     setAddScheduleTime?.({ time, timeString });
   }
-
   return (
     <div className="dateWithTextCardWrapper my-6 border-b border-gray-3 pb-[19px]">
+      {getRole() == "Doctor" && (
+        <div className="text-center text-red items-baseline flex -mt-4">
+          <InfoCircleOutlined className="text-red " /> &nbsp;
+          <p className="">
+            Make sure your timezone is selected and saved before you add
+            schedules.
+          </p>
+        </div>
+      )}
+
       <div className="font-medium text-lightBlue-1">Availability</div>
       {!disable && (
         <div
