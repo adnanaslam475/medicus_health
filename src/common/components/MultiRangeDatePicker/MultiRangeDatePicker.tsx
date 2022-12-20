@@ -58,7 +58,6 @@ function MultiRangeDatePicker(props: Props) {
   ) {
     setAddScheduleTime?.({ time, timeString });
   }
-  console.log("getRole()==0phy", getRole() === "Doctor");
   return (
     <div className="dateWithTextCardWrapper my-6 border-b border-gray-3 pb-[19px]">
       {getRole() == "Doctor" && (
