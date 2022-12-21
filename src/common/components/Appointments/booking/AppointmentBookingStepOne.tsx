@@ -384,7 +384,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     disabled
                     prefix={<p className="mb-0">$</p>}
                     className={`flex ${_classes.chargesInputView} items-center justify-center`}
-                    // pointer
                     value={
                       serviceInfo
                         ? `${serviceInfo?.map((item) =>
