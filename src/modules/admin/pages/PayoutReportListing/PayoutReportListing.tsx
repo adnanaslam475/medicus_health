@@ -13,7 +13,9 @@ import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { date } from "common/utils";
 import { addDecimaltoAmount } from "common/utils/helper";
+import { getCurrentUserTimeZone } from "common/utils/date";
 
+const timeZone = getCurrentUserTimeZone()
 function PayoutReportListing() {
   const { Panel } = Collapse;
   const onChange = (key: string | string[]) => {};
@@ -64,7 +66,7 @@ function PayoutReportListing() {
           <div>
             {date.formatDAYMMDD(scheduleDate) === "Invalid Date"
               ? "-"
-              : date.formatDAYMMDD(scheduleDate)}
+              : date.formatDAYMMDD(String(scheduleDate),timeZone)}
           </div>
         );
       },
