@@ -65,7 +65,7 @@ const appointmentColumns = [
   },
   {
     title: "Appointment type",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       const appointmentType =
         value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
@@ -85,7 +85,7 @@ const appointmentColumns = [
     title: "Appointment date ",
     // dataIndex: "appointmentDateTime",
     key: "requestedDate",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       let appointmentDateTime = value?.appointmentDateTime;
       let status = value?.status;
@@ -117,7 +117,7 @@ const appointmentColumns = [
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "requestedDate",
-    sorter: true,
+    sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = date.formathhmma(
         String(appointmentDateTime?.startTime),
