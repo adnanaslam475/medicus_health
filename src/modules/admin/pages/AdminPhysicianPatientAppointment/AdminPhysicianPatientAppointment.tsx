@@ -90,7 +90,6 @@ function AdminPhysicianList() {
       key: "id",
       sorter: true,
     },
-    // pointer
     {
       title: "Patient name",
       dataIndex: "patient",
@@ -220,10 +219,7 @@ function AdminPhysicianList() {
     );
     setPagination({ page, limit });
   };
-// pointer
   const onChange = (...params: any) => {
-    console.log("params",params);
-
     const [, , sorter] = params;
     setSorting({
       order: sorter.order?.replace("end", "") || "",
@@ -240,7 +236,6 @@ function AdminPhysicianList() {
       : "",
     });
   };
-console.log('appointments', appointments)
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
     setPagination({ ...pagination, page: 1 });
