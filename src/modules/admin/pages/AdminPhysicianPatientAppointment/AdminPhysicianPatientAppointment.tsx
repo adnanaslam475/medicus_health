@@ -90,10 +90,11 @@ function AdminPhysicianList() {
       key: "id",
       sorter: true,
     },
+    // pointer
     {
       title: "Patient name",
       dataIndex: "patient",
-      key: "patient",
+      key: "first_name",
       render: (patient: User) => {
         return <div>{`${patient?.first_name} ${patient?.last_name}`}</div>;
       },
@@ -102,7 +103,7 @@ function AdminPhysicianList() {
     {
       title: "Appointment type",
       // dataIndex: "serviceType",
-      key: "serviceType",
+      key: "name",
       sorter: true,
       render: (value: Appointment) => {
         const appointmentType =
@@ -116,6 +117,7 @@ function AdminPhysicianList() {
       title: "Appointment date",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
+      sorter:false,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedStartTime = date.formatMMMMDDYYYY(
           String(appointmentDateTime?.startTime)
@@ -126,12 +128,12 @@ function AdminPhysicianList() {
           </div>
         );
       },
-      sorter: true,
     },
     {
       title: "Appointment time",
       dataIndex: "appointmentDateTime",
-      key: "appointmentDateTime",
+      key: "startTime",
+      sorter:false,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
           <div>
@@ -147,12 +149,11 @@ function AdminPhysicianList() {
           </div>
         );
       },
-      sorter: true,
     },
     {
       title: "Total amount",
       dataIndex: "appointmentCharges",
-      key: "appointmentCharges",
+      key: "charges",
       render: (appointmentCharges: AppointmentPriceResponse) => {
         return (
           <div>
@@ -219,15 +220,27 @@ function AdminPhysicianList() {
     );
     setPagination({ page, limit });
   };
-
+// pointer
   const onChange = (...params: any) => {
+    console.log("params",params);
+
     const [, , sorter] = params;
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: sorter.order ? `user.${sorter.field}` : "",
+      column: sorter.order
+      ? `${
+          (sorter.columnKey === "name" && "appointment_service_type") ||
+          (sorter.columnKey === "status" && "appointment") ||
+          (sorter.columnKey === "first_name" && "patient") ||
+          (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
+            "appointment") ||
+          (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+          "user"
+        }.${sorter.columnKey || sorter.field}`
+      : "",
     });
   };
-
+console.log('appointments', appointments)
   function onChangeFilters(filterValue: GetAppointmentInput) {
     setFilterValues(filterValue);
     setPagination({ ...pagination, page: 1 });
