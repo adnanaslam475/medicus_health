@@ -264,9 +264,11 @@ export const AppointmentBookingStepOne = React.forwardRef(
       let doctorId = physicianId.split(":")[0];
       setDoctorId(Number(doctorId));
     };
-
+    console.log(
+      "rebookData?.charges?.valueOf() !== (undefined ||null)",
+      rebookData?.charges?.valueOf() !== undefined 
+    );
     const timeZone = getCurrentUserTimeZone();
-
     return (
       <>
         <h2>Request an appointment</h2>
@@ -385,18 +387,15 @@ export const AppointmentBookingStepOne = React.forwardRef(
                     disabled
                     prefix={<p className="mb-0">$</p>}
                     className={`flex ${_classes.chargesInputView} items-center justify-center`}
+                    // pointer
                     value={
                       serviceInfo
                         ? `${serviceInfo?.map((item) =>
                             item?.price ? item?.price + 100 : ""
                           )}`
                         : parseInt(price) + 100 ||
-                          parseInt(charges) + 100 ||
-                          rebookData?.charges?.valueOf() !== undefined ||
-                          null
-                        ? rebookData?.charges?.valueOf() + 100
-                        : ""
-                    }
+                          parseInt(charges) + 100 || "" }
+                          
                   />
                   {/* $
                   {serviceInfo ?
