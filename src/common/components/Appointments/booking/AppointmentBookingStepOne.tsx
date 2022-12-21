@@ -266,7 +266,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
     };
 
     const timeZone = getCurrentUserTimeZone();
-
     return (
       <>
         <h2>Request an appointment</h2>
@@ -391,12 +390,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
                             item?.price ? item?.price + 100 : ""
                           )}`
                         : parseInt(price) + 100 ||
-                          parseInt(charges) + 100 ||
-                          rebookData?.charges?.valueOf() !== undefined ||
-                          null
-                        ? rebookData?.charges?.valueOf() + 100
-                        : ""
-                    }
+                          parseInt(charges) + 100 || "" }
+                          
                   />
                   {/* $
                   {serviceInfo ?
