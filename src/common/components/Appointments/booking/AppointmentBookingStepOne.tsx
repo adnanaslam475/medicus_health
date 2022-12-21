@@ -264,10 +264,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       let doctorId = physicianId.split(":")[0];
       setDoctorId(Number(doctorId));
     };
-    console.log(
-      "rebookData?.charges?.valueOf() !== (undefined ||null)",
-      rebookData?.charges?.valueOf() !== undefined 
-    );
+
     const timeZone = getCurrentUserTimeZone();
     return (
       <>
