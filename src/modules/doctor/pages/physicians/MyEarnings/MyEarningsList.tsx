@@ -14,8 +14,13 @@ import {
 import { date, userData } from "common/utils";
 import { physicianMyEarningsFilterType, StatusName } from "common/types/types";
 import StatusChip from "common/components/StatusChip/StatusChip";
-import { currencyFormatter, numberFormatter } from "common/utils/date";
+import {
+  currencyFormatter,
+  getCurrentUserTimeZone,
+  numberFormatter,
+} from "common/utils/date";
 import { tableFooter } from "utils/helper";
+const timeZone = getCurrentUserTimeZone();
 
 type Props = {};
 const Columns = [
@@ -76,7 +81,8 @@ const Columns = [
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
         <div className="someclass">{`${date?.formatDAYMMDDYY(
-          time?.startTime
+          time?.startTime,
+          timeZone
         )} `}</div>
       );
     },
@@ -136,7 +142,11 @@ const Columns = [
     render: (text: any, row: any) => {
       return (
         <div className="someclass">
-          {`${row?.status === "Refunded" && row?.doctor_percentage ? currencyFormatter(row?.doctor_percentage) : 0}`}
+          {`${
+            row?.status === "Refunded" && row?.doctor_percentage
+              ? currencyFormatter(row?.doctor_percentage)
+              : 0
+          }`}
         </div>
       );
     },
@@ -168,7 +178,11 @@ const Columns = [
     render: (text: any, row: any) => {
       return (
         <div className="someclass">
-          {`${row?.status === "Refunded" ? 0 : currencyFormatter(row?.doctor_percentage)}`}
+          {`${
+            row?.status === "Refunded"
+              ? 0
+              : currencyFormatter(row?.doctor_percentage)
+          }`}
         </div>
       );
     },

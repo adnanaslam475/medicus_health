@@ -12,7 +12,8 @@ import {
 } from "generated/graphql";
 import { getUserData } from "common/utils/userData";
 import { date } from "common/utils";
-import { currencyFormatter } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
+const timeZone = getCurrentUserTimeZone();
 
 function PhysicianPayoutReportListing() {
   const { Panel } = Collapse;
@@ -67,7 +68,7 @@ function PhysicianPayoutReportListing() {
           appointmentDateTime?.startTime?.split(" ")[0]
         }`;
         formatedAppointmentDateTime = formatedAppointmentDateTime
-          ? date?.formatDAYMMDDYY(formatedAppointmentDateTime)
+          ? date?.formatDAYMMDDYY(String(formatedAppointmentDateTime), timeZone)
           : "-";
         return <div>{formatedAppointmentDateTime}</div>;
       },
@@ -78,7 +79,11 @@ function PhysicianPayoutReportListing() {
       key: "refund",
       render: (transaction: Transaction) => {
         const refundAmount = transaction?.appointmentCharges || "0";
-        return <div>{refundAmount >0 ? currencyFormatter(Number(refundAmount)) : "$0"}</div>;
+        return (
+          <div>
+            {refundAmount > 0 ? currencyFormatter(Number(refundAmount)) : "$0"}
+          </div>
+        );
       },
     },
     {
@@ -124,7 +129,10 @@ function PhysicianPayoutReportListing() {
           >
             {appointmentMonths?.map((appointmentMonth, appointmentIndex) => {
               return (
-                <Panel header={`${appointmentMonth} - Net physician earnings`} key={appointmentIndex}>
+                <Panel
+                  header={`${appointmentMonth} - Net physician earnings`}
+                  key={appointmentIndex}
+                >
                   <Table
                     pagination={false}
                     columns={columns}
