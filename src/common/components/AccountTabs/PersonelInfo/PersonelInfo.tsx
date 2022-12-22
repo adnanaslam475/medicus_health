@@ -71,78 +71,80 @@ const PersonalInfo = () => {
     }
     try {
       console.log({ values });
-      const res = await updateUserProfile({
-        id: id as number,
-        updateUserInput: {
-          first_name: values?.firstName,
-          last_name: values?.lastName,
-          email: values?.email,
-          gender: values?.gender,
-          // date_of_birth: new Date(values.date_of_birth).toLocaleDateString(),
-          date_of_birth: date?.formatMMMMDDYYYY(values.date_of_birth),
-          country_id: Number(values?.country_id),
-          contact_number: values?.conntactNumber,
-          city_id: Number(values?.city_id),
-          password: values?.password,
-          state_id: Number(values?.state_id),
-          zip_code: values?.postalCode,
-          streetAddress: values?.streetAddress,
-          maritalStatus: values?.maritalStatus,
-          profileImage: image ? image : userProfileImage,
-          // haveChildren: values?.haveChildren ? "No" : "Yes",
-          haveChildren: values?.haveChildren,
-          children: Number(values?.children) | 0,
-          occupation: values?.occupation,
-          occupationalExposure: values?.occupationalExposure,
-          exposureDuration: values?.exposureDuration,
-          pets: values?.pets,
-          timeZoneId: values?.timeZone || 86, // 86 is default id for UTC
-        },
-      });
-      let loggedInUserData = localStorage.getItem("loggedInUserData");
-      let updatedLoggedInUserData: LoginUserInput | any =
-        loggedInUserData && JSON.parse(loggedInUserData);
-      if (res) {
-        res?.data?.updateUser &&
-          notification.success({
-            message: "Successfully updated",
-          });
-        executeUseGetUserQuery({ requestPolicy: "network-only" });
-      }
-      if (
-        updatedLoggedInUserData?.user &&
-        updatedLoggedInUserData?.user?.role === "User" &&
-        !res?.error
-      ) {
-        updatedLoggedInUserData.user.first_name = values?.firstName;
-        updatedLoggedInUserData.user.last_name = values?.lastName;
-        if (updatedLoggedInUserData.user.patientProfile) {
-          updatedLoggedInUserData.user.patientProfile.profileImage =
-            image || userProfileImage;
+      if (values?.confirmPassword == values?.password) {
+        const res = await updateUserProfile({
+          id: id as number,
+          updateUserInput: {
+            first_name: values?.firstName,
+            last_name: values?.lastName,
+            email: values?.email,
+            gender: values?.gender,
+            // date_of_birth: new Date(values.date_of_birth).toLocaleDateString(),
+            date_of_birth: date?.formatMMMMDDYYYY(values.date_of_birth),
+            country_id: Number(values?.country_id),
+            contact_number: values?.conntactNumber,
+            city_id: Number(values?.city_id),
+            password: values?.confirmPassword,
+            state_id: Number(values?.state_id),
+            zip_code: values?.postalCode,
+            streetAddress: values?.streetAddress,
+            maritalStatus: values?.maritalStatus,
+            profileImage: image ? image : userProfileImage,
+            // haveChildren: values?.haveChildren ? "No" : "Yes",
+            haveChildren: values?.haveChildren,
+            children: Number(values?.children) | 0,
+            occupation: values?.occupation,
+            occupationalExposure: values?.occupationalExposure,
+            exposureDuration: values?.exposureDuration,
+            pets: values?.pets,
+            timeZoneId: values?.timeZone || 86, // 86 is default id for UTC
+          },
+        });
+        let loggedInUserData = localStorage.getItem("loggedInUserData");
+        let updatedLoggedInUserData: LoginUserInput | any =
+          loggedInUserData && JSON.parse(loggedInUserData);
+        if (res) {
+          res?.data?.updateUser &&
+            notification.success({
+              message: "Successfully updated",
+            });
+          executeUseGetUserQuery({ requestPolicy: "network-only" });
         }
-        localStorage.setItem(
-          "loggedInUserData",
-          JSON.stringify(updatedLoggedInUserData)
-        );
-        saveUserData?.({
-          firstName: values?.firstName,
-          lastName: values?.lastName,
-          profilePicture: image ? image : userProfileImage,
-        });
-      }
+        if (
+          updatedLoggedInUserData?.user &&
+          updatedLoggedInUserData?.user?.role === "User" &&
+          !res?.error
+        ) {
+          updatedLoggedInUserData.user.first_name = values?.firstName;
+          updatedLoggedInUserData.user.last_name = values?.lastName;
+          if (updatedLoggedInUserData.user.patientProfile) {
+            updatedLoggedInUserData.user.patientProfile.profileImage =
+              image || userProfileImage;
+          }
+          localStorage.setItem(
+            "loggedInUserData",
+            JSON.stringify(updatedLoggedInUserData)
+          );
+          saveUserData?.({
+            firstName: values?.firstName,
+            lastName: values?.lastName,
+            profilePicture: image ? image : userProfileImage,
+          });
+        }
 
-      if (res?.error && res?.error?.message) {
-        let graphQLError = res?.error?.graphQLErrors[0]?.extensions
-          ?.response as GraphQLError;
-        let customError = res?.error?.graphQLErrors[0]?.extensions
-          ?.exception as GraphQLError;
-        let errorMessage =
-          graphQLError?.message ||
-          customError?.message ||
-          "Something went wrong";
-        notification.error({
-          message: errorMessage,
-        });
+        if (res?.error && res?.error?.message) {
+          let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+            ?.response as GraphQLError;
+          let customError = res?.error?.graphQLErrors[0]?.extensions
+            ?.exception as GraphQLError;
+          let errorMessage =
+            graphQLError?.message ||
+            customError?.message ||
+            "Something went wrong";
+          notification.error({
+            message: errorMessage,
+          });
+        }
       }
     } catch (error) {
       console.log(error);
