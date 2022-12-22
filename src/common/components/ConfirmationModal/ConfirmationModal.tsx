@@ -18,7 +18,6 @@ const ConfirmationModal = ({
   confirmLoading,
   footer,
 }: Props) => {
-  console.log('footer', footer)
   return (
     <>
       {footer != true && footer != undefined ? (
