@@ -106,7 +106,7 @@ function DoctorCard({
     setCurrent(current - 1);
   };
   let formatedDoctorName = `${name?.includes("Dr.") ? name : `Dr. ${name}`}`;
-  function test(str: String) {
+  function conditionArrayConverter(str: String) {
     if (str.includes("//")) {
       return str
         .split("//")
@@ -121,7 +121,7 @@ function DoctorCard({
     return [str];
   }
   
-  const conditionTreatedarr = test(conditionTreated);
+  const conditionTreatedarr = conditionArrayConverter(conditionTreated);
   return (
     <>
       <Card className={`${_classes["doctorCard"]} rounded-lg`}>
