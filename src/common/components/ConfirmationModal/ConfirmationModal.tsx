@@ -8,7 +8,7 @@ type Props = {
   onOk?: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
   message: string;
   confirmLoading?: boolean | undefined;
-  footer?: boolean | undefined;
+  footer?: boolean;
 };
 const ConfirmationModal = ({
   message,
@@ -18,9 +18,10 @@ const ConfirmationModal = ({
   confirmLoading,
   footer,
 }: Props) => {
+  console.log('footer', footer)
   return (
     <>
-      {footer ? (
+      {footer != true && footer != undefined ? (
         <Modal
           onCancel={onCancel}
           title=""
@@ -28,6 +29,7 @@ const ConfirmationModal = ({
           onOk={onOk}
           visible={visible}
           className="imtiasz"
+          footer={null}
         >
           <p>{message}</p>
         </Modal>
@@ -39,7 +41,6 @@ const ConfirmationModal = ({
           onOk={onOk}
           visible={visible}
           className="imtiasz"
-          footer={null}
         >
           <p>{message}</p>
         </Modal>
