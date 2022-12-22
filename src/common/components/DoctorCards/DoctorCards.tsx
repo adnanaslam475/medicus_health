@@ -106,6 +106,22 @@ function DoctorCard({
     setCurrent(current - 1);
   };
   let formatedDoctorName = `${name?.includes("Dr.") ? name : `Dr. ${name}`}`;
+  function conditionArrayConverter(str: String) {
+    if (str.includes("//")) {
+      return str
+        .split("//")
+        .filter((elm) => elm)
+        .filter((elm) => {
+          if (elm !== " ") {
+            return elm;
+          }
+        });
+    }
+
+    return [str];
+  }
+  
+  const conditionTreatedarr = conditionArrayConverter(conditionTreated);
   return (
     <>
       <Card className={`${_classes["doctorCard"]} rounded-lg`}>
@@ -184,9 +200,13 @@ function DoctorCard({
                 </span>
               </h6>
               <h6 className="font-normal font-rubik">
-                {conditionTreated.includes(" // ")
-                  ? conditionTreated?.slice(4)
-                  : conditionTreated}
+                {conditionTreatedarr.map((elem, ind, arr) => {
+                  return arr.length > 1
+                    ? elem !== ""
+                      ? elem + "//"
+                      : elem
+                    : elem;
+                })}
               </h6>
             </div>
           </div>
