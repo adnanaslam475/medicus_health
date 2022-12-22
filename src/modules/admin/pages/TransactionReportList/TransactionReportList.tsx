@@ -73,7 +73,7 @@ const columns = [
       const serviceType = appointment?.appointmentTypeProposed?.type || "";
       return <div>{serviceType}</div>;
     },
-    sorter: true,
+    sorter: false,
   },
   {
     title: "Appointment date",
@@ -83,7 +83,7 @@ const columns = [
       const scheduleDate = appointment?.appointmentDateTime?.startTime || "";
       return <div>{date.formatDAYMMDD(String(scheduleDate), timeZone)}</div>;
     },
-    sorter: true,
+    sorter: false,
   },
   {
     title: "Status",

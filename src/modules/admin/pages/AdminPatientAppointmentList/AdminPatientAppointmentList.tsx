@@ -52,7 +52,7 @@ const columns = [
   {
     title: "Appointment type",
     key: "name",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       const appointmentType =
         value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
@@ -63,7 +63,7 @@ const columns = [
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "appointment_time_slots",
-    sorter: true,
+    sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = date.formathhmma(
         String(appointmentDateTime?.startTime),timeZone
@@ -84,7 +84,7 @@ const columns = [
     title: "Appointment date",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
-    sorter: true,
+    sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedDueDate = `${appointmentDateTime?.startTime}`;
       return (

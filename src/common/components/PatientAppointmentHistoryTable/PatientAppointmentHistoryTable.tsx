@@ -34,7 +34,7 @@ const historyColumns = [
   {
     title: "Appointment type",
     dataIndex: "serviceType",
-    sorter: true,
+    sorter: false,
     key: "type",
     render: (value: AppointmentServiceType) => {
       return <div>{`${value ? value?.name : "--"}`}</div>;
@@ -44,7 +44,7 @@ const historyColumns = [
     title: "Appointment date",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
-    sorter: true,
+    sorter: false,
     render: (value: any) => {
       let timeZone = getCurrentUserTimeZone()
 
@@ -55,7 +55,7 @@ const historyColumns = [
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
-    sorter: true,
+    sorter: false,
     render: (value: any) => {
       let timeZone = getCurrentUserTimeZone()
       
