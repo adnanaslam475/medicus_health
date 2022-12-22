@@ -199,7 +199,6 @@ function DoctorCard({
                   {t("conditions_treated")}
                 </span>
               </h6>
-              {/* pointer */}
               <h6 className="font-normal font-rubik">
                 {conditionTreatedarr.map((elem, ind, arr) => {
                   return arr.length > 1
