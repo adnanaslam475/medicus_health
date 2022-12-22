@@ -47,9 +47,11 @@ const AppHeader = () => {
     pause: !loggedInUserId,
   });
   useEffect(() => {
+    setTimeout(function logger() {
     if (!userData?.user?.id && !userDataLoading) {
       logout();
     }
+    }, 1000);
   }, [userData?.user?.id, userDataLoading]);
 
   const [visible, setVisible] = useState(false);
