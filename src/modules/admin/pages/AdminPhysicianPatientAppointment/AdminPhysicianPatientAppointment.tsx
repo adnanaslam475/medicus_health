@@ -103,7 +103,7 @@ function AdminPhysicianList() {
       title: "Appointment type",
       // dataIndex: "serviceType",
       key: "name",
-      sorter: true,
+      sorter: false,
       render: (value: Appointment) => {
         const appointmentType =
           value?.appointmentTypeProposed?.type ||

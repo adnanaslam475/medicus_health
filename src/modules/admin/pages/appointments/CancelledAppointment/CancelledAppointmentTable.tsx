@@ -47,7 +47,7 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
       title: "Date",
       dataIndex: "requestedDate",
       key: "requestedDate",
-      sorter: true,
+      sorter: false,
       render: (value: string) => {
         return <div className="someclass">{date?.formatDAYMMDDYY(value)}</div>;
       },
@@ -56,7 +56,7 @@ function CancelledAppointmentTable({ dataSource, loading }: Props) {
       title: "Appointment time",
       dataIndex: "appointmentTimeSlots",
       key: "appointment_time_slots",
-      sorter: true,
+      sorter: false,
       render: (value: AppointmentTimeSlots[]) => {
         let time = value?.find((time) => time?.selected);
         return (

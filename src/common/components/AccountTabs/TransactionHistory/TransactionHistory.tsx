@@ -35,7 +35,8 @@ const transactionsColumns = [
     title: "Appointment type", //change name to appointment type from appointment type
     dataIndex: "appointment",
     key: "name",
-    sorter: true,
+		sorter: false,
+
     render: (value: Appointment) => {
       return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
     },
@@ -44,7 +45,7 @@ const transactionsColumns = [
     title: "Appointment time",
     dataIndex: "appointment",
     key: "startTime",
-    sorter: true,
+    sorter: false,
     // sorter: {
     //   compare: (a: any, b: any) => a.timeslot - b.timeslot,
     //   multiple: 3,
@@ -62,7 +63,7 @@ const transactionsColumns = [
     title: "Appointment date",
     dataIndex: "appointment",
     key: "requestedDate",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (

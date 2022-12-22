@@ -49,7 +49,7 @@ const Columns = [
     title: "Appointment type",
     // dataIndex: "serviceType",
     key: "name",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       const appointmentType =
         value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
@@ -60,7 +60,7 @@ const Columns = [
     title: "Appointment date ",
     // dataIndex: "appointmentDateTime",
     key: "requestedDate",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       let appointmentDateTime = value?.appointmentDateTime;
       let status = value?.status;
@@ -88,7 +88,7 @@ const Columns = [
     title: "Appointment time",
     // dataIndex: "appointmentDateTime",
     key: "startTime",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       let appointmentDateTime = value?.appointmentDateTime;
       let status = value?.status;
