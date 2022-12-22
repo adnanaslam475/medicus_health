@@ -54,7 +54,7 @@ const historyColumns = [
     title: "Appointment type",
     // dataIndex: "serviceType",
     key: "name",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       const appointmentType =
         value?.appointmentTypeProposed?.type || value?.serviceType?.name || "-";
@@ -65,7 +65,7 @@ const historyColumns = [
     title: "Appointment date",
     dataIndex: "appointmentDateTime",
     key: "startTime",
-    sorter: true,
+    sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       // let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]}`;
       return (
@@ -84,7 +84,7 @@ const historyColumns = [
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "requestedDate",
-    sorter: true,
+    sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
         <div>

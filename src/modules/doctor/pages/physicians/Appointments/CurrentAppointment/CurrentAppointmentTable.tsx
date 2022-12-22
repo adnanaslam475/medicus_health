@@ -34,7 +34,7 @@ const columns = [
   {
     title: "Appointment type",
     dataIndex: "serviceType",
-    sorter: true,
+    sorter: false,
   },
   // {
   //   title: "Booking date",
@@ -49,13 +49,13 @@ const columns = [
     title: "Appointment date",
     dataIndex: "appointmentSchedule",
     key: "appointmentSchedule",
-    sorter: true,
+    sorter: false,
   },
   {
     title: "Appointment time",
     dataIndex: "appointmentScheduletime",
     key: "appointmentScheduletime",
-    sorter: true,
+    sorter: false,
   },
   {
     title: "",

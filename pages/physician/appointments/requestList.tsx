@@ -28,7 +28,7 @@ const Columns = [
 		title: "Appointment type",
 		dataIndex: "service",
 		key: "service",
-		sorter: true,
+		sorter: false,
 		//   render: (value: Appointment) => {
 		//     return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
 		//   },
@@ -37,7 +37,7 @@ const Columns = [
 		title: "Date",
 		dataIndex: "date",
 		key: "date",
-		sorter: true,
+		sorter: false,
 		//   render: (value: Appointment) => {
 		//     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
 		//     return (
@@ -51,7 +51,7 @@ const Columns = [
 		title: "Time",
 		dataIndex: "timeslot",
 		key: "timeslot",
-		sorter: true,
+		sorter: false,
 		//   render: (value: Appointment) => {
 		//     let time = value?.appointmentTimeSlots?.find((time) => time.selected);
 		//     return (

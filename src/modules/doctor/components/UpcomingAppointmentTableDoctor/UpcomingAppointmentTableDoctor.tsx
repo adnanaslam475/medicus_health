@@ -39,7 +39,7 @@ const columns = [
     title: "Appointment type",
     // dataIndex: "serviceType",
     key: "name",
-    sorter: true,
+    sorter: false,
     render: (value: Appointment) => {
       const appointmentType =
         value?.appointmentTypeProposed?.type || value?.serviceType?.name;
@@ -59,7 +59,7 @@ const columns = [
     title: "Appointment date",
     // dataIndex: "appointmentDateTime",
     key: "requestedDate",
-    sorter: true,
+    sorter: false,
     render: (value: any) => {
       let formatedDueDate = `${value?.appointmentDateTime?.startTime?.split(" ")[0]
         }`;
@@ -79,7 +79,7 @@ const columns = [
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "startTime",
-    sorter: true,
+    sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       return (
         <div>

@@ -55,7 +55,7 @@ function CancelledAppointmentTable({
       title: "Appointment type",
       // dataIndex: "serviceType",
       key: "name",
-      sorter: true,
+      sorter: false,
       render: (value: Appointment) => {
         const appointmentType =
           value?.appointmentTypeProposed?.type ||
@@ -68,7 +68,7 @@ function CancelledAppointmentTable({
       title: "Appointment date",
       dataIndex: "appointmentDateTime",
       key: "requestedDate",
-      sorter: true,
+      sorter: false,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedDueDate = `${appointmentDateTime?.startTime?.split(" ")[0]
           }`;
@@ -86,7 +86,7 @@ function CancelledAppointmentTable({
       title: "Appointment time",
       dataIndex: "appointmentDateTime",
       key: "startTime",
-      sorter: true,
+      sorter: false,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedStartTime = date.formathhmma(
           String(appointmentDateTime?.startTime),
