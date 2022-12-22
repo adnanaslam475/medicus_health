@@ -20,20 +20,7 @@ const ConfirmationModal = ({
 }: Props) => {
   return (
     <>
-      {footer != true && footer != undefined ? (
-        <Modal
-          onCancel={onCancel}
-          title=""
-          confirmLoading={confirmLoading}
-          onOk={onOk}
-          visible={visible}
-          className="imtiasz"
-          footer={null}
-        >
-          <p>{message}</p>
-        </Modal>
-      ) : (
-        <Modal
+      <Modal
           onCancel={onCancel}
           title=""
           confirmLoading={confirmLoading}
@@ -43,7 +30,6 @@ const ConfirmationModal = ({
         >
           <p>{message}</p>
         </Modal>
-      )}
     </>
   );
 };
