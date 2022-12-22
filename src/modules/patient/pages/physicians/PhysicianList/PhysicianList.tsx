@@ -69,7 +69,7 @@ function Physicians() {
                 condition_treated: conditionTreated,
                 profile_image,
               } = profile || {};
-
+console.log("aaaa",conditionTreated)
               return (
                 <DoctorCard
                   key={id}
