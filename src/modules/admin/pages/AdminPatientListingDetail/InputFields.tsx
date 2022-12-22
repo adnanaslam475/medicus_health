@@ -48,7 +48,6 @@ const InputFields = ({
       });
     setShowChildren(init);
   }, []);
-
   return (
     <>
       <div className="max-w-[800px] gap-x-4 grid grid-cols-2 relative">
@@ -85,15 +84,15 @@ const InputFields = ({
                             value={
                               value.options?.length
                                 ? `${item?.value
-                                  ?.charAt(0)
-                                  ?.toUpperCase()}${item?.value?.slice(1)}`
+                                    ?.charAt(0)
+                                    ?.toUpperCase()}${item?.value?.slice(1)}`
                                 : item.id
                             }
                           >
                             {value.options?.length
                               ? `${item?.value
-                                ?.charAt(0)
-                                ?.toUpperCase()}${item?.value?.slice(1)}`
+                                  ?.charAt(0)
+                                  ?.toUpperCase()}${item?.value?.slice(1)}`
                               : item[value.option_name]}
                           </Select.Option>
                         );
@@ -104,6 +103,7 @@ const InputFields = ({
               )}
 
             {value.type === "text" &&
+              value.inputType !== "password" &&
               value.name !== "contact_number" &&
               !value?.relationName && (
                 <Form.Item label={value.label} name={value.name}>
@@ -125,6 +125,37 @@ const InputFields = ({
                   country={"us"}
                   placeholder={"Ingrese su número de contacto"}
                   enableAreaCodes
+                />
+              </Form.Item>
+            )}
+            {value.type === "text" && value.inputType === "password" && (
+              <Form.Item
+                label={value.label}
+                name={value.name}
+                dependencies={["password"]}
+                required={value.required}
+                rules={[
+                  {
+                    message: "Please confirm your password!",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+
+                      return Promise.reject(
+                        new Error(
+                          "The two passwords that you entered do not match!"
+                        )
+                      );
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password
+                  autoComplete="new-password"
+                  onPressEnter={(e) => e.preventDefault()}
                 />
               </Form.Item>
             )}
@@ -172,9 +203,14 @@ const InputFields = ({
       </div>
       <Form.Item>
         <div className="flex gap-4 absolute right-0">
-          <Button onClick={() => Router.back()} className={`${isChrome && 'antCustomBtn'}`}>Cancel</Button>
           <Button
-            className={`${isChrome && 'antCustomBtn'}`}
+            onClick={() => Router.back()}
+            className={`${isChrome && "antCustomBtn"}`}
+          >
+            Cancel
+          </Button>
+          <Button
+            className={`${isChrome && "antCustomBtn"}`}
             loading={isUpdating}
             disabled={isUpdating}
             type="primary"
