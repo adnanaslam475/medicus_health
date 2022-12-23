@@ -83,7 +83,10 @@ function CancelledAppointment() {
     });
   }
   const onPaginationChange = (page: number, limit: number) => {
-    localStorage.setItem("patientAppointmentHistoryPerPageLimit", String(limit));
+    localStorage.setItem(
+      "patientAppointmentHistoryPerPageLimit",
+      String(limit)
+    );
     setPagination({ page, limit });
   };
 
@@ -92,16 +95,17 @@ function CancelledAppointment() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${(sorter.field === "transaction" && "transaction") ||
-        (/(status|charges|requestedDate|createdAt|id)/.test(
-          sorter.columnKey
-        ) &&
-          "appointment") ||
-        (sorter.columnKey === "name" && "appointment_service_type") ||
-        (sorter.columnKey === "startTime" && "appointment_time_slots") ||
-        (sorter.columnKey === "requestedDate" && "appointment") ||
-        "user"
-        }.${sorter.columnKey || sorter.field}`
+        ? `${
+            (sorter.field === "transaction" && "transaction") ||
+            (/(status|charges|requestedDate|createdAt|id)/.test(
+              sorter.columnKey
+            ) &&
+              "appointment") ||
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            (sorter.columnKey === "requestedDate" && "appointment") ||
+            "user"
+          }.${sorter.columnKey || sorter.field}`
         : "",
     });
   };
@@ -135,7 +139,7 @@ function CancelledAppointment() {
           >
             <Button
               type="primary"
-              className={`text-sm ${isChrome && 'antCustomBtn'}`}
+              className={`text-sm ${isChrome && "antCustomBtn"}`}
               onClick={showAppointmentBookingModal}
               disabled={
                 patientHealthHistory?.patientHealthHistory?.id ? false : true

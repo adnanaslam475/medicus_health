@@ -5,7 +5,7 @@ import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import { AppointmentServiceType } from "generated/graphql";
 import { tableFooter } from "utils/helper";
-import {getCurrentUserTimeZone} from "common/utils/date"
+import { getCurrentUserTimeZone } from "common/utils/date";
 type Props = {
   data?: any;
   meta?: any;
@@ -25,7 +25,7 @@ const historyColumns = [
   {
     title: "Physician name",
     dataIndex: "doctor",
-    key: "doctor",
+    key: "first_name",
     sorter: true,
     render: (value: any) => {
       return <div>{`Dr. ${value?.first_name} ${value?.last_name}`}</div>;
@@ -46,25 +46,29 @@ const historyColumns = [
     key: "appointmentDateTime",
     sorter: false,
     render: (value: any) => {
-      let timeZone = getCurrentUserTimeZone()
+      let timeZone = getCurrentUserTimeZone();
 
-      return <div>{`${value ? date?.formatDAYMMDDYY(value.startTime,timeZone) : "--"}`}</div>;
+      return (
+        <div>{`${
+          value ? date?.formatDAYMMDDYY(value.startTime, timeZone) : "--"
+        }`}</div>
+      );
     },
   },
-  { 
+  {
     title: "Appointment time",
     dataIndex: "appointmentDateTime",
     key: "appointmentDateTime",
     sorter: false,
     render: (value: any) => {
-      let timeZone = getCurrentUserTimeZone()
-      
-      return <div>{`${date.formathhmma(
-        value?.startTime,
-        timeZone
-      )} - ${date.formathhmma(
-        value?.endTime,
-        timeZone)}`}</div>;
+      let timeZone = getCurrentUserTimeZone();
+
+      return (
+        <div>{`${date.formathhmma(
+          value?.startTime,
+          timeZone
+        )} - ${date.formathhmma(value?.endTime, timeZone)}`}</div>
+      );
     },
   },
 
@@ -117,7 +121,9 @@ function PatientAppointmentHistoryTable(props: Props) {
       columns={historyColumns}
       dataSource={data}
       onChange={onChange}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
       scroll={{ x: true }}
       pagination={{
         total: meta?.totalPages * pagination.limit,
