@@ -708,7 +708,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
       requestedDate: getDayJsObject(requestedDate),
     });
     setServiceInfo(serviceType as AppointmentServiceType);
-    if (data.appointmentTypeProposed?.serviceId)
+    if (data?.appointmentTypeProposed?.serviceId)
       handleServiceChange(data.appointmentTypeProposed?.serviceId);
   }
 
@@ -716,7 +716,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
     // setflag
     setDefaultCharges(false);
     let charge = allAppoinments?.find(
-      (serviceType) => serviceType.id === value
+      (serviceType: any) => serviceType.id === value
     );
     setServiceInfo(charge as any);
   }
@@ -876,7 +876,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
                   className="w-full"
                   onChange={handleServiceChange}
                 >
-                  {allAppoinments?.map((item) => (
+                  {allAppoinments?.map((item: any) => (
                     <Select.Option key={item?.id} value={item.id}>
                       {item.name}
                     </Select.Option>
