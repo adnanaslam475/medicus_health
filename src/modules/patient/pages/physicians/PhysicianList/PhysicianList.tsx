@@ -69,7 +69,6 @@ function Physicians() {
                 condition_treated: conditionTreated,
                 profile_image,
               } = profile || {};
-
               return (
                 <DoctorCard
                   key={id}

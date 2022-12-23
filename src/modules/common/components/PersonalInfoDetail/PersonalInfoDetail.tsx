@@ -101,6 +101,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       conntactNumber: contact_number,
       email: email,
       password: "",
+      confirmPassword:"",
       country_id: country_id,
       state_id: state_id === 0 ? "" : state_id,
       city_id: city_id === 0 ? "" : city_id,
