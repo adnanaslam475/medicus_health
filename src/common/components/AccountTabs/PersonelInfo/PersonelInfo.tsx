@@ -71,7 +71,14 @@ const PersonalInfo = () => {
     }
     try {
       console.log({ values });
-      if (values?.confirmPassword == values?.password) {
+      if (
+        values?.confirmPassword !== "" &&
+        values?.confirmPassword !== values?.password
+      ) {
+        notification.error({
+          message: "Password is does not match",
+        });
+      } else {
         const res = await updateUserProfile({
           id: id as number,
           updateUserInput: {

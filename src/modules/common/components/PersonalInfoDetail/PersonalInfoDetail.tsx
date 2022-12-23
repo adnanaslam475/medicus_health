@@ -101,7 +101,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
       conntactNumber: contact_number,
       email: email,
       password: "",
-      confirmPassword:"",
+      confirmPassword: "",
       country_id: country_id,
       state_id: state_id === 0 ? "" : state_id,
       city_id: city_id === 0 ? "" : city_id,
@@ -170,7 +170,14 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
 
   return (
     <div className="custom-list mt-4">
-      <Form form={formInstance} onFinish={onFinish} layout="vertical">
+      <Form
+        form={formInstance}
+        onFinish={(vals: any) => {
+          formInstance.validateFields();
+          onFinish?.(vals);
+        }}
+        layout="vertical"
+      >
         <ul>
           <div className="border border-gray-3 px-0 rounded custom-list-items">
             <li>
@@ -371,7 +378,31 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                 <div
                   className={`${_classes["custom_text_field"]} w-1/2 lg:w-2/5 text-secondary md:pl-4`}
                 >
-                  <Form.Item name="password" className="bottom-margin-0">
+                  <Form.Item
+                    name="password"
+                    className="bottom-margin-0"
+                    dependencies={["password"]}
+                    rules={[
+                      {
+                        // required: true,
+                        // message: t("confirm_your_password"),
+                        message: "¡Por favor, confirme su contraseña!",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("confirmPassword") === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            // new Error(t("two_passwords_mismatch_message"))
+                            new Error(
+                              "Las dos contraseñas que ingresaste no coinciden"
+                            )
+                          );
+                        },
+                      }),
+                    ]}
+                  >
                     <Input.Password size="large" placeholder="Contraseña" />
                   </Form.Item>
                 </div>
@@ -389,6 +420,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   <Form.Item
                     name="confirmPassword"
                     className="bottom-margin-0"
+                    dependencies={["password"]}
                     rules={[
                       {
                         // required: true,
