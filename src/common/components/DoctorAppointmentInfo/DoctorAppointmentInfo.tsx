@@ -680,7 +680,7 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   // FOR PROPOSE NEW TIME
   const [{ data: appointmentServiceTypes }] =
     useGetAllAppointmentServiceTypesQuery();
-  const allAppoinments = appointmentServiceTypes?.appointmentServiceTypes;
+  let allAppoinments: any = appointmentServiceTypes?.appointmentServiceTypes;
 
   const [formInstance] = Form.useForm();
   const [datePickerInstance] = Form.useForm();
@@ -691,8 +691,9 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
   useEffect(() => {
     if (data) {
       prepareAndSetEditPayload();
+      allAppoinments = appointmentServiceTypes?.appointmentServiceTypes;
     }
-  }, [data]);
+  }, [data, appointmentServiceTypes]);
 
   function prepareAndSetEditPayload() {
     const proposedAppoitmentServiceTypeObj =
@@ -707,6 +708,8 @@ function DoctorRequestedAppointmentInfoFooter(props: Props) {
       requestedDate: getDayJsObject(requestedDate),
     });
     setServiceInfo(serviceType as AppointmentServiceType);
+    if (data.appointmentTypeProposed?.serviceId)
+      handleServiceChange(data.appointmentTypeProposed?.serviceId);
   }
 
   function handleServiceChange(value: any) {
