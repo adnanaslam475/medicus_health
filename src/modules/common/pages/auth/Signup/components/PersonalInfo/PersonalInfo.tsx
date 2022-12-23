@@ -280,6 +280,17 @@ export default function PersonalInfo({ onFinish }: props) {
               message: "La contraseña debe tener un mínimo de 8 caracteres.",
               // message: "Password must be minimum 8 characters.",
             },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("confirmPassword") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  // new Error(t("two_passwords_mismatch_message"))
+                  new Error("Las dos contraseñas que ingresaste no coinciden")
+                );
+              },
+            }),
           ]}
         >
           <Input.Password />
