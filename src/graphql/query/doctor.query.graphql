@@ -110,6 +110,7 @@ query doctorAppointmentDetailAppointmentInfo($id: Int!) {
       endTime
     }
     appointmentTypeProposed {
+      serviceId
       type
       price
       dateTime {
