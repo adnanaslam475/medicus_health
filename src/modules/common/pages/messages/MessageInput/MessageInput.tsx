@@ -210,7 +210,7 @@ function MessageInput() {
               </span>
             </span>
             <span
-              className="absolute top-6 right-4 cursor-pointer"
+              className="absolute top-7 right-4 cursor-pointer"
               onClick={enabled ? onSendMessage : () => null}
             >
               {/* {loader && messageType === "Media" ? (
