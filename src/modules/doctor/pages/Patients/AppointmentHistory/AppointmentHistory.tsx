@@ -53,7 +53,12 @@ function AppointmentHistory() {
     const [, , sorter] = params;
     setSorting({
       order: sorter.order?.replace("end", "") || "",
-      column: sorter.order ? `user.${sorter.columnKey}` : "",
+      //column: sorter.order ? `user.${sorter.columnKey}` : "",
+      column: sorter.order
+        ? `${
+            (/(createdAt|id)/.test(sorter.columnKey) && "appointment") || "user"
+          }.${sorter.columnKey || sorter.field}`
+        : "",
     });
   };
 
