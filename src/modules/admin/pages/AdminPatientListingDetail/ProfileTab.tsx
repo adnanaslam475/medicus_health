@@ -218,7 +218,6 @@ function AdminPatientProfileTab({}: Props) {
       });
     }
     try {
-      console.log("dsdsds");
       const response = await updateUserProfile({
         id: Number(query?.id),
         updateUserInput: {
