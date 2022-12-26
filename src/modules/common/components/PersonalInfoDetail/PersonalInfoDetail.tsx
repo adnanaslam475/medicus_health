@@ -381,7 +381,7 @@ export const PersonalInfoDetail = React.forwardRef(function PersonalInfoDetail(
                   <Form.Item
                     name="password"
                     className="bottom-margin-0"
-                    dependencies={["password"]}
+                    dependencies={["confirmPassword"]}
                     rules={[
                       {
                         // required: true,
