@@ -51,7 +51,6 @@ function AppointmentHistory() {
 
   const onChange = (...params: any) => {
     const [, , sorter] = params;
-    console.log(sorter);
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       //column: sorter.order ? `user.${sorter.columnKey}` : "",
