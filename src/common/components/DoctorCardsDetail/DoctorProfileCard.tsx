@@ -101,7 +101,25 @@ function DoctorProfileCard(props: Props) {
     `${first_name?.includes("Dr.") ? first_name : `Dr. ${first_name}`}`;
 
   const timeZone = getCurrentUserTimeZone();
-
+  function conditionArrayConverter(str: string) {
+    if (str.includes("//")) {
+      return str
+        .split("//")
+        .filter((elm: any) => elm)
+        .filter((elm: any) => {
+          if (elm !== " ") {
+            return elm;
+          }
+        });
+    }
+    return [str];
+  }
+  const condition_treated: string = doctorData?.condition_treated
+    ? doctorData?.condition_treated
+    : "";
+  const conditionTreatedarr = conditionArrayConverter(
+    condition_treated?.replaceAll?.(",", " // ")
+  );
   return (
     <>
       <Card className={`${_classes["doctorProfileCard"]} rounded-xl`}>
@@ -305,9 +323,11 @@ function DoctorProfileCard(props: Props) {
           {/* Conditions treated */}
         </h4>
         <h6 className="text-secondary">
-          {doctorData?.condition_treated?.includes(",")
-            ? doctorData?.condition_treated?.replaceAll?.(",", " // ")?.slice(4)
-            : doctorData?.condition_treated}
+          {conditionTreatedarr.map(
+            (elem: string, _ind: any, arr: string | any[]) => {
+              return arr.length > 1 ? (elem !== "" ? elem + "//" : elem) : elem;
+            }
+          )}
         </h6>
         <Divider />
 
