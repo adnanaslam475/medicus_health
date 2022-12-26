@@ -218,6 +218,7 @@ function AdminPatientProfileTab({}: Props) {
       });
     }
     try {
+      console.log("dsdsds");
       const response = await updateUserProfile({
         id: Number(query?.id),
         updateUserInput: {
@@ -229,8 +230,8 @@ function AdminPatientProfileTab({}: Props) {
           contact_number: values.contact_number,
           country_id: values?.country_name,
           password: values.password || "",
-          state_id: values.state_name,
-          city_id: values.city_name || values.state_name,
+          state_id: Number(values?.state_name),
+          city_id: Number(values.city_name) || Number(values.state_name),
           streetAddress: values.streetAddress,
           zip_code: values?.zip_code,
           maritalStatus: values.maritalStatus,
@@ -284,15 +285,15 @@ function AdminPatientProfileTab({}: Props) {
       className={`relative ${_classes["admin-patient-profile-page"]} pt-20 sm:pt-0 `}
     >
       <div className="w-full mb-10 flex gap-8 items-center pt-14 md:pt-10">
-          <div>
-        <div className="relative">
-          <Avatar
-            size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
-            className={`profile-avatar`}
-            src={patientProfile?.profileImage}
-            icon={!patientProfile?.profileImage && <UserOutlined />}
-          />
-        </div>
+        <div>
+          <div className="relative">
+            <Avatar
+              size={{ xs: 80, sm: 80, md: 80, lg: 100, xl: 100, xxl: 130 }}
+              className={`profile-avatar`}
+              src={patientProfile?.profileImage}
+              icon={!patientProfile?.profileImage && <UserOutlined />}
+            />
+          </div>
 
           <Skeleton
             loading={loading || !first_name}
@@ -300,11 +301,11 @@ function AdminPatientProfileTab({}: Props) {
             active
           >
             <h2 className="mb-0">{`${first_name || ""} ${last_name || ""}`}</h2>
-          <span className="block break-all">{email}</span>
+            <span className="block break-all">{email}</span>
           </Skeleton>
           <div className="gap-y-2 flex-col sm:flex-row flex gap-2 pt-2">
             <div
-              className={ 
+              className={
                 userDisableInput
                   ? `${_classes["profile-select-enable"]}`
                   : `${_classes["profile-select-disable"]}`
