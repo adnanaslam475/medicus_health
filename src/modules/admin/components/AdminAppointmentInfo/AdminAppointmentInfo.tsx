@@ -281,7 +281,10 @@ function AdminAppointmentInfo({
           <LabelWithText
             label="Booking date and time"
             // text={`${dueDate} - ${time}`}
-            text={`${date.formatDAYMMDDYY(String(dueDate))} - ${time}`}
+            text={`${date.formatDAYMMDDYY(
+              String(dueDate),
+              timeZone
+            )} - ${time}`}
           />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
