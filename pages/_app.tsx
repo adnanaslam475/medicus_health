@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/next-script-for-ga */
 import type { AppProps } from "next/app";
-import { createClient, Provider } from "urql";
+import { cacheExchange, createClient, dedupExchange, Provider } from "urql";
 import { NextIntlProvider } from "next-intl";
 import AuthProvider from "common/hooks/authProvider";
 import { getToken, getUserData } from "common/utils/userData";
@@ -19,16 +19,38 @@ import {
 } from "common/components/Context/UserContext";
 import Script from "next/script";
 // import favicon from "../public/favicon.ico";
-
+const logout = () => {
+  localStorage.removeItem("loggedInUserData");
+  localStorage.removeItem("loginTime");
+  localStorage.removeItem("appointmentsAlertData");
+  Router.push("/login");
+};
 const client = createClient({
   url: config.baseURL || "",
+  // exchanges: [
+  //   mapExchange({
+  //     onError(error, _operation) {
+  //       const isAuthError = error.graphQLErrors.some((e: { extensions: { code: string; }; })  => e.extensions?.code === 'FORBIDDEN');
+  //       if (isAuthError) {
+  //         logout();
+  //       }
+  //     },
+  //   }),
+  //   authExchange({
+  //       /* config */
+  //     }),
+  //   ]
   fetchOptions: () => {
     const token = getToken();
-    return {
-      headers: { Authorization: token ? `Bearer ${token}` : "" },
-    };
+    
+      return {
+        headers: { Authorization: token ? `Bearer ${token}` : "" },
+      };
   },
 });
+// "Could not log-in with the provided credentials"
+
+// client.
 function MyApp({ Component, pageProps }: AppProps | any) {
   const { user } = getUserData();
   const loginTime =
@@ -142,3 +164,11 @@ function MyApp({ Component, pageProps }: AppProps | any) {
 }
 
 export default MyApp;
+function mapExchange(arg0: { onError(error: any, _operation: any): void; }) {
+  throw new Error("Function not implemented.");
+}
+
+function authExchange(arg0: {}) {
+  throw new Error("Function not implemented.");
+}
+

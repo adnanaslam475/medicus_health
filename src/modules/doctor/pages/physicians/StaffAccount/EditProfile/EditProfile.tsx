@@ -225,7 +225,7 @@ function EditProfile({
     setConditionTreatedList(condition_treated);
   }, []);
 
-  const logout = () => {
+  export const logout = () => {
     localStorage.removeItem("loggedInUserData");
     localStorage.removeItem("loginTime");
     localStorage.removeItem("appointmentsAlertData");
