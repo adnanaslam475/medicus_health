@@ -80,6 +80,7 @@ function AdminAppointmentInfo({
   formRef,
 }: Props) {
   const { query } = useRouter();
+  const router = useRouter();
   const {
     id,
     bookingDate,
@@ -146,7 +147,7 @@ function AdminAppointmentInfo({
         notification.success({
           message: "Appointment Delete Successfully",
         });
-        Router.back();
+        router.back();
         deleteModalHandler();
       }
     } catch (error: any) {
@@ -281,9 +282,7 @@ function AdminAppointmentInfo({
           <LabelWithText
             label="Booking date and time"
             // text={`${dueDate} - ${time}`}
-            text={`${date.formatDAYMMDDYY(
-              String(dueDate)
-            )} - ${time}`}
+            text={`${date.formatDAYMMDDYY(String(dueDate))} - ${time}`}
           />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
