@@ -116,10 +116,11 @@ function AdminPhysicianList() {
       title: "Appointment date",
       dataIndex: "appointmentDateTime",
       key: "appointmentDateTime",
-      sorter:false,
+      sorter: false,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         let formatedStartTime = date.formatMMMMDDYYYY(
-          String(appointmentDateTime?.startTime)
+          String(appointmentDateTime?.startTime),
+          timeZone
         );
         return (
           <div>
@@ -132,7 +133,7 @@ function AdminPhysicianList() {
       title: "Appointment time",
       dataIndex: "appointmentDateTime",
       key: "startTime",
-      sorter:false,
+      sorter: false,
       render: (appointmentDateTime: AppointmentDateTimeResponse) => {
         return (
           <div>
@@ -224,16 +225,16 @@ function AdminPhysicianList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-      ? `${
-          (sorter.columnKey === "name" && "appointment_service_type") ||
-          (sorter.columnKey === "status" && "appointment") ||
-          (sorter.columnKey === "first_name" && "patient") ||
-          (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
-            "appointment") ||
-          (sorter.columnKey === "startTime" && "appointment_time_slots") ||
-          "user"
-        }.${sorter.columnKey || sorter.field}`
-      : "",
+        ? `${
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (sorter.columnKey === "status" && "appointment") ||
+            (sorter.columnKey === "first_name" && "patient") ||
+            (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
+              "appointment") ||
+            (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+            "user"
+          }.${sorter.columnKey || sorter.field}`
+        : "",
     });
   };
   function onChangeFilters(filterValue: GetAppointmentInput) {

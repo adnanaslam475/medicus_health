@@ -31,7 +31,7 @@ type StatusName =
   | "REQUESTED"
   | "PROPOSED"
   | "CANCELED";
-  const timeZone = getCurrentUserTimeZone();
+const timeZone = getCurrentUserTimeZone();
 
 const columns = [
   {
@@ -66,10 +66,12 @@ const columns = [
     sorter: false,
     render: (appointmentDateTime: AppointmentDateTimeResponse) => {
       let formatedStartTime = date.formathhmma(
-        String(appointmentDateTime?.startTime),timeZone
+        String(appointmentDateTime?.startTime),
+        timeZone
       );
       let formatedEndTime = date.formathhmma(
-        String(appointmentDateTime?.endTime),timeZone
+        String(appointmentDateTime?.endTime),
+        timeZone
       );
       return (
         <div>
@@ -90,7 +92,7 @@ const columns = [
       return (
         <div>
           {appointmentDateTime?.startTime
-            ? `${date?.formatDAYMMDDYY(formatedDueDate)} `
+            ? `${date?.formatDAYMMDDYY(formatedDueDate, timeZone)} `
             : "--"}
         </div>
       );
@@ -102,7 +104,13 @@ const columns = [
     key: "appointmentCharges",
     sorter: true,
     render: (appointmentCharges: AppointmentPriceResponse) => {
-      return <div>{appointmentCharges?.total ? currencyFormatter(appointmentCharges?.total) : "--"}</div>;
+      return (
+        <div>
+          {appointmentCharges?.total
+            ? currencyFormatter(appointmentCharges?.total)
+            : "--"}
+        </div>
+      );
     },
   },
   {
@@ -200,14 +208,16 @@ function AdminPatientAppointmentList() {
     setSorting({
       order: sorter.order?.replace("end", "") || "",
       column: sorter.order
-        ? `${(sorter.columnKey === "name" && "appointment_service_type") ||
-        (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
-        (sorter.columnKey === "appointment_time_slots" &&
-          "appointment_time_slots") ||
-        (/first_name/.test(sorter.columnKey) && "user")
-        }.${(sorter.columnKey === "appointment_time_slots" && "startTime") ||
-        sorter.columnKey
-        }`
+        ? `${
+            (sorter.columnKey === "name" && "appointment_service_type") ||
+            (/(status|charges)/.test(sorter.columnKey) && "appointment") ||
+            (sorter.columnKey === "appointment_time_slots" &&
+              "appointment_time_slots") ||
+            (/first_name/.test(sorter.columnKey) && "user")
+          }.${
+            (sorter.columnKey === "appointment_time_slots" && "startTime") ||
+            sorter.columnKey
+          }`
         : "",
     });
   };
