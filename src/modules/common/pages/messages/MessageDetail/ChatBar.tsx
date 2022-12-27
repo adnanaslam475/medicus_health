@@ -110,7 +110,7 @@ function MessageItem(props: Props) {
                   </p>
                 ) : (
                   <p
-                    className={`p-3 text-secondary rounded inline-block break-all whitespace-pre-wrap`}
+                    className={`p-3 text-secondary rounded inline-block break-word whitespace-pre-wrap`}
                   >
                     {message}
                   </p>
