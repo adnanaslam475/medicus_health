@@ -1,7 +1,10 @@
 import React from "react";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import AdminAppointmentInfo from "modules/admin/components/AdminAppointmentInfo/AdminAppointmentInfo";
-import { formatMMMM_Dcoma_YYYY, getCurrentUserTimeZone } from "common/utils/date";
+import {
+  formatMMMM_Dcoma_YYYY,
+  getCurrentUserTimeZone,
+} from "common/utils/date";
 import { date } from "common/utils";
 import { Appointment } from "generated/graphql";
 import { Spin } from "antd";
@@ -33,26 +36,31 @@ function AdminPhysicianAppointmentInfoTab({ appointment, loading }: Props) {
     patient: `${
       appointment?.patient?.first_name + " " + appointment?.patient?.last_name
     }`,
-    patientProfilePic:appointment?.patient?.patientProfile?.profileImage,
+    patientProfilePic: appointment?.patient?.patientProfile?.profileImage,
     physician:
       appointment?.doctor?.first_name + " " + appointment?.doctor?.last_name,
     service: appointment?.serviceType?.name,
     dueDate: date.formatMMMMDDYYYY(
-      String(appointment?.appointmentDateTime?.startTime)
+      String(appointment?.appointmentDateTime?.startTime),
+      timeZone
     ),
     time: `${
       appointment?.appointmentDateTime?.startTime &&
       appointment?.appointmentDateTime?.endTime
         ? `${date?.formathhmma(
-            appointment?.appointmentDateTime?.startTime,timeZone
-          )} - ${date?.formathhmma(appointment?.appointmentDateTime?.endTime,timeZone)}`
+            appointment?.appointmentDateTime?.startTime,
+            timeZone
+          )} - ${date?.formathhmma(
+            appointment?.appointmentDateTime?.endTime,
+            timeZone
+          )}`
         : "--"
     }`,
     totalAmount: appointment?.appointmentCharges?.total,
     appointmentStatus: appointment?.status,
     paymentStatus: appointment?.transaction?.status,
-    appointmentTypeProposed:appointment?.appointmentTypeProposed,
-    createdAt:appointment?.createdAt
+    appointmentTypeProposed: appointment?.appointmentTypeProposed,
+    createdAt: appointment?.createdAt,
   };
 
   const adminApp_Details = {

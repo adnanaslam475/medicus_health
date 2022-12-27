@@ -282,8 +282,7 @@ function AdminAppointmentInfo({
             label="Booking date and time"
             // text={`${dueDate} - ${time}`}
             text={`${date.formatDAYMMDDYY(
-              String(dueDate),
-              timeZone
+              String(dueDate)
             )} - ${time}`}
           />
           {isEdit ? (
