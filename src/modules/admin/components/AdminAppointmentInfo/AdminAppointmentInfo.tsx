@@ -210,11 +210,15 @@ function AdminAppointmentInfo({
                             .includes(input.toLowerCase())
                         }
                       >
-                        {getPatients?.items?.map((item, index) => (
-                          <Option key={index} value={item?.id}>
-                            {`${item?.first_name} ${item?.last_name}`}
-                          </Option>
-                        ))}
+                        {getPatients?.items?.map((item, index) => {
+                          if (item.status) {
+                            return (
+                              <Option key={index} value={item?.id}>
+                                {`${item?.first_name} ${item?.last_name}`}
+                              </Option>
+                            );
+                          }
+                        })}
                       </Select>
                     </Form.Item>
                   </div>
@@ -251,11 +255,13 @@ function AdminAppointmentInfo({
                             const firstName = item?.first_name?.includes("Dr.")
                               ? item?.first_name
                               : `Dr. ${item?.first_name}`;
-                            return (
-                              <Option key={index} value={`${item.id}`}>
-                                {`${firstName} ${item?.last_name}`}
-                              </Option>
-                            );
+                            if (item.is_active) {
+                              return (
+                                <Option key={index} value={`${item.id}`}>
+                                  {`${firstName} ${item?.last_name}`}
+                                </Option>
+                              );
+                            }
                           })}
                       </Select>
                     </Form.Item>
@@ -281,9 +287,7 @@ function AdminAppointmentInfo({
           <LabelWithText
             label="Booking date and time"
             // text={`${dueDate} - ${time}`}
-            text={`${date.formatDAYMMDDYY(
-              String(dueDate)
-            )} - ${time}`}
+            text={`${date.formatDAYMMDDYY(String(dueDate))} - ${time}`}
           />
           {isEdit ? (
             <li className="flex border-b border-gray-5 py-3">
