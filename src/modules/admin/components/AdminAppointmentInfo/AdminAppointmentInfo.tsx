@@ -713,7 +713,7 @@ function AdminAppointmentConfirmedInfoFooter(props: Props) {
           icon={<VideoCameraFilled />}
           className={`${
             _classes["appointments-btn"]
-          } bg-current w-full sm:w-auto ${isChrome && "antCustomBtn"}`}
+          } bg-current w-full sm:w-auto ${isChrome && "antCustomBtn"} flex items-center`}
           onClick={() => setShowRescheduleModal(true)}
         >
           Reschedule appointment
