@@ -147,7 +147,7 @@ function AdminAppointmentInfo({
         });
         if (router.pathname.includes("admin/patients/detail/")) {
           router.push(
-            `/admin/patients/${adminApp_Details?.patient?.patient_id}?activeTab=3`
+            `/admin/patients/${adminApp_Details?.patient?.patient_id}`
           );
         } else {
           router.back();
