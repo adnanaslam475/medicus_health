@@ -80,6 +80,7 @@ function AdminAppointmentInfo({
   formRef,
 }: Props) {
   const { query } = useRouter();
+  const router = useRouter();
   const {
     id,
     bookingDate,
@@ -146,7 +147,7 @@ function AdminAppointmentInfo({
         notification.success({
           message: "Appointment Delete Successfully",
         });
-        Router.back();
+        router.back();
         deleteModalHandler();
       }
     } catch (error: any) {
