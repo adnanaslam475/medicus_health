@@ -132,7 +132,6 @@ function AdminAppointmentInfo({
     useRemoveAppointmentByAdminMutation();
 
   const [open, setOpen] = React.useState<boolean>(false);
-
   const deleteModalHandler = () => setOpen(!open);
   const deleteAppointmentHandler = async () => {
     try {
@@ -147,7 +146,11 @@ function AdminAppointmentInfo({
         notification.success({
           message: "Appointment Delete Successfully",
         });
-        router.back();
+        if (router.pathname === "/admin/patients/detail/[id]") {
+          router.push("/admin/patients");
+        } else {
+          router.back();
+        }
         deleteModalHandler();
       }
     } catch (error: any) {
