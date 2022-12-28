@@ -78,7 +78,7 @@ export default function EmailVerification() {
               </div>
             </div>
             <h2 className="text-center text-secondary mb-3 px-10 leading-8">
-              {!errorMsg ? t("verifying") : errorMsg.split("]")[1].trim()}
+              {!errorMsg ? t("verifying") : errorMsg}
             </h2>
           </div>
         </div>

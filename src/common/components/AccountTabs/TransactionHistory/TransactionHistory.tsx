@@ -10,8 +10,9 @@ import {
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { tableFooter } from "utils/helper";
-import { currencyFormatter } from "common/utils/date";
+import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 
+const timeZone = getCurrentUserTimeZone();
 const transactionsColumns = [
   {
     title: "ID#",
@@ -35,7 +36,7 @@ const transactionsColumns = [
     title: "Appointment type", //change name to appointment type from appointment type
     dataIndex: "appointment",
     key: "name",
-		sorter: false,
+    sorter: false,
 
     render: (value: Appointment) => {
       return <div className="someclass">{`${value?.serviceType?.name}`}</div>;
@@ -54,8 +55,9 @@ const transactionsColumns = [
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
         <div className="someclass">{`${date?.formathhmma(
-          time?.startTime
-        )} - ${date?.formathhmma(time?.endTime)}`}</div>
+          time?.startTime,
+          timeZone
+        )} - ${date?.formathhmma(time?.endTime, timeZone)}`}</div>
       );
     },
   },
@@ -68,7 +70,8 @@ const transactionsColumns = [
       let time = value?.appointmentTimeSlots?.find((time) => time.selected);
       return (
         <div className="someclass">{`${date?.formatMMMMDDYYYY(
-          time?.startTime
+          time?.startTime,
+          timeZone
         )} `}</div>
       );
     },
@@ -80,7 +83,7 @@ const transactionsColumns = [
     key: "amountReceived",
     sorter: true,
     render: (value: number) => {
-      return <div >{value ? currencyFormatter(value) : "-"}</div>;
+      return <div>{value ? currencyFormatter(value) : "-"}</div>;
     },
   },
   {
@@ -90,8 +93,9 @@ const transactionsColumns = [
     sorter: true,
     render: (value: string) => {
       return (
-        <div className="someclass">{`${value ? date?.formatDAYMMDDYY(value) : "--"
-          }`}</div>
+        <div className="someclass">{`${
+          value ? date?.formatDAYMMDDYY(value) : "--"
+        }`}</div>
       );
     },
   },
@@ -144,16 +148,17 @@ const TransactionHistory = (props: Props) => {
       setSorting({
         order: sorter.order?.replace("end", "") || "",
         column: sorter.order
-          ? `${(sorter.field === "transaction" && "transaction") ||
-          (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
-            "appointment") ||
-          (sorter.columnKey === "name" && "appointment_service_type") ||
-          (sorter.columnKey === "startTime" && "appointment_time_slots") ||
-          (sorter.columnKey === "amountReceived" && "transaction") ||
-          (sorter.columnKey === "requestedDate" && "appointment") ||
-          (sorter.columnKey === "status" && "transaction") ||
-          "user"
-          }.${sorter.columnKey || sorter.field}`
+          ? `${
+              (sorter.field === "transaction" && "transaction") ||
+              (/(charges|requestedDate|createdAt|id)/.test(sorter.columnKey) &&
+                "appointment") ||
+              (sorter.columnKey === "name" && "appointment_service_type") ||
+              (sorter.columnKey === "startTime" && "appointment_time_slots") ||
+              (sorter.columnKey === "amountReceived" && "transaction") ||
+              (sorter.columnKey === "requestedDate" && "appointment") ||
+              (sorter.columnKey === "status" && "transaction") ||
+              "user"
+            }.${sorter.columnKey || sorter.field}`
           : "",
       });
   };
@@ -170,14 +175,14 @@ const TransactionHistory = (props: Props) => {
         tableFooter(currentPageCount?.length, meta?.totalItems)
       }
       loading={loading}
-    // pagination={{
-    //   total: pagination.limit * meta?.totalPages,
-    //   current: meta?.currentPage,
-    //   defaultPageSize: 10,
-    //   onChange: onPaginationChange,
-    //   pageSizeOptions: ["10", "20", "30", "40"],
-    //   showSizeChanger: true,
-    // }}
+      // pagination={{
+      //   total: pagination.limit * meta?.totalPages,
+      //   current: meta?.currentPage,
+      //   defaultPageSize: 10,
+      //   onChange: onPaginationChange,
+      //   pageSizeOptions: ["10", "20", "30", "40"],
+      //   showSizeChanger: true,
+      // }}
     />
   );
 };

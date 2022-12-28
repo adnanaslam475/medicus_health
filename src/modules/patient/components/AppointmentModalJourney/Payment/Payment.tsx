@@ -9,13 +9,13 @@ type Props = {
   visa: StaticImageData;
   title?: string;
   description?: string;
+  checked: boolean;
 };
 function Payment(props: Props) {
-  const { cardId, visa, title, description } = props;
-
+  const { cardId, visa, title, description,checked } = props;
   return (
     <div className="bg-gray-4 flex items-center py-3 px-3 pr-10 rounded my-3">
-      <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={cardId}>
+      <Radio className={`bg-gray-4 ${_classes["radio-div"]}`} value={cardId} defaultChecked={checked}>
         <div className="rounded px-2 pb-0 mb-0 pt-2">
           <Image
             priority={true}

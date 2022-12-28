@@ -5,6 +5,10 @@
   &.for-msg-icon-width span:first-child {
     width: 15px !important;
   }
+
+  :global span.anticon {
+    line-height: 0;
+  }
 }
 
 .appointments-rebook-btn {

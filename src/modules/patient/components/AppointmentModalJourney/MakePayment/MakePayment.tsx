@@ -39,6 +39,16 @@ function MakePayment(props: Props) {
   }, [allCardsData?.getAllCards]);
 
   useEffect(() => {
+    allCardsData?.getAllCards.map((elem) => {
+      if (elem.is_default) {
+        setValue(elem.id as number);
+      }
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allCardsData?.getAllCards]);
+
+  useEffect(() => {
     setSelectedCardId?.(value);
   }, [value]);
   return (
@@ -62,6 +72,7 @@ function MakePayment(props: Props) {
                 visa={CARD_TYPE[card?.card_type.toLowerCase()] || defaultCard}
                 title={`${card?.card_type} ending with ${card?.card_digits}`}
                 description={`Expires on: ${card?.exp_month}/${card?.exp_year}`}
+                checked={card.is_default}
               />
             ))}
           </Radio.Group>
