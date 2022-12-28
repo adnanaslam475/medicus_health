@@ -1,6 +1,12 @@
 /* eslint-disable @next/next/next-script-for-ga */
 import type { AppProps } from "next/app";
-import { cacheExchange, createClient, dedupExchange, Provider } from "urql";
+import {
+  cacheExchange,
+  createClient,
+  dedupExchange,
+  fetchExchange,
+} from "@urql/core";
+import { CombinedError, Provider } from "urql";
 import { NextIntlProvider } from "next-intl";
 import AuthProvider from "common/hooks/authProvider";
 import { getToken, getUserData } from "common/utils/userData";
@@ -18,15 +24,82 @@ import {
   useUserData,
 } from "common/components/Context/UserContext";
 import Script from "next/script";
-// import favicon from "../public/favicon.ico";
+import { authExchange } from "@urql/exchange-auth";
+
 const logout = () => {
-  localStorage.removeItem("loggedInUserData");
-  localStorage.removeItem("loginTime");
-  localStorage.removeItem("appointmentsAlertData");
-  Router.push("/login");
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("loggedInUserData");
+    localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
+    Router.push("/login");
+  }
 };
 const client = createClient({
   url: config.baseURL || "",
+  exchanges: [
+    dedupExchange,
+    cacheExchange,
+    authExchange({
+      getAuth: async ({ authState, mutate }) => {
+        if (typeof window !== "undefined") {
+          // for initial launch, fetch the auth state from storage (local storage, async storage etc)
+        //   if (!authState) {
+        //     const token = localStorage.getItem("token");
+        //     const refreshToken = localStorage.getItem("refreshToken");
+        //     if (token && refreshToken) {
+        //       return { token, refreshToken };
+        //     }
+        //     return null;
+        //   }
+
+        //   /**
+        //    * the following code gets executed when an auth error has occurred
+        //    * we should refresh the token if possible and return a new auth state
+        //    * If refresh fails, we should log out
+        //    **/
+
+        //   // if your refresh logic is in graphQL, you must use this mutate function to call it
+        //   // if your refresh logic is a separate RESTful endpoint, use fetch or similar
+        //   // @ts-ignore
+        //   const result = await mutate(refreshMutation, {
+        //     // @ts-ignore
+
+        //     token: authState?.refreshToken,
+        //   });
+
+        //   if (result.data?.refreshLogin) {
+        //     // save the new tokens in storage for next restart
+        //     localStorage.setItem("token", result.data.refreshLogin.token);
+        //     localStorage.setItem(
+        //       "refreshToken",
+        //       result.data.refreshLogin.refreshToken
+        //     );
+
+        //     // return the new tokens
+        //     return {
+        //       token: result.data.refreshLogin.token,
+        //       refreshToken: result.data.refreshLogin.refreshToken,
+        //     };
+        //   }
+
+        //   // otherwise, if refresh fails, log clear storage and log out
+        //   localStorage.clear();
+        // }
+        // // your app logout logic should trigger here
+        // logout();
+        }
+        return null;
+      },
+      // @ts-ignore
+      didAuthError: (error: CombinedError, authState: unknown) => {
+        console.log(error)
+        return error.graphQLErrors.some(
+          (e: any) => e.extensions?.code === "FORBIDDEN"
+        );
+      },
+    }),
+    fetchExchange,
+  ],
   // exchanges: [
   //   mapExchange({
   //     onError(error, _operation) {
@@ -42,10 +115,10 @@ const client = createClient({
   //   ]
   fetchOptions: () => {
     const token = getToken();
-    
-      return {
-        headers: { Authorization: token ? `Bearer ${token}` : "" },
-      };
+
+    return {
+      headers: { Authorization: token ? `Bearer ${token}` : "" },
+    };
   },
 });
 // "Could not log-in with the provided credentials"
@@ -149,6 +222,7 @@ function MyApp({ Component, pageProps }: AppProps | any) {
       <UserDataProvider>
         <NextIntlProvider messages={pageProps.messages}>
           <AuthProvider>
+            {/* @ts-ignore */}
             <Provider value={client}>
               <Script
                 src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.DateTimeFormat%2CIntl.RelativeTimeFormat%2CIntl.DateTimeFormat.%7EtimeZone.all%2CIntl.PluralRules%2CIntl.Locale%2CIntl.NumberFormat"
@@ -164,11 +238,3 @@ function MyApp({ Component, pageProps }: AppProps | any) {
 }
 
 export default MyApp;
-function mapExchange(arg0: { onError(error: any, _operation: any): void; }) {
-  throw new Error("Function not implemented.");
-}
-
-function authExchange(arg0: {}) {
-  throw new Error("Function not implemented.");
-}
-
