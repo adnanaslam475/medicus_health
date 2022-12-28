@@ -130,9 +130,7 @@ function AdminAppointmentInfo({
 
   const [{ fetching: deleteFetching }, removeAppointmentByAdmin] =
     useRemoveAppointmentByAdminMutation();
-
   const [open, setOpen] = React.useState<boolean>(false);
-
   const deleteModalHandler = () => setOpen(!open);
   const deleteAppointmentHandler = async () => {
     try {
@@ -147,7 +145,13 @@ function AdminAppointmentInfo({
         notification.success({
           message: "Appointment Delete Successfully",
         });
-        router.back();
+        if (router.pathname.includes("admin/patients/detail/")) {
+          router.push(
+            `/admin/patients/${adminApp_Details?.patient?.patient_id}`
+          );
+        } else {
+          router.back();
+        }
         deleteModalHandler();
       }
     } catch (error: any) {
