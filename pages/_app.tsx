@@ -5,6 +5,7 @@ import {
   createClient,
   dedupExchange,
   fetchExchange,
+  mapExchange,
 } from "@urql/core";
 import { CombinedError, Provider } from "urql";
 import { NextIntlProvider } from "next-intl";
@@ -24,7 +25,7 @@ import {
   useUserData,
 } from "common/components/Context/UserContext";
 import Script from "next/script";
-import { authExchange } from "@urql/exchange-auth";
+import { AuthConfig, authExchange } from "@urql/exchange-auth";
 
 const logout = () => {
   if (typeof window !== "undefined") {
@@ -39,80 +40,22 @@ const client = createClient({
   exchanges: [
     dedupExchange,
     cacheExchange,
-    authExchange({
-      getAuth: async ({ authState, mutate }) => {
-        if (typeof window !== "undefined") {
-          // for initial launch, fetch the auth state from storage (local storage, async storage etc)
-        //   if (!authState) {
-        //     const token = localStorage.getItem("token");
-        //     const refreshToken = localStorage.getItem("refreshToken");
-        //     if (token && refreshToken) {
-        //       return { token, refreshToken };
-        //     }
-        //     return null;
-        //   }
-
-        //   /**
-        //    * the following code gets executed when an auth error has occurred
-        //    * we should refresh the token if possible and return a new auth state
-        //    * If refresh fails, we should log out
-        //    **/
-
-        //   // if your refresh logic is in graphQL, you must use this mutate function to call it
-        //   // if your refresh logic is a separate RESTful endpoint, use fetch or similar
-        //   // @ts-ignore
-        //   const result = await mutate(refreshMutation, {
-        //     // @ts-ignore
-
-        //     token: authState?.refreshToken,
-        //   });
-
-        //   if (result.data?.refreshLogin) {
-        //     // save the new tokens in storage for next restart
-        //     localStorage.setItem("token", result.data.refreshLogin.token);
-        //     localStorage.setItem(
-        //       "refreshToken",
-        //       result.data.refreshLogin.refreshToken
-        //     );
-
-        //     // return the new tokens
-        //     return {
-        //       token: result.data.refreshLogin.token,
-        //       refreshToken: result.data.refreshLogin.refreshToken,
-        //     };
-        //   }
-
-        //   // otherwise, if refresh fails, log clear storage and log out
-        //   localStorage.clear();
-        // }
-        // // your app logout logic should trigger here
-        // logout();
+    mapExchange({
+      onError(err: CombinedError, _operation) {
+        const errStr = err ? JSON.stringify(err) : "";
+        if (
+          errStr?.includes("Could not log-in with the provided credentials")
+        ) {
+          logout();
+          return null;
         }
         return null;
       },
-      // @ts-ignore
-      didAuthError: (error: CombinedError, authState: unknown) => {
-        console.log(error)
-        return error.graphQLErrors.some(
-          (e: any) => e.extensions?.code === "FORBIDDEN"
-        );
-      },
     }),
+
     fetchExchange,
   ],
-  // exchanges: [
-  //   mapExchange({
-  //     onError(error, _operation) {
-  //       const isAuthError = error.graphQLErrors.some((e: { extensions: { code: string; }; })  => e.extensions?.code === 'FORBIDDEN');
-  //       if (isAuthError) {
-  //         logout();
-  //       }
-  //     },
-  //   }),
-  //   authExchange({
-  //       /* config */
-  //     }),
-  //   ]
+
   fetchOptions: () => {
     const token = getToken();
 
@@ -121,9 +64,7 @@ const client = createClient({
     };
   },
 });
-// "Could not log-in with the provided credentials"
 
-// client.
 function MyApp({ Component, pageProps }: AppProps | any) {
   const { user } = getUserData();
   const loginTime =
