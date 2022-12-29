@@ -1,6 +1,13 @@
 /* eslint-disable @next/next/next-script-for-ga */
 import type { AppProps } from "next/app";
-import { createClient, Provider } from "urql";
+import {
+  cacheExchange,
+  createClient,
+  dedupExchange,
+  fetchExchange,
+  mapExchange,
+} from "@urql/core";
+import { CombinedError, Provider } from "urql";
 import { NextIntlProvider } from "next-intl";
 import AuthProvider from "common/hooks/authProvider";
 import { getToken, getUserData } from "common/utils/userData";
@@ -18,17 +25,46 @@ import {
   useUserData,
 } from "common/components/Context/UserContext";
 import Script from "next/script";
-// import favicon from "../public/favicon.ico";
+import { AuthConfig, authExchange } from "@urql/exchange-auth";
 
+const logout = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("loggedInUserData");
+    localStorage.removeItem("loginTime");
+    localStorage.removeItem("appointmentsAlertData");
+    Router.push("/login");
+  }
+};
 const client = createClient({
   url: config.baseURL || "",
+  exchanges: [
+    dedupExchange,
+    cacheExchange,
+    mapExchange({
+      onError(err: CombinedError, _operation) {
+        const errStr = err ? JSON.stringify(err) : "";
+        if (
+          errStr?.includes("Could not log-in with the provided credentials")
+        ) {
+          logout();
+          return null;
+        }
+        return null;
+      },
+    }),
+
+    fetchExchange,
+  ],
+
   fetchOptions: () => {
     const token = getToken();
+
     return {
       headers: { Authorization: token ? `Bearer ${token}` : "" },
     };
   },
 });
+
 function MyApp({ Component, pageProps }: AppProps | any) {
   const { user } = getUserData();
   const loginTime =
@@ -127,6 +163,7 @@ function MyApp({ Component, pageProps }: AppProps | any) {
       <UserDataProvider>
         <NextIntlProvider messages={pageProps.messages}>
           <AuthProvider>
+            {/* @ts-ignore */}
             <Provider value={client}>
               <Script
                 src="https://polyfill.io/v3/polyfill.min.js?features=Intl%2CIntl.DateTimeFormat%2CIntl.RelativeTimeFormat%2CIntl.DateTimeFormat.%7EtimeZone.all%2CIntl.PluralRules%2CIntl.Locale%2CIntl.NumberFormat"
