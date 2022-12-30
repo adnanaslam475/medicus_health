@@ -17,7 +17,6 @@ import {
 import { getUserData } from "common/utils/userData";
 
 // scss
-import _classes from "../../staff/staff.module.scss";
 import { isChrome } from "utils/helper";
 
 function DoctorStaffDetails() {

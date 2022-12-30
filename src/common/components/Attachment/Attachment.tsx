@@ -1,4 +1,4 @@
-import { CloseOutlined, MoreOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { notification, Popover } from "antd";
 import Image from "next/image";
 import React, { useState } from "react";

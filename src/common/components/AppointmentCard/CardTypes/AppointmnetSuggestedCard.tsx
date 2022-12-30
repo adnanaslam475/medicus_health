@@ -1,11 +1,9 @@
 import { Button, Card, Space } from "antd";
 import React from "react";
-import upcoming from "../../../../../pages/physician/appointments/upcoming";
 import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentTimeSlots,
-  useGetAllRequestedAppointmentsQuery,
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";

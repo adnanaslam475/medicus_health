@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import type { NextPage } from "next";
 import Dashboard from "./../src/modules/admin/pages/DashboardPage";
 
 const App = () => {

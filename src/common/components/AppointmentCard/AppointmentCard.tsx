@@ -14,7 +14,6 @@ import {
 } from "../../../generated/graphql";
 
 // scss
-import _classes from "./AppointmentCard.module.scss";
 import AppointmnetCurrentCard from "./CardTypes/AppointmnetCurrentCard";
 import { getCurrentUserTimeZone } from "common/utils/date";
 

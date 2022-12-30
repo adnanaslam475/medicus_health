@@ -1,22 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Form, Radio, Select, DatePicker, Input, Collapse } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Radio, Select, DatePicker, Input } from "antd";
 import {
   Appointment,
   AppointmentServiceType,
   DoctorProfile,
-  DoctorSchedule,
   useDoctorSchedulesByDayQuery,
   useDoctorSchedulesQuery,
   useGetAllAppointmentServiceTypesQuery,
   User,
 } from "generated/graphql";
-import moment from "moment";
 
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useBookAppointment } from "../../BookAppointmentJourney/BookAppointmentContext";
 import { date } from "../../../utils";
-import { sorter } from "utils/helper";
 import PhysicianAvailabilityAccordion from "common/components/PhysicianAvailabilityAccordion";
 import _classes from "./styles.module.scss";
 import { getCurrentUserTimeZone } from "common/utils/date";
@@ -389,9 +386,8 @@ export const AppointmentBookingStepOne = React.forwardRef(
                         ? `${serviceInfo?.map((item) =>
                             item?.price ? item?.price + 100 : ""
                           )}`
-                        : parseInt(price) + 100 ||
-                          parseInt(charges) + 100 || "" }
-                          
+                        : parseInt(price) + 100 || parseInt(charges) + 100 || ""
+                    }
                   />
                   {/* $
                   {serviceInfo ?

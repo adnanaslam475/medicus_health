@@ -1,6 +1,6 @@
 import React from "react";
 import { Tag } from "antd";
-import { FilePdfOutlined, FileJpgOutlined } from "@ant-design/icons";
+import { FilePdfOutlined } from "@ant-design/icons";
 import { GetAppointmentByIdQuery } from "../../../generated/graphql";
 import { parseJson } from "common/utils/helper";
 

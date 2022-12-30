@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import Router from "next/router";
-import Image from "next/image";
-import { Collapse, Modal, Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import BillingItem from "./BillingItem/BillingItem";
-import PaymentHeader from "./PaymentHeader/PaymentHeader";
-import PaymentHeader2 from "./PaymentHeader2/PaymentHeader2";
+import { Collapse } from "antd";
 import { Elements } from "@stripe/react-stripe-js";
-// import { BillingNew } from "./BillingNew";
 import {
   useGetAllCardsQuery,
   useCreateCardMutation,

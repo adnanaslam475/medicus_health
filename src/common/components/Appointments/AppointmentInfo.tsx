@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Spin, Tag } from "antd";
-import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
+import { Button, Spin } from "antd";
+import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
 import support from "./../../../../public/assets/icon/support.svg";
 import chat from "./../../../../public/assets/icon/chat-bubble.svg";
@@ -15,11 +15,7 @@ import {
   getCurrentUserTimeZone,
   isAppointmentTimeValid,
 } from "common/utils/date";
-import {
-  AppointmentTimeSlots,
-  CustomTimeSlot,
-  StatusName,
-} from "common/types/types";
+import { AppointmentTimeSlots, StatusName } from "common/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import CardWithProfileImageInfo from "../CardWithProfileImageInfo/CardWithProfileImageInfo";

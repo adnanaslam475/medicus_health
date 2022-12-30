@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Layout,
-  Avatar,
   Dropdown,
   Menu,
-  Badge,
-  Divider,
   Skeleton,
   Button,
 } from "antd";
@@ -22,7 +19,6 @@ import {
   useGetUserQuery,
   usePatientHealthHistoryQuery,
 } from "generated/graphql";
-import userDefaultPicture from "../../../../public/assets/images/profile.jpg";
 import { useUserData } from "../Context/UserContext";
 import MDNextImage from "../MDNextImage/MDNextImage";
 

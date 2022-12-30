@@ -1,4 +1,3 @@
-import { VideoCameraFilled } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -9,7 +8,6 @@ import {
 import { date } from "../../../utils";
 import _classes from "./../AppointmentCard.module.scss";
 import Router from "next/router";
-import { getCurrentUserTimeZone } from "common/utils/date";
 import { isChrome } from "utils/helper";
 
 type Props = {

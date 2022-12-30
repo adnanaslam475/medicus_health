@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { EyeFilled } from "@ant-design/icons";
-import { Table, Input, Button, Space, Tag } from "antd";
+import { Table } from "antd";
 import { date } from "../../../utils";
 import {
   Appointment,

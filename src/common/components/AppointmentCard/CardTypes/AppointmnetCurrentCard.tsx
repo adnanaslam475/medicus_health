@@ -8,7 +8,6 @@ import {
   AppointmentTimeSlots,
 } from "../../../../generated/graphql";
 import { date } from "../../../utils";
-import { MessageOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import { isAppointmentTimeValid } from "common/utils/date";
 import { getRole } from "common/utils/userData";

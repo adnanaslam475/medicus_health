@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Radio, Layout, Divider, Checkbox, Empty } from "antd";
-import {
-  GetAppointmentByIdQuery,
-  useDoctorQuestionnaireQuery,
-  User,
-} from "../../../generated/graphql";
+import { Form, Input, Radio, Checkbox, Empty } from "antd";
+import { useDoctorQuestionnaireQuery, User } from "../../../generated/graphql";
 import { useRouter } from "next/router";
 import { parseJson } from "common/utils/helper";
-import _classes from "./AppointmentButtons.module.scss";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { NamePath } from "antd/lib/form/interface";
 import { getRole, getUserData } from "common/utils/userData";
