@@ -1,25 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  CheckOutlined,
-  MessageOutlined,
   RetweetOutlined,
   DeleteOutlined,
   VideoCameraFilled,
 } from "@ant-design/icons";
-import support from "./../../../../public/assets/icon/support.svg";
 import {
   Button,
   DatePicker,
   Form,
-  Input,
   Modal,
   notification,
   Select,
   Space,
-  Tag,
 } from "antd";
 import LabelWithText from "common/components/LabelWithText/LabelWithText";
-import { useRouter } from "next/router";
 
 // scss
 import _classes from "./DoctorAppointmentInfo.module.scss";
@@ -36,20 +30,17 @@ import {
 } from "generated/graphql";
 import {
   currencyFormatter,
-  formatMMMM_Dcoma_YYYY,
   getCurrentUserTimeZone,
   getDayJsObject,
   isAppointmentTimeValid,
   UTCPrettierDateTime,
-  UTCPrettierTime,
 } from "common/utils/date";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
 import dayjs from "dayjs";
 import { FormInstance } from "rc-field-form";
 import { FORMAT_D_T_W_AM_PM } from "common/constants/date";
-import TimeSlotPickerForm from "../TimeSlotPickerForm/TimeSlotPickerForm";
-import { CustomTimeSlot, StatusName } from "common/types/types";
+import { StatusName } from "common/types/types";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import MessageButtons from "../MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";

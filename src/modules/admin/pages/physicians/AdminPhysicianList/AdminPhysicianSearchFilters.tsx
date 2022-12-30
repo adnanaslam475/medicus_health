@@ -1,28 +1,17 @@
 import React, { useState } from "react";
-import { Input, Button, Select, Space, DatePicker } from "antd";
+import { Input, Button } from "antd";
 import {
   CloseOutlined,
   SearchOutlined,
-  CaretDownOutlined,
 } from "@ant-design/icons";
-import { getDateInFormat } from "common/utils/date";
-import { DateType } from "common/types/types";
 import {
   BookingDate,
   GetPhysiciansInput,
   useCountriesQuery,
   useGetStatesByCountryQuery,
 } from "generated/graphql";
-import { SelectCountryTypeFilter } from "common/components/SelectCountryTypeFilter/SelectCountryTypeFilter";
-import { SelectCityTypeFilter } from "common/components/SelectCityTypeFilter/SelectCityTypeFilter";
-import { SelectCityFilter } from "common/components/SelectCityFilter/SelectCityFilter";
 import _classes from "./AdminPhysicianSearchFilters.module.scss";
-import { SelectStateTypeFilter } from "common/components/SelectStateTypeFilter/SelectStateTypeFilter";
 import { isChrome } from "utils/helper";
-
-const { RangePicker } = DatePicker;
-
-const { Option } = Select;
 
 type Props = {
   onChange: (value: GetPhysiciansInput | any) => void;

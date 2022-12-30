@@ -18,13 +18,11 @@ import Router from "next/router";
 import React from "react";
 import {
   Appointment,
-  AppointmentPriceResponse,
   useBookAppointmentMutation,
   useCancelAppointmentByPatientMutation,
   useCreateCardMutation,
   useGetAllCardsQuery,
   useGetAppointmentsReminderBannerQuery,
-  usePatientHealthHistoryQuery,
   useReBookAppointmentMutation,
 } from "../../../../../generated/graphql";
 import { useAppointmentModal } from "../AppointmentModalProvider";

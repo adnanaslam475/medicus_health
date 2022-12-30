@@ -8,7 +8,6 @@ import physician from "../../../../../public/assets/images/admin/menu/physicians
 import revenue from "../../../../../public/assets/icon/dollars.svg";
 import _classes from "./AdminDashboard.module.scss";
 import { useAdminDashboardQuery } from "generated/graphql";
-import { valueSeparator } from "common/utils/helper";
 import { currencyFormatter, numberFormatter } from "common/utils/date";
 function AdminDashboard() {
   const [{ data }] = useAdminDashboardQuery({

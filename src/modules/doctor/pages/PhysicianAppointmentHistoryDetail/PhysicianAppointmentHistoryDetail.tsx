@@ -5,17 +5,13 @@ import PatientAppointmentInfoTab from "./PatientAppointmentInfoOfPhysicianTab";
 import PatientInfoTab from "./PatientInfoTab";
 import PhysicianQuestionnaireFormTab from "./PhysicianQuestionnaireFormTab";
 import HealthQuestionnaireFormTab from "./HealthQuestionnaireFormTab";
-import NotesWithTextTab from "./NotesWithTextTab";
 
 import PhysicianAttachmentTab from "./PhysicianAttachmentTab";
 import {
-  Appointment,
-  AppointmentNote,
   GetAppointmentInput,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
-// import NotesTab from "../appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";
 
 function PhysicianAppointmentHistoryDetail() {

@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import AccountsProfile from "./AccountsProfile/AccountsProfile";
-import BankInfo from "./BankInfo/BankInfo";
 
 // scss
 import _classes from "./Account.module.scss";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import config from "../../../../../../config";
 import { getUserData } from "common/utils/userData";
 import {
   Appointment,
@@ -19,7 +15,6 @@ import { parseJson } from "common/utils/helper";
 import AdminQuestionnaireFormTab from "modules/admin/pages/AdminAppointmentsDetail/AdminQuestionnaireFormTab";
 import { useRouter } from "next/router";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
-import DoctorStaffDetails from "../../../../../../pages/physician/staff/DoctorStaffDetails/StaffDetails";
 import StaffDetails from "../../../../../../pages/physician/staff/StaffDetails/StaffDetails";
 
 function Accounts() {

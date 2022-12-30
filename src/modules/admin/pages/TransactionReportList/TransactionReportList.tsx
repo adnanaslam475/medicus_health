@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Router from "next/router";
 import { Divider, Skeleton, Table } from "antd";
-import { EyeFilled } from "@ant-design/icons";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import TransactionReportListFilter from "./TransactionReportListFilter";
 import MyEarningsStats from "common/components/MyEarningsStats/MyEarningsStats";
@@ -10,8 +8,6 @@ import {
   Transaction,
   useGetAdminTransactionReportListingQuery,
   useGetAdminTransactionReportQuery,
-  useGetPhysiciansQuery,
-  User,
 } from "generated/graphql";
 import { tableFooter } from "utils/helper";
 import { date } from "common/utils";

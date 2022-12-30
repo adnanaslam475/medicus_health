@@ -1,22 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  Badge,
-  Input,
-  message,
-  notification,
-  Progress,
-  Spin,
-  Upload,
-} from "antd";
+import { Badge, Progress, Upload } from "antd";
 import Image, { StaticImageData } from "next/image";
 import _classes from "./MessageInput.module.scss";
 import attachIcon from "./../../../../../../public/assets/images/attach.svg";
-import smile from "./../../../../../../public/assets/images/smile.svg";
 import send from "./../../../../../../public/assets/images/send.svg";
 import { useMessageContext } from "../MessageDetail/MessageContext";
 import { useMediaUploader } from "common/hooks/media";
-import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
-import { CloseCircleOutlined, FastForwardOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined } from "@ant-design/icons";
 import Dragger from "antd/lib/upload/Dragger";
 import { getFileImageIcon, hasValidMessage } from "common/utils/helper";
 import TextArea from "antd/lib/input/TextArea";

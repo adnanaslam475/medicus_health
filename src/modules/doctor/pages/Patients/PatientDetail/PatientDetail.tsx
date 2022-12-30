@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Tabs, notification } from "antd";
 import {
@@ -13,12 +13,9 @@ import {
   useGetUserQuery,
   User,
 } from "generated/graphql";
-import AppointmentHistory from "../AppointmentHistory/AppointmentHistory";
 import PatientProfileFormTab from "./PatientDetailTabs/PatientProfileFormTab";
 import QuestionnaireFormTab from "./QuestionnaireFormTab";
 import AppointmentHistoryTab from "./PatientDetailTabs/AppointmentHistoryTab";
-// import NotesTab from "./NotesTab";
-import NotesTab from "common/components/NotesTab/NotesTab";
 import { getUserData } from "./../../../../../../src/common/utils/userData";
 import { useRouter } from "next/router";
 

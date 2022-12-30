@@ -7,7 +7,6 @@ import MessageContent from "./MessageContent";
 import { MessageContextProvider } from "./MessageContext";
 
 // scss
-import _classes from "./Message-detail.module.scss";
 import { useRouter } from "next/router";
 
 type Props = {};

@@ -5,7 +5,6 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import PatientInfoTab from "../UpcomingAppointmentsDetailDoctor/PatientInfoTab";
 import AppointmentInfoTab from "../UpcomingAppointmentsDetailDoctor/AppointmentInfoTab";
-import word from "../../../../../../public/assets/images/word-file.svg";
 import Attachment from "common/components/Attachment/Attachment";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";

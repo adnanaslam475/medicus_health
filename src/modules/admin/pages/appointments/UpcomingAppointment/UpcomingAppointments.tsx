@@ -4,7 +4,7 @@ import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import AppointmentCard from "../../../../../common/components/AppointmentCard/AppointmentCard";
 import SearchFilter from "../../../../../common/components/SearchFilters/SearchFilter";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
-import { Button, Empty, Select, Spin, Tooltip } from "antd";
+import { Button, Empty,  Spin, Tooltip } from "antd";
 import {
   Appointment,
   AppointmentTimeSlots,
@@ -15,7 +15,7 @@ import {
   usePatientHealthHistoryQuery,
   User,
 } from "../../../../../generated/graphql";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import { getUserData } from "common/utils/userData";
 import { useTranslations } from "next-intl";
 import { isChrome } from "utils/helper";

@@ -1,14 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Form, Radio, RadioChangeEvent, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Radio, RadioChangeEvent, Space } from "antd";
 import _classes from "./AppointmentReschedule.module.scss";
 import {
   Appointment,
   AppointmentPriceResponse,
-  useGetAllCardsQuery,
-  useGetAppointmentPriceQuery,
-  useViewSuggestedTimeSlotsQuery,
 } from "../../../../../generated/graphql";
-import { getUserData } from "../../../../../common/utils/userData";
 import { date } from "../../../../../common/utils";
 import { useAppointmentModal } from "../AppointmentModalProvider";
 import { getCurrentUserTimeZone } from "common/utils/date";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
-import { Form, Input, Button, Checkbox, Alert } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
 import {
@@ -11,8 +11,6 @@ import {
 import { getRole, getToken } from "../../../../../common/utils/userData";
 import { PageLoader } from "../../../../../common/components/PageLoader/PageLoader";
 import { useTranslations } from "next-intl";
-import engFlag from "../../../../../../public/assets/images/engFlag.png";
-import espanolFlag from "../../../../../../public/assets/images/espanolFlag.png";
 import { useUserData } from "common/components/Context/UserContext";
 import { isChrome } from "utils/helper";
 

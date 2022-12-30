@@ -12,7 +12,6 @@ import { Payment } from "common/components/AccountTabs/PaymentMethods/BillingNew
 import { useStripe } from "@stripe/react-stripe-js";
 
 // scss
-import _classes from "./BankInfo.module.scss";
 import { isChrome } from "utils/helper";
 
 function BankInfo() {

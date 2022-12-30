@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import Link from "next/link";
-import { Form, Input, Button, Alert } from "antd";
+import { Alert } from "antd";
 import Image from "next/image";
 import Container from "../../../../../common/components/Container/Container";
 import ConfirmPasswordForm from "../ConfirmPassword/ConfirmPasswordForm";
@@ -9,7 +9,7 @@ import {
   ResetPasswordInput,
   useSetDoctorPasswordMutation,
 } from "../../../../../generated/graphql";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 
 function SetPassword() {

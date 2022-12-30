@@ -1,5 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form,  Modal } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import Image from "next/image";
 import React, { useRef, useState } from "react";

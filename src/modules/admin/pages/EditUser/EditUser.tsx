@@ -9,7 +9,6 @@ import _classes from "./EditUser.module.scss";
 import {
   useEnableOrDisablePatientMutation,
   useGetAdminUserByIdQuery,
-  User,
   useRemoveAdminUserMutation,
   useUpdateAdminMutation,
   useUserForgotPasswordMutation,

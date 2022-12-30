@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Router from "next/router";
 import { Form, Select, Modal, DatePicker, Input, Button, Tag } from "antd";
-import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
+import { MessageOutlined } from "@ant-design/icons";
 import _classes from "./AppointmentButtons.module.scss";
-import { ButtonType } from "antd/lib/button";
 import { isChrome } from "utils/helper";
 
 function AppointmentInfo() {
@@ -62,11 +60,15 @@ function AppointmentInfo() {
       </ul>
       <div className="w-4/6 flex justify-between mt-4">
         <div className="flex flex-auto justify-between">
-          <Button className={`border border-red ${isChrome && 'antCustomBtn'}`}>Reject</Button>
+          <Button className={`border border-red ${isChrome && "antCustomBtn"}`}>
+            Reject
+          </Button>
           <div>
             <Button
               icon={<MessageOutlined />}
-              className={`${_classes["appointments-btn"]} ${isChrome && 'antCustomBtn'}`}
+              className={`${_classes["appointments-btn"]} ${
+                isChrome && "antCustomBtn"
+              }`}
               onClick={showModal}
             >
               Propose/edit appointment

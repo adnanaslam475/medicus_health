@@ -17,7 +17,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 // scss
 import _classes from "./BankInfo.module.scss";
 import { isChrome } from "utils/helper";
-import { CheckCircleFilled, CheckOutlined } from "@ant-design/icons";
+import { CheckCircleFilled } from "@ant-design/icons";
 
 function BankInfo() {
   const stripe = useStripe();

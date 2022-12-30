@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import AppointmentTabs from "../../../../../common/components/Appointments/AppointmentTabs";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
-import AppointmentsDetailTabs from "../../AppointmentsDetailTabs/AppointmentsDetailTabs";
 import {
   useDoctorAppointmentDetailQuery,
   useGetAppointmentReportUrlByIdQuery,
@@ -11,7 +9,6 @@ import {
 import { Empty, Tabs } from "antd";
 import AppointmentInfoTab from "./AppointmentInfoTab";
 import PatientInfoTab from "./PatientInfoTab";
-// import NotesTab from "./NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import Attachment from "common/components/Attachment/Attachment";

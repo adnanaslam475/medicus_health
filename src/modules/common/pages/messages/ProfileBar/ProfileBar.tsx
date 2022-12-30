@@ -1,6 +1,5 @@
 import { Input } from "antd";
 import React from "react";
-import UserProfile from "../UserProfile/UserProfile";
 import Inputicon from "../../../../../../public/assets/images/inputicon.svg";
 import { SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";

@@ -1,8 +1,6 @@
 import React from "react";
-import NotesWithText from "common/components/NotesWithText/NotesWithText";
-import { Appointment, AppointmentNote } from "generated/graphql";
+import { Appointment } from "generated/graphql";
 import { Spin } from "antd";
-import EditableNotes from "common/components/EditableNotes/EditableNotes";
 import NotesTab from "common/components/NotesTab/NotesTab";
 
 type Props = {

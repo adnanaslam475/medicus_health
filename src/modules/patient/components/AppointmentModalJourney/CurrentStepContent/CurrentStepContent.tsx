@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { OperationContext } from "urql";
+import React from "react";
 import {
   Appointment,
   AppointmentPriceResponse,

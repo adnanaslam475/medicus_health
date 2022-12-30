@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { message, notification } from "antd";
+import { notification } from "antd";
 import { getUserData } from "common/utils/userData";
 import {
   ChatChannels,
@@ -131,7 +131,7 @@ export function MessageContextProvider({
       info.messagesWithChannel = messages;
       setMessageInfo(info);
     }
-  }, [getChannelMessages,isFetched]);
+  }, [getChannelMessages, isFetched]);
 
   useEffect(() => {
     if (isFetched) {

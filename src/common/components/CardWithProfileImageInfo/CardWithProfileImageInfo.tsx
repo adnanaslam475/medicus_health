@@ -1,6 +1,5 @@
 import React from "react";
 import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
-import MessageButtons from "../MessageButtons/MessageButtons";
 
 type Props = {
   children: React.ReactNode | JSX.Element | undefined;

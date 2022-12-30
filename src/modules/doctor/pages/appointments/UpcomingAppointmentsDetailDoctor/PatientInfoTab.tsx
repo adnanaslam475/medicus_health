@@ -2,11 +2,7 @@ import { Spin } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import { date } from "common/utils";
-import {
-  useDoctorAppointmentDetailPatientInfoQuery,
-  useGetCityByIdQuery,
-  useGetCountryByIdQuery,
-} from "generated/graphql";
+import { useDoctorAppointmentDetailPatientInfoQuery } from "generated/graphql";
 import { useRouter } from "next/router";
 import React from "react";
 

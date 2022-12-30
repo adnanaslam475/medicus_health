@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Collapse, Empty, Space, Spin, Table } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import _classes from "./PhysicianPayoutReportListing.module.scss";
 import {
   Appointment,
   AppointmentDateTimeResponse,
-  AppointmentServiceType,
   Transaction,
   useDoctorPayoutsQuery,
   User,

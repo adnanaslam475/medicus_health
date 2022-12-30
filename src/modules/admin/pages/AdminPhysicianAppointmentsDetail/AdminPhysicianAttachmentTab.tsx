@@ -1,13 +1,8 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { parseJson } from "common/utils/helper";
-import word from "../../../../../public/assets/images/word-file.svg";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import Attachment from "common/components/Attachment/Attachment";
-import {
-  Appointment,
-  usePhysicianAppointmentsHistoryQuery,
-} from "generated/graphql";
+import { Appointment } from "generated/graphql";
 import { AttachmentObject } from "common/types/types";
 import { Empty, Spin } from "antd";
 

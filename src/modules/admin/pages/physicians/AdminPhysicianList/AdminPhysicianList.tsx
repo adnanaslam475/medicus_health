@@ -2,19 +2,11 @@ import React, { useState } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import Link from "next/link";
 import Router from "next/router";
-import Image from "next/image";
 import { Button, Table } from "antd";
 import { PlusOutlined, EyeFilled } from "@ant-design/icons";
 import AdminPhysicianSearchFilters from "./AdminPhysicianSearchFilters";
-import {
-  City,
-  Country,
-  DoctorProfile,
-  State,
-  useGetPhysiciansQuery,
-  User,
-} from "generated/graphql";
-import { FLAG_BY_LANGUAGE, isChrome, tableFooter } from "utils/helper";
+import { DoctorProfile, useGetPhysiciansQuery, User } from "generated/graphql";
+import { isChrome, tableFooter } from "utils/helper";
 import { date } from "common/utils";
 
 const columns = [

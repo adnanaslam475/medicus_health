@@ -1,4 +1,3 @@
-import Spin from "antd/lib/spin";
 import { currencyFormatter } from "common/utils/date";
 import { useGetAllAppointmentServiceTypesQuery } from "generated/graphql";
 import React from "react";

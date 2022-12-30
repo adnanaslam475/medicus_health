@@ -13,14 +13,10 @@ import {
   Checkbox,
   notification,
   Select,
-  DatePicker,
   Tooltip,
-  Progress,
-  Space,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
 import InputWithLi from "common/components/InputWithLi/InputWithLi";
-import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import ReactS3Client from "react-aws-s3-typescript";
 import {
   LoginUserInput,
@@ -42,27 +38,20 @@ import { parseJson } from "common/utils/helper";
 import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
-import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import {
   CloseOutlined,
-  DeleteOutlined,
   EditOutlined,
   FileOutlined,
   InfoCircleOutlined,
-  PlaySquareOutlined,
   UploadOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useUserData } from "common/components/Context/UserContext";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { graphqlError, isChrome, timezoneLabel } from "utils/helper";
-import { GraphQLError } from "graphql";
+import { graphqlError, isChrome } from "utils/helper";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 import { usePublishOrUnpublishDoctorMutation } from "generated/graphql";
-import Link from "next/link";
-// import ConfirmationModal from "modules/admin/pages/AdminPatientListingDetail/ConfirmationModal";
-
 const { TextArea } = Input;
 
 type clinicType = {

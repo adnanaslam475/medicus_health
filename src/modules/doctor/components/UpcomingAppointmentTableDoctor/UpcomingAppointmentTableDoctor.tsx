@@ -1,17 +1,14 @@
 import React from "react";
 import Router from "next/router";
-import { Pagination, Table } from "antd";
+import {  Table } from "antd";
 import {
   Appointment,
   AppointmentDateTimeResponse,
-  AppointmentServiceType,
-  AppointmentTimeSlots,
   Transaction,
   User,
 } from "generated/graphql";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "common/utils";
-import _classes from "./UpcomingAppointmentTableDoctor.module.scss";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";

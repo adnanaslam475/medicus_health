@@ -1,14 +1,9 @@
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import { Tabs, Badge, Modal } from "antd";
+import React from "react";
+import { Tabs } from "antd";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
-import Container from "../../../../common/components/Container/Container";
-import { Profile } from "../../components/Profile/Profile";
 import EmailNotification from "../EmailNotification/EmailNotification";
-import { ProfileIcon } from "../../../../common/components/CustomIcon";
 
 const { TabPane } = Tabs;
 

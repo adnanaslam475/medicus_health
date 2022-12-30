@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { getUserData } from "common/utils/userData";
 import {
-  DoctorProfile,
   useCreateDoctorScheduleMutation,
   useDoctorProfileQuery,
-  useGetUserQuery,
   useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../../../generated/graphql";

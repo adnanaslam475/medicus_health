@@ -17,9 +17,9 @@ import {
 } from "generated/graphql";
 import { getRole } from "../../../../common/utils/userData";
 import { translationJson } from "common/locales/translationJson";
-import { date, userData } from "common/utils";
+import { userData } from "common/utils";
 import dayjs from "dayjs";
-import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
+import { getCurrentUserTimeZone } from "common/utils/date";
 import { Spin } from "antd";
 
 type Props = {
@@ -96,16 +96,16 @@ function AdminCalender(props: Props) {
         }) => {
           const startTime =
             !!appointmentTimeSlots?.length &&
-              appointmentTimeSlots?.find((item) => item.selected)?.startTime
+            appointmentTimeSlots?.find((item) => item.selected)?.startTime
               ? appointmentTimeSlots?.find((item) => item.selected)?.startTime
               : appointmentDateTime?.startTime
-                ? appointmentDateTime?.startTime
-                : new Date().toISOString();
+              ? appointmentDateTime?.startTime
+              : new Date().toISOString();
           const endTime =
             !!appointmentTimeSlots?.length &&
-              appointmentTimeSlots?.find((item) => item.selected)?.endTime
+            appointmentTimeSlots?.find((item) => item.selected)?.endTime
               ? appointmentTimeSlots?.find((item) => item.selected)?.endTime
-              : appointmentDateTime?.endTime
+              : appointmentDateTime?.endTime;
           // ? appointmentDateTime?.endTime
           // : new Date().toISOString();
 
@@ -114,14 +114,14 @@ function AdminCalender(props: Props) {
             userData.getRole() === "Admin"
               ? appointmentDateTime?.startTime
               : `${startDate}T${dayjs(startTime)
-                .tz(timeZone)
-                .format("HH:mm")}:00.000Z`;
+                  .tz(timeZone)
+                  .format("HH:mm")}:00.000Z`;
           const end =
             userData.getRole() === "Admin"
               ? appointmentDateTime?.endTime
               : `${startDate}T${dayjs(endTime)
-                .tz(timeZone)
-                .format("HH:mm")}:00.000Z`;
+                  .tz(timeZone)
+                  .format("HH:mm")}:00.000Z`;
 
           return {
             id: id,
@@ -314,11 +314,6 @@ function AdminCalender(props: Props) {
                 <FullCalendar
                   expandRows={true}
                   eventDidMount={(info) => {
-                    console.log(
-                      "hello world2",
-                      info?.event?._def?.extendedProps
-                    );
-
                     const div = document.createElement("div");
                     div.classList.add("tooltipCustom");
                     const span = document.createElement("span");
@@ -416,8 +411,6 @@ function AdminCalender(props: Props) {
               <FullCalendar
                 expandRows={true}
                 eventDidMount={(info) => {
-                  console.log("hello world3", info?.event?._def?.extendedProps);
-
                   const div = document.createElement("div");
                   div.classList.add("tooltipCustom");
                   const span = document.createElement("span");

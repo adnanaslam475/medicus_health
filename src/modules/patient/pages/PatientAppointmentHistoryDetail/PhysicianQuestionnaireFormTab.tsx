@@ -1,9 +1,7 @@
 import { Spin } from "antd";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import {
   GetAppointmentInput,
-  useDoctorAppointmentDetailQuery,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";

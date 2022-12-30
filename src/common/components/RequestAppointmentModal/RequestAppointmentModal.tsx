@@ -1,38 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Tabs, Button, Alert, notification, Modal, Steps } from "antd";
-import Router from "next/router";
-import Image from "next/image";
-// import AppointmentBookingStepOne from "../Appointments/booking/AppointmentBookingStepOne";
-// import AppointmentBookingStepTwo from "../Appointments/booking/AppointmentBookingStepTwo";
-// import AppointmentBookingStepThree from "../Appointments/booking/AppointmentBookingStepThree";
-// import AppointmentBookingStepFour from "../Appointments/booking/AppointmentBookingStepFour";
-import SuccessMessage from "../Appointments/booking/SuccessMessage";
-import { LeftOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
 import _classes from "./RequestAppointmentModal.module.scss";
 
-// const { Step } = Steps;
-// const steps = [
-//   {
-//     title: "",
-//     content: <AppointmentBookingStepOne />,
-//   },
-//   {
-//     title: "",
-//     content: <AppointmentBookingStepTwo />,
-//   },
-//   {
-//     title: "",
-//     content: <AppointmentBookingStepThree />,
-//   },
-//   {
-//     title: "",
-//     content: <AppointmentBookingStepFour />,
-//   },
-//   {
-//     title: "",
-//     content: <SuccessMessage />,
-//   },
-// ];
 const RequestAppointmentModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -56,7 +24,7 @@ const RequestAppointmentModal = () => {
     setCurrent(current - 1);
   };
   return (
-      <></>
+    <></>
     // <Modal
     //   title="Request an appointment"
     //   visible={isModalVisible}

@@ -26,8 +26,6 @@ import { useRouter } from "next/router";
 import EmailNotificationPage from "modules/common/components/EmailNotification/EmailNotificationPage";
 import {
   BellOutlined,
-  EuroCircleOutlined,
-  EuroOutlined,
   ScheduleOutlined,
   UnorderedListOutlined,
   UserOutlined,

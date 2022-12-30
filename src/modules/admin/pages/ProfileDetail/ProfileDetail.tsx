@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { RangeValue } from "rc-picker/lib/interface";
 import { notification, Tabs } from "antd";
 import {
-  BellOutlined,
   CalendarOutlined,
   DollarCircleOutlined,
   ScheduleOutlined,
@@ -13,7 +12,6 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import AppLayout from "../../../../common/components/AppLayout/AppLayout";
-import EmailNotification from "../EmailNotification/EmailNotification";
 import {
   Appointment,
   useCreateDoctorScheduleMutation,
@@ -25,7 +23,6 @@ import AdminPhysicianPatientAppointmentTab from "./AdminPhysicianPatientAppointm
 import StaffListing from "modules/doctor/pages/staff/StaffListing/StaffListing";
 import AccountsProfile from "modules/doctor/pages/physicians/Accounts/AccountsProfile/AccountsProfile";
 import ConsultationRates from "modules/common/components/ConsultaionRates/ConsultaionRates";
-import AdminHealthQuestionnaireFrom from "../AdminPatientListingDetail/AdminHealthQuestionnaireFromTab";
 import AdminQuestionnaireFormTab from "../AdminAppointmentsDetail/AdminQuestionnaireFormTab";
 import { parseJson } from "common/utils/helper";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";

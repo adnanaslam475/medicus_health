@@ -13,7 +13,6 @@ import {
   Checkbox,
   notification,
   Select,
-  DatePicker,
   Tooltip,
 } from "antd";
 import _classes from "./EditProfile.module.scss";
@@ -38,9 +37,8 @@ import { parseJson } from "common/utils/helper";
 import { getRole, getUserData } from "common/utils/userData";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import Router, { useRouter } from "next/router";
-import userDefaultPicture from "../../../../../../../public/assets/images/profile.svg";
 import { UserOutlined } from "@ant-design/icons";
-import { isChrome, timezoneLabel } from "utils/helper";
+import { isChrome } from "utils/helper";
 
 const { TextArea } = Input;
 

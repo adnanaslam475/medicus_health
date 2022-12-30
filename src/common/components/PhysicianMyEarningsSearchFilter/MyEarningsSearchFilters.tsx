@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  Input,
-  Button,
-  Select,
-  Space,
-  DatePicker,
-  Form,
-  Dropdown,
-  InputNumber,
-} from "antd";
+import { Input, Button, Select, DatePicker, Form } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
-  DownOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import {
@@ -22,9 +12,7 @@ import {
 import searchStyle from "./style.module.scss";
 import _classes from "./MyEarningsSearchFilters.module.scss";
 import { physicianMyEarningsFilterType } from "common/types/types";
-import AmountDropdown from "../AmountDropdown/AmountDropdown";
 import { SelectStatusTypeFilter } from "../SelectStatusTypeFilter/SelectStatusTypeFilter";
-import RefundsDropdown from "../RefundsDropdown/RefundsDropdown";
 import TotalPaymentsDropdown from "../TotalPaymentsDropdown /TotalPaymentsDropdown";
 import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
@@ -242,7 +230,7 @@ function MyEarningsSearchFilters(props: Props) {
               renderExtraFooter={() => (
                 <div className="flex gap-3 justify-end p-3">
                   <Button
-                    className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
+                    className={`bg-gray-300 ${isChrome && "antCustomBtn"}`}
                     onClick={() => {
                       setOpenDateRangeTwo(false);
                     }}
@@ -250,7 +238,7 @@ function MyEarningsSearchFilters(props: Props) {
                     Cancel
                   </Button>
                   <Button
-                    className={`text-white ${isChrome && 'antCustomBtn'}`}
+                    className={`text-white ${isChrome && "antCustomBtn"}`}
                     type="primary"
                     onClick={() => {
                       applyDateRangeTwo();
@@ -262,7 +250,7 @@ function MyEarningsSearchFilters(props: Props) {
               )}
             />
             <Button
-              className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
+              className={`flex date-btn ${isChrome && "antCustomBtn"}`}
               block
               type="default"
               onClick={() => setOpenDateRangeTwo?.(!openDateRangeTwo)}
@@ -321,7 +309,7 @@ function MyEarningsSearchFilters(props: Props) {
           </Dropdown> */}
         <div className="w-full md:w-56 mt-0">
           <SelectStatusTypeFilter
-          hideRequested={true}
+            hideRequested={true}
             placeholder="Appointment status"
             onChange={(value) => onChangeFields("status", value as string)}
             // value={filterValues.status}
@@ -369,7 +357,9 @@ function MyEarningsSearchFilters(props: Props) {
         <Button
           onClick={clear}
           type="text"
-          className={`${_classes["btn-clear"]} sm:ml-3   sm:mt-0 ${isChrome && 'antCustomBtn'}`}
+          className={`${_classes["btn-clear"]} sm:ml-3   sm:mt-0 ${
+            isChrome && "antCustomBtn"
+          }`}
         >
           <CloseOutlined className="text-sm" />
           <span className="text-gray-1 text-sm">Clear</span>

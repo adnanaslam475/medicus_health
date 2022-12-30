@@ -9,7 +9,6 @@ import _Classes from "./MakePayment.module.scss";
 import { useGetAllCardsQuery } from "../../../../../generated/graphql";
 import { getUserData } from "../../../../../common/utils/userData";
 import { useAppointmentModal } from "../AppointmentModalProvider";
-import { OperationContext } from "urql";
 
 const CARD_TYPE = {
   ["visa" as string]: visa,

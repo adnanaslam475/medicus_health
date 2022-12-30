@@ -10,7 +10,6 @@ import _classes from "./PersonalInfoDetail.module.scss";
 import { useTranslations } from "next-intl";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { timezoneLabel } from "utils/helper";
 
 type Props = {
   onFinish?: (values: {

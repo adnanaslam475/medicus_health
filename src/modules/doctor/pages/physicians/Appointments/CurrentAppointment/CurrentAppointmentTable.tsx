@@ -1,16 +1,9 @@
 import { Button, Table } from "antd";
-import {
-  Appointment,
-  AppointmentServiceType,
-  AppointmentTimeSlots,
-  DoctorSchedule,
-  User,
-} from "generated/graphql";
+import { Appointment, User } from "generated/graphql";
 import React from "react";
 
-import { EyeFilled, MessageOutlined } from "@ant-design/icons";
+import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
-import { date } from "common/utils";
 import _classes from "./CurrentAppointment.module.scss";
 import chat from "../../../../../../../public/assets/icon/chat-bubble.svg";
 import support from "../../../../../../../public/assets/icon/support.svg";

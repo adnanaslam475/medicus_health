@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Select, DatePicker } from "antd";
+import { Input, DatePicker } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { physicianFilterType } from "common/types/types";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";
@@ -9,8 +9,6 @@ import { BookingDate } from "generated/graphql";
 import { useLocale } from "next-intl";
 import initTranslation from "common/utils/initTranslation";
 import i18next from "i18next";
-
-const { Option } = Select;
 
 const { RangePicker } = DatePicker;
 

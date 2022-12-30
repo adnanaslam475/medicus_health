@@ -86,7 +86,6 @@ const AppointmentTabs = (props: Props) => {
     });
   }, [deletedUrl]);
 
-  console.log("hello world", urlArr);
   return (
     <div className="profile-tabs">
       <Tabs
