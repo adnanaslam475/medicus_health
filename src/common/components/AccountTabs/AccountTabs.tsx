@@ -50,7 +50,7 @@ function AccountTabs() {
   const [result, updatePatientHealthHistory] =
     useUpdatePatientHealthHistoryMutation();
 
-  const { error, fetching } = result;
+  const { fetching } = result;
 
   //Get logged in User
   const { user: loggedInUser } = getUserData();

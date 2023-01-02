@@ -33,7 +33,6 @@ function AppointmnetConfirmedCard({
   timeZone,
   appointmentDetail,
 }: Props) {
-  const t = useTranslations("AppointmentCards");
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]

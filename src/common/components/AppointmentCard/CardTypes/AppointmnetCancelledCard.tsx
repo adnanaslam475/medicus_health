@@ -47,7 +47,6 @@ function AppointmnetCancelledCard({
   //   setIsModalVisible(true);
   // }
 
-  const [currentAppointmentId, setCurrentAppointmentId] = useState<number>();
   // const [showModal, setShowModal] = useState<boolean>(false);
 
   // FOR REQUEST AN APPOINTMENT
@@ -66,24 +65,9 @@ function AppointmnetCancelledCard({
   };
 
   const [current, setCurrent] = React.useState(0);
-  const next = () => {
-    setCurrent(current + 1);
-  };
-  const prev = () => {
-    setCurrent(current - 1);
-  };
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
-
-  let formatedStartTime = date.formathhmma(
-    String(appointmentDetail?.appointmentDateTime?.startTime),
-    timeZone
-  );
-  let formatedEndTime = date.formathhmma(
-    String(appointmentDetail?.appointmentDateTime?.endTime),
-    timeZone
-  );
 
   const serviceTypeName =
     appointmentDetail?.appointmentTypeProposed?.type || serviceType || "-";
@@ -100,21 +84,6 @@ function AppointmnetCancelledCard({
         <span className="text-sm">Appointment date</span>
         <h6>{date.formatDAYMMDDYY(requestedDate, timeZone)}</h6>
         <span className="text-sm">Appointment time</span>
-
-        {/* {appointmentTimeSlots?.length ? (
-          appointmentTimeSlots?.map((item) => (
-            <div className="text-cyan font-semibold text-sm">{`${date.formathhmma(
-              item.startTime,
-              timeZone
-            )} - ${date.formathhmma(item.endTime, timeZone)}`}</div>
-          ))
-        ) : appointmentDetail?.appointmentDateTime?.startTime ? (
-          <div className="text-cyan font-semibold text-sm">
-            {formatedStartTime} - {formatedEndTime}
-          </div>
-        ) : (
-          <div className="text-cyan font-semibold">{" - "}</div>
-        )} */}
         <div className="text-cyan">
           {appointmentDateTime?.endTime && appointmentDateTime?.startTime
             ? `${date.formathhmma(appointmentDateTime.startTime, timeZone)}
