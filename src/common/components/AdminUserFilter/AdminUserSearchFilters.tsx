@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Select, Space, DatePicker, Form } from "antd";
+import { Input, Button, Select, Space, DatePicker } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
@@ -24,16 +24,13 @@ type Props = {
 
 function AdminUserSearchFilters(props: Props) {
   const [filterState, setFilterState] = useState<adminUserFilterType>({});
-  const [form] = Form.useForm();
+
   const { onChange } = props;
 
   const [openDateRange, setOpenDateRange] = useState(false);
   const [creationDate, setCreationDate] = useState<BookingDate>({});
 
-  const [visible, setVisible] = useState(false);
-
   const [{ data }] = useGetAllAppointmentServiceTypesQuery();
-  const { appointmentServiceTypes } = data || {};
 
   function clear() {
     setFilterState({});

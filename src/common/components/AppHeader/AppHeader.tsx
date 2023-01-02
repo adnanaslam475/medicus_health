@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  Layout,
-  Dropdown,
-  Menu,
-  Skeleton,
-  Button,
-} from "antd";
+import { Layout, Dropdown, Menu, Skeleton, Button } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import InfoMessage from "../InfoMessage/InfoMessage";
@@ -35,18 +29,15 @@ const AppHeader = () => {
       requestPolicy: "network-only",
     });
 
-  const [
-    { data: userData, fetching: userDataLoading },
-    executeUseGetUserQuery,
-  ] = useGetUserQuery({
+  const [{ data: userData, fetching: userDataLoading }] = useGetUserQuery({
     variables: { input: Number(loggedInUserId) },
     pause: !loggedInUserId,
   });
   useEffect(() => {
     setTimeout(function logger() {
-    if (!userData?.user?.id && !userDataLoading) {
-      logout();
-    }
+      if (!userData?.user?.id && !userDataLoading) {
+        logout();
+      }
     }, 1000);
   }, [userData?.user?.id, userDataLoading]);
 
@@ -74,12 +65,7 @@ const AppHeader = () => {
   };
 
   const { user } = getUserData();
-  const { patientProfile, adminProfilePicture, doctorProfile } = user || {};
 
-  // const profilePicture =
-  //   patientProfile?.profileImage ||
-  //   doctorProfile?.profile_image ||
-  //   adminProfilePicture?.profile_picture;
   const userName = `${firstName} ${lastName}`;
   const userRole = user?.role;
   const accountPath =

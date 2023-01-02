@@ -241,7 +241,6 @@ function BookAppointmentModal({
       "requestedDate",
       "service",
     ]);
-    const stepThreeFields = form?.current?.getFieldsValue();
     if (
       currentStepName === "stepOne" &&
       Object.values(stepOneFields).some((value) => !value)

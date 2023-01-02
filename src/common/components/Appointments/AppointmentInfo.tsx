@@ -43,20 +43,17 @@ function AppointmentInfo(props: Props) {
     status,
     requestedDate,
     appointmentTimeSlots,
-    createdAt,
-    transaction,
-    patient,
     appointmentCharges,
     appointmentTypeProposed,
   } = appoinmentDetails?.appointment || {};
 
-  const { name, price } = appoinmentDetails?.appointment?.serviceType || {};
+  const { name } = appoinmentDetails?.appointment?.serviceType || {};
   const selectedAppointment: AppointmentTimeSlots | undefined = useMemo(
     () => appointmentTimeSlots?.find((item) => item.selected),
     [appointmentTimeSlots]
   );
   const [disabled, setDisabled] = useState(true);
-  const [isRoleGuard, setRoleGuard] = useState<boolean>(false);
+  const [_, setRoleGuard] = useState<boolean>(false);
   // const appointmentCharges = transaction?.total;
 
   useEffect(() => {

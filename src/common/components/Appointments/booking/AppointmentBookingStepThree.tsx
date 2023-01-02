@@ -64,7 +64,7 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     Number(id) ||
     Number(query?.id);
 
-  const [{ data: dataList, fetching }] = useDoctorQuestionnaireQuery({
+  const [{ data: dataList }] = useDoctorQuestionnaireQuery({
     variables: {
       doctorId: doctorQuestionnaireId,
       languageId: 2,
@@ -217,7 +217,6 @@ const StepThree = React.forwardRef(function StepThree(props: Props, ref: any) {
     });
     setDependent(updatedDepedencies);
   };
-  const formatedQuestionnier = parseJson(doctorQuestionnaire?.questionnaire);
 
   const renderItems = (item: Item): any => {
     if (item.type === "text") {

@@ -35,8 +35,6 @@ function AppointmnetRequestedCard({
   specialization,
   timeZone,
 }: Props) {
-  const t = useTranslations("AppointmentCards");
-
   let formatedDoctorName = `${
     doctor?.includes("Dr.") ? doctor : `Dr. ${doctor}`
   }`;
