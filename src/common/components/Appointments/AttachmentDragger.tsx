@@ -12,7 +12,7 @@ type Props = {
   appointmentsLoading?: boolean;
 };
 const AttachmentDragger = (props: Props) => {
-  const { urlArr, appointmentsLoading } = props || {};
+  const { urlArr } = props || {};
   const [fileList, setFileList] = useState([]);
   const mediaUploader = useMediaUploader();
   const [loading, setLoading] = useState(false);

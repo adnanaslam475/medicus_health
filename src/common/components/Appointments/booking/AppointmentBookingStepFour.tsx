@@ -17,16 +17,14 @@ function StepFour(props: Props) {
   const { rebookData } = props;
   const { data } = useBookAppointment();
   const {
-    physicianName,
     requestedDate,
     serviceInfo,
     physician,
     serviceName,
-    charges,
     availability,
     doctorSchedule,
   } = data?.stepOne || {};
-  const [{ price, name }] = serviceInfo || [{}];
+  const [{ name }] = serviceInfo || [{}];
   let doctorName = physician?.split(":")[1];
   const availabilityTime = doctorSchedule?.doctorSchedulesByDay?.find(
     (time: any) => time.id === availability

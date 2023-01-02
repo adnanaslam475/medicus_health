@@ -25,24 +25,14 @@ type Item = {
 };
 
 function PhysicianQuestionnaire(props: Props) {
-  const { query } = useRouter();
   const [formInstance] = Form.useForm();
-  const {
-    appointmentHealthHistory,
-    disable,
-    doctorId,
-    user: userData,
-  } = props || {};
+  const { appointmentHealthHistory, doctorId } = props || {};
   let History = parseJson(appointmentHealthHistory);
   const router = useRouter();
   const { user } = getUserData();
   const [isDisabled, setDisabled] = useState<boolean>(false);
 
   const { pathname } = router || {};
-  let disabled =
-    pathname?.includes("/physician/appointments") ||
-    pathname?.includes("/patient/appointments") ||
-    disable;
 
   useEffect(() => {
     if (History) {
@@ -84,18 +74,6 @@ function PhysicianQuestionnaire(props: Props) {
   });
   const { doctorQuestionnaire } = dataList || {};
 
-  const checkBoxHandler = (e: CheckboxChangeEvent) => {
-    // let formatedQuestioner = parseJson(patientLastQuestionnaire?.history);
-    // if (e?.target?.checked) {
-    //   saveStepThree?.({
-    //     ...formatedQuestioner,
-    //     isLastFilled: e?.target?.checked,
-    //   });
-    // } else {
-    //   saveStepThree?.(undefined);
-    //   formInstance.resetFields();
-    // }
-  };
   function onFinishLocal(values: any) {
     // saveStepThree?.({ ...values, isLastFilled: data?.stepThree?.isLastFilled });
   }

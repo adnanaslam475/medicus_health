@@ -14,7 +14,6 @@ import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
 import NotesTab from "common/components/NotesTab/NotesTab";
 import AttachmentDragger from "./AttachmentDragger";
-import i18next from "i18next";
 const { TabPane } = Tabs;
 
 type Props = {
@@ -26,21 +25,13 @@ const AppointmentTabs = (props: Props) => {
   const [activeTab, setActiveTab] = React.useState<string>("");
 
   const router = useRouter();
-  const { pathname } = router || {};
   const { query } = router;
 
   const [{ data, fetching: appointmentsLoading }] = useGetAppointmentByIdQuery({
     variables: { id: Number(appointmentId) },
   });
 
-  const {
-    appointmentHealthHistory,
-    patient,
-    status,
-    questionnaire,
-    doctorId,
-    appointmentCharges,
-  } = data?.appointment || {};
+  const { patient, status, questionnaire, doctorId } = data?.appointment || {};
 
   const { id } = patient || {};
 
@@ -61,8 +52,6 @@ const AppointmentTabs = (props: Props) => {
         url: item?.url,
       }));
   }
-
-  const t = i18next.t;
 
   useEffect(() => {
     query?.activeTab && setActiveTab(String(query?.activeTab));
