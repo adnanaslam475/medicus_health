@@ -70,7 +70,6 @@ export const AppointmentBookingStepOne = React.forwardRef(
     } = appoinmentDetails?.stepOne || {};
     const {
       physicianData,
-      onFinish,
       adminData,
       patientData,
       adminApp_Details,
@@ -81,13 +80,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
 
     const { first_name, last_name, id } =
       physicianData?.user || rebookData?.doctor || {};
-    const { doctor_Id, doctor_first_name, doctor_last_name } =
+    const { doctor_first_name, doctor_last_name } =
       adminApp_Details?.doctor || {};
     const [serviceInfo, setServiceInfo] = useState<AppointmentServiceType[]>();
     //   GET ID FROM URL
     const { query } = useRouter();
     const [doctorId, setDoctorId] = useState<number>();
-    const [schedules, setSchedules] = useState([]);
+    const [_, setSchedules] = useState([]);
     const [selectedDay, setSelectedDay] = useState<number>();
 
     const stepOneDoctorId = physician?.split(":")[0];
@@ -103,14 +102,13 @@ export const AppointmentBookingStepOne = React.forwardRef(
       selectedDay ??
       selectedDateDay ??
       (requestedDate && dayjs(requestedDate).get("day"));
-    const [{ data: scheduleDetails }, executeUseDoctorSchedulesByDayQuery] =
-      useDoctorSchedulesByDayQuery({
-        variables: {
-          doctorId: Number(doctorScheduleId),
-          filter: { day: Number(queryDay) },
-        },
-        // pause: !selectedDay,
-      });
+    const [{ data: scheduleDetails }] = useDoctorSchedulesByDayQuery({
+      variables: {
+        doctorId: Number(doctorScheduleId),
+        filter: { day: Number(queryDay) },
+      },
+      // pause: !selectedDay,
+    });
     useEffect(() => {
       if (queryDay) {
         // executeUseDoctorSchedulesByDayQuery({ requestPolicy: "network-only" });
@@ -203,10 +201,7 @@ export const AppointmentBookingStepOne = React.forwardRef(
       setSelectedDay(9);
     }
 
-    const [
-      { data: scheduleDetailsForDisableDate },
-      executeUseDoctorSchedulesQuery,
-    ] = useDoctorSchedulesQuery({
+    const [{ data: scheduleDetailsForDisableDate }] = useDoctorSchedulesQuery({
       variables: {
         doctorId: doctorScheduleId,
       },

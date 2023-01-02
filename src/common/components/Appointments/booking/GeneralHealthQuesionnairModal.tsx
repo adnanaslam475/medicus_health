@@ -57,7 +57,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
       variables: { input: patientId as number },
     });
 
-  const { error, fetching } = result;
+  const { fetching } = result;
 
   const onFinishHealthQuestionnarySuccess = async (quesPayload: any) => {
     const healthQuesJson = JSON.stringify(quesPayload);
@@ -99,7 +99,11 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
         onCancel={handleCancel}
         width={540}
         footer={[
-          <Button key="back" onClick={handleCancel} className={`${isChrome && 'antCustomBtn'}`}>
+          <Button
+            key="back"
+            onClick={handleCancel}
+            className={`${isChrome && "antCustomBtn"}`}
+          >
             Close
           </Button>,
           <Button
@@ -107,7 +111,7 @@ const GeneralHealthQuesionnairModal = (props: Props) => {
             type="primary"
             loading={fetching}
             onClick={handleOk}
-            className={`${isChrome && 'antCustomBtn'}`}
+            className={`${isChrome && "antCustomBtn"}`}
           >
             Update
           </Button>,

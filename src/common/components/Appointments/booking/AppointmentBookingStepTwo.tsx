@@ -41,7 +41,7 @@ type DoctorData = {
 
 const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
   const { data, saveStepTwo } = useBookAppointment();
-  const { physicianData, adminApp_Details, rebookData, clear } = props || {};
+  const { physicianData, adminApp_Details, rebookData } = props || {};
   const { user } = getUserData();
   const [formInstance] = Form.useForm();
 
@@ -55,9 +55,7 @@ const StepTwo = React.forwardRef(function StepTwo(props: Props, ref: any) {
     pause: !patientId,
   });
   const { patientHealthHistory } = patientHealthData || {};
-  const [checked, setChecked] = useState(
-    data?.stepTwo?.length > 0 ? false : true
-  );
+  const [_, setChecked] = useState(data?.stepTwo?.length > 0 ? false : true);
 
   const attachmentProps: UploadProps | Object = {
     accept:
