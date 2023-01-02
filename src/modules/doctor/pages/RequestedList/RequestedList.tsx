@@ -3,13 +3,7 @@ import Router from "next/router";
 import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import StatusChip from "common/components/StatusChip/StatusChip";
-import {
-  Appointment,
-  AppointmentDateTimeResponse,
-  AppointmentServiceType,
-  DateTimeSlots,
-  User,
-} from "generated/graphql";
+import { Appointment, DateTimeSlots, User } from "generated/graphql";
 import { date } from "common/utils";
 import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";
 import { tableFooter } from "utils/helper";
@@ -127,14 +121,18 @@ const Columns = [
     key: "charges",
     sorter: true,
     render: (value: any) => {
-      return <div className="someclass">{value?.total ? currencyFormatter(value?.total) : "-"}</div>;
+      return (
+        <div className="someclass">
+          {value?.total ? currencyFormatter(value?.total) : "-"}
+        </div>
+      );
     },
   },
   {
     title: "Appointment status",
     dataIndex: "status",
     key: "status",
-    sorter:true,
+    sorter: true,
     className: "table-action-icon",
     render: (value: any) => {
       return (
@@ -190,7 +188,9 @@ const RequestedList = (props: Props) => {
     <Table
       columns={Columns}
       dataSource={appointmentsData}
-      footer={(currentPageCount)=>tableFooter(currentPageCount?.length,meta?.totalItems)}
+      footer={(currentPageCount) =>
+        tableFooter(currentPageCount?.length, meta?.totalItems)
+      }
       onChange={onChange}
       loading={loading}
       scroll={{ x: true }}

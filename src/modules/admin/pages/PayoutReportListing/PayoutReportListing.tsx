@@ -4,7 +4,6 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import _classes from "./PayoutReportListing.module.scss";
 import {
   Appointment,
-  AppointmentServiceType,
   Transaction,
   useDoctorPayoutsByAdminQuery,
   User,

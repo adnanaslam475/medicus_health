@@ -6,7 +6,6 @@ import {
 } from "generated/graphql";
 import { date } from "common/utils";
 import { getRole } from "common/utils/userData";
-import Router from "next/router";
 import Link from "next/link";
 import dayjs, { duration, localeData } from "dayjs";
 import weekday from "dayjs/plugin/weekday";

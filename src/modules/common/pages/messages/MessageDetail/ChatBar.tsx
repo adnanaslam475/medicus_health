@@ -3,8 +3,6 @@ import Image, { StaticImageData } from "next/image";
 import nullicon from "./../../../../../../public/assets/images/nullicon.png";
 import { useMessageContext } from "./MessageContext";
 import { getUserData } from "common/utils/userData";
-import attachIcon from "./../../../../../../public/assets/images/attach.svg";
-import fileIcon from "./../../../../../../public/assets/icon/file-icon.svg";
 import { date } from "common/utils";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import { getFileImageIcon } from "common/utils/helper";

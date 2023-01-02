@@ -1,4 +1,3 @@
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import React, { useState, useEffect } from "react";
 import _classes from "./EditableNotes.module.scss";
 import {
@@ -9,12 +8,9 @@ import {
   useRemoveAppointmentNoteMutation,
 } from "generated/graphql";
 import AcronymWithTextEditable from "../AcronymWithTextEditable/AcronymWithTextEditable";
-import { Button, Form, notification, Select } from "antd";
-import TextArea from "antd/lib/input/TextArea";
-import AcronymWithText from "../AcronymWithText/AcronymWithText";
+import { Button, Form, notification } from "antd";
 import Router, { useRouter } from "next/router";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
-import { CloseOutlined } from "@ant-design/icons";
 import { isChrome } from "utils/helper";
 
 type Props = {

@@ -5,12 +5,11 @@ import AppLayout from "common/components/AppLayout/AppLayout";
 import { Button, Table, Tag } from "antd";
 import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import AdminPatientsListFilter from "./AdminPatientsListFilter";
-import { PatientListFilterType, StatusName } from "common/types/types";
+import { PatientListFilterType } from "common/types/types";
 import { Country, useGetPatientsQuery, User, City } from "generated/graphql";
 import { ColumnsType } from "antd/lib/table/Table";
 import { date } from "common/utils";
 import { isChrome, tableFooter } from "utils/helper";
-import StatusChip from "common/components/StatusChip/StatusChip";
 import { getUnixTimeStamp } from "common/utils/date";
 
 const columns: ColumnsType<User> = [

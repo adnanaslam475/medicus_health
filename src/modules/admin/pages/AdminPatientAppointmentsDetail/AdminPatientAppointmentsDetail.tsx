@@ -4,7 +4,6 @@ import { Tabs } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import AdminPatientQuestionnaireFormTab from "./AdminPatientQuestionnaireFormTab";
 import { Appointment, useGetAppointmentByIdQuery } from "generated/graphql";
-import AdminPatientNotesWithTextTab from "./AdminPatientNotesWithTextTab";
 import AdminPatientAppointmentInfoTab from "./AdminPatientAppointmentInfoTab";
 import AdminPatientHealthQuestionnaireFormTab from "./AdminPatientHealthQuestionnaireFormTab";
 import AdminPatientAttachmentTab from "./AdminPatientAttachmentTab";

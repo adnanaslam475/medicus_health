@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Tooltip, Card, Divider, Avatar, Button, Steps, Modal } from "antd";
+import React, { useState } from "react";
+import { Tooltip, Card, Divider, Button } from "antd";
 import Router from "next/router";
 import Link from "next/link";
 import VideoCameraFilled from "../../../../public/assets/icon/video.svg";
@@ -7,8 +7,6 @@ import Image from "next/image";
 import engFlag from "../../../../public/assets//images/engFlag.png";
 import espanolFlag from "../../../../public/assets//images/espanolFlag.png";
 import _classes from "./DoctorCard.module.scss";
-import { date } from "../../utils";
-import { LeftOutlined } from "@ant-design/icons";
 import BookAppointmentJourney from "../BookAppointmentJourney/BookAppointmentJourney";
 import MDNextImage from "../MDNextImage/MDNextImage";
 import {
@@ -120,7 +118,7 @@ function DoctorCard({
 
     return [str];
   }
-  
+
   const conditionTreatedarr = conditionArrayConverter(conditionTreated);
   return (
     <>

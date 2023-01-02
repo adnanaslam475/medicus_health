@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Avatar, Button, notification } from "antd";
-// import ReactS3Client from "react-aws-s3-typescript";
+import { Button, notification } from "antd";
 import PersonalInfoList from "../../../../modules/common/components/PersonalInfoList/PersonalInfoList";
 import { PersonalInfoDetail } from "../../../../modules/common/components/PersonalInfoDetail/PersonalInfoDetail";
 import {
@@ -15,8 +14,6 @@ import { Upload } from "antd";
 import { date } from "../../../utils";
 import { UploadChangeParam } from "antd/lib/upload";
 import { useMediaUploader } from "common/hooks/media";
-import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import { GraphQLError } from "graphql";

@@ -1,6 +1,5 @@
-import { MessageOutlined, VideoCameraFilled } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import { Button,  Input } from "antd";
+import React from "react";
 const { TextArea } = Input;
 import Router from "next/router";
 import _classes from "./MessageButtons.module.scss";

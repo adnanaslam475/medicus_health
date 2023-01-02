@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import {
   ArrowLeftOutlined,
-  LockOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { Button, Input, notification } from "antd";
 import Image from "next/image";
 import profile from "./../../../../../../public/assets/images/nullicon.png";
 import ThreeDot from "./../../../../../../public/assets/images/threedot.svg";
-import Inputicon from "../../../../../../public/assets/images/inputicon.svg";
 
 import _classes from "./Message-detail.module.scss";
 import { useMessageContext } from "./MessageContext";
@@ -17,7 +15,6 @@ import { messageUtils } from "common/utils";
 import { ChatChannels, useDeleteChatChannelMutation } from "generated/graphql";
 import MDNextImage from "common/components/MDNextImage/MDNextImage";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
-import _debounce from "lodash/debounce";
 import { useDebounce } from "common/utils/helper";
 import { isChrome } from "utils/helper";
 

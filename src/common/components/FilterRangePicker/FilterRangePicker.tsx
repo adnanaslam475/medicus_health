@@ -1,5 +1,5 @@
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Input, Button, Select, DatePicker } from "antd";
+import { Button, DatePicker } from "antd";
 import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
 import { RangePickerFooter } from "./RangePickerFooter";
@@ -42,7 +42,9 @@ export function FilterRangePicker({
         )}
       />
       <Button
-        className={`${_classes["range-style"]} flex date-btn ${isChrome && 'antCustomBtn'}`}
+        className={`${_classes["range-style"]} flex date-btn ${
+          isChrome && "antCustomBtn"
+        }`}
         block
         type="default"
         onClick={onOpen}

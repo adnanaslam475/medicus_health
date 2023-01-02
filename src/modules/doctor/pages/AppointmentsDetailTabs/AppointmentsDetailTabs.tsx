@@ -1,19 +1,10 @@
 import React from "react";
 import { Tabs } from "antd";
-import Router from "next/router";
 const { TabPane } = Tabs;
-import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 import PatientInfo from "common/components/PatientInfo/PatientInfo";
 import Questionnary from "common/components/Questionnary/Questionnary";
-import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
-import Attachments from "common/components/Appointments/Attachments";
-import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
-// import Attachement from "common/components/Attachement/Attachement";
-import jpg from "../../../../../public/assets/images/jpg.svg";
-import word from "../../../../../public/assets/images/word-file.svg";
 import Notes from "common/components/Notes/Notes";
 import { useGetAppointmentByIdQuery } from "generated/graphql";
-import DoctorAppointmentInfo from "../../../../common/components/DoctorAppointmentInfo/DoctorAppointmentInfo";
 import Attachment from "common/components/Attachment/Attachment";
 
 type Props = {

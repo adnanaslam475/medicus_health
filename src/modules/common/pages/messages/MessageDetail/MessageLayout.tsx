@@ -1,5 +1,4 @@
 import React from "react";
-import _classes from "./Message-detail.module.scss";
 
 type Props = {
   children: React.ReactChild[];

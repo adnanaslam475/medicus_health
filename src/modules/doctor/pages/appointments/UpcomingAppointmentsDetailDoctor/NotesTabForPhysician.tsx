@@ -4,12 +4,8 @@ import Notes from "common/components/Notes/Notes";
 import NotesListingByAppointments from "common/components/NotesListingByAppointments/NotesListingByAppointments";
 import { getRole } from "common/utils/userData";
 import {
-  Appointment,
-  AppointmentNote,
-  GetAppointmentNoteByIdQuery,
   useCreateOrUpdateAppointmentNoteMutation,
   useDoctorAppointmentDetailAppointmentInfoQuery,
-  useGetAppointmentByIdQuery,
   useGetAppointmentNoteByIdQuery,
   useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";

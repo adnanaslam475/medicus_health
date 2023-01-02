@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  Input,
-  Button,
-  Select,
-  Space,
-  DatePicker,
-  Form,
-  Dropdown,
-  InputNumber,
-} from "antd";
+import { Input, Button, Select, Space, DatePicker, Form } from "antd";
 import {
   CaretDownOutlined,
   CloseOutlined,
-  DownOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import {
@@ -22,7 +12,6 @@ import {
 import searchStyle from "./style.module.scss";
 import _classes from "./AdminUserSearchFilters.module.scss";
 import { adminUserFilterType } from "common/types/types";
-import AmountDropdown from "../AmountDropdown/AmountDropdown";
 import Image from "next/image";
 import { calendarFilterIcon } from "utils/images";
 import { isChrome } from "utils/helper";
@@ -128,7 +117,7 @@ function AdminUserSearchFilters(props: Props) {
                 renderExtraFooter={() => (
                   <div className="flex gap-3 justify-end p-3">
                     <Button
-                      className={`bg-gray-300 ${isChrome && 'antCustomBtn'}`}
+                      className={`bg-gray-300 ${isChrome && "antCustomBtn"}`}
                       onClick={() => {
                         setOpenDateRange(false);
                       }}
@@ -136,7 +125,7 @@ function AdminUserSearchFilters(props: Props) {
                       Cancel
                     </Button>
                     <Button
-                      className={`text-white ${isChrome && 'antCustomBtn'}`}
+                      className={`text-white ${isChrome && "antCustomBtn"}`}
                       type="primary"
                       onClick={() => {
                         applyDateRange();
@@ -148,7 +137,7 @@ function AdminUserSearchFilters(props: Props) {
                 )}
               />
               <Button
-                className={`flex date-btn ${isChrome && 'antCustomBtn'}`}
+                className={`flex date-btn ${isChrome && "antCustomBtn"}`}
                 block
                 type="default"
                 onClick={() => setOpenDateRange?.(!openDateRange)}
@@ -184,7 +173,7 @@ function AdminUserSearchFilters(props: Props) {
           <Button
             onClick={clear}
             type="text"
-            className={`${isChrome && 'antCustomBtn'}`}
+            className={`${isChrome && "antCustomBtn"}`}
             // className={`${_classes["btn-clear"]}`}
           >
             <CloseOutlined className="text-sm" />

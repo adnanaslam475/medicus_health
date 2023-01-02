@@ -2,28 +2,17 @@
 import React from "react";
 import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDiv";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import {
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-  User,
-} from "../../../../../../generated/graphql";
+import { useCountriesQuery, User } from "../../../../../../generated/graphql";
 import MessageButtons from "common/components/MessageButtons/MessageButtons";
 import { getUserData } from "common/utils/userData";
 import { formatMMDDYYYY } from "common/utils/date";
-import { timezoneLabel } from "utils/helper";
-// const props = {};
 type Props = {
   userDetail?: User;
   loggedinDoctorDetails?: User;
   doctorId?: number | undefined;
 };
 
-function PatientProfileFormTab({
-  userDetail,
-  loggedinDoctorDetails,
-  doctorId,
-}: Props) {
+function PatientProfileFormTab({ userDetail, doctorId }: Props) {
   const {
     id,
     first_name,
@@ -31,14 +20,10 @@ function PatientProfileFormTab({
     gender,
     date_of_birth,
     contact_number,
-    doctorProfile,
     email,
-    password,
-    zip_code,
     country,
     state,
     city,
-    streetAddress,
     patientProfile,
     timeZone,
   } = userDetail || {};

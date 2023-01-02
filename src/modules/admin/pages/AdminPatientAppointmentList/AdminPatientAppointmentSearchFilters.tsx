@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Select } from "antd";
+import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { BookingDate, GetAppointmentInput } from "generated/graphql";
 import { SelectServiceTypeFilter } from "common/components/SelectServiceTypeFilter/SelectServiceTypeFilter";

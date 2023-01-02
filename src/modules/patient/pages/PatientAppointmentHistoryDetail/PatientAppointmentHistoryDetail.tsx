@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useRouter } from "next/router";
 import {
-  Appointment,
   GetAppointmentInput,
-  useDoctorAppointmentDetailQuery,
-  useGetAppointmentReportUrlByIdQuery,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { Tabs } from "antd";
@@ -14,8 +11,6 @@ import PatientInfoTab from "./PatientInfoTab";
 import HealthQuestionnaireFrom from "./HealthQuestionnaireFromTab";
 import PhysicianQuestionnaireForm from "./PhysicianQuestionnaireFormTab";
 import AttachmentTab from "./AttachmentTab";
-import NoteWithTextTab from "./NoteWithTextTab";
-// import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";
 
 function PatientAppointmentHistoryDetail() {
@@ -37,7 +32,11 @@ function PatientAppointmentHistoryDetail() {
 
   const [{ data }] = usePhysicianAppointmentsHistoryQuery({
     variables: {
-      filter: { ...filterValues, appointmentId: Number(query?.id),status: "Completed" },
+      filter: {
+        ...filterValues,
+        appointmentId: Number(query?.id),
+        status: "Completed",
+      },
       pagination: { limit: -1, page: 1 },
       sorting,
     },
@@ -87,9 +86,7 @@ function PatientAppointmentHistoryDetail() {
               <HealthQuestionnaireFrom />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Physician questionnaire" key="4">
-              <PhysicianQuestionnaireForm
-              doctorId={doctorId}
-              />
+              <PhysicianQuestionnaireForm doctorId={doctorId} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Attachments" key="5">
               <AttachmentTab />

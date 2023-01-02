@@ -6,7 +6,6 @@ import CurrentStepContent from "./CurrentStepContent/CurrentStepContent";
 import {
   Appointment,
   useGetAppointmentPriceQuery,
-  useReBookAppointmentMutation,
   useViewSuggestedTimeSlotsQuery,
 } from "../../../../generated/graphql";
 import _classes from ".//AppointmentModal.module.scss";

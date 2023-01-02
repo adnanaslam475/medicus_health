@@ -1,12 +1,11 @@
 import React from "react";
 import Router from "next/router";
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import { date } from "../../utils";
 import {
   Appointment,
   AppointmentDateTimeResponse,
-  AppointmentServiceType,
   Transaction,
   User,
 } from "generated/graphql";
@@ -41,10 +40,11 @@ const historyColumns = [
     key: "first_name",
     sorter: true,
     render: (doctor: User) => {
-      let formatedDoctorFirstName = `${doctor?.first_name?.includes("Dr.")
+      let formatedDoctorFirstName = `${
+        doctor?.first_name?.includes("Dr.")
           ? doctor?.first_name
           : `Dr. ${doctor?.first_name}`
-        }`;
+      }`;
       return (
         <div className="capitalize">{`${formatedDoctorFirstName} ${doctor.last_name}`}</div>
       );
@@ -72,9 +72,9 @@ const historyColumns = [
         <div>
           {appointmentDateTime?.startTime
             ? `${date?.formatDAYMMDDYY(
-              appointmentDateTime?.startTime,
-              timeZone
-            )} `
+                appointmentDateTime?.startTime,
+                timeZone
+              )} `
             : "--"}
         </div>
       );
@@ -90,9 +90,9 @@ const historyColumns = [
         <div>
           {appointmentDateTime?.startTime && appointmentDateTime?.endTime
             ? `${date.formathhmma(
-              appointmentDateTime?.startTime,
-              timeZone
-            )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
+                appointmentDateTime?.startTime,
+                timeZone
+              )} - ${date.formathhmma(appointmentDateTime?.endTime, timeZone)} `
             : "--"}
         </div>
       );
@@ -104,7 +104,13 @@ const historyColumns = [
     key: "amountReceived",
     sorter: true,
     render: (transaction: Transaction) => {
-      return <div>{transaction?.amountReceived ? currencyFormatter(transaction?.amountReceived) : "-"}</div>;
+      return (
+        <div>
+          {transaction?.amountReceived
+            ? currencyFormatter(transaction?.amountReceived)
+            : "-"}
+        </div>
+      );
     },
   },
   {
@@ -114,10 +120,11 @@ const historyColumns = [
     sorter: true,
     render: (transaction: Transaction) => {
       return (
-        <div>{`${transaction?.createdAt
+        <div>{`${
+          transaction?.createdAt
             ? date?.formatDAYMMDDYY(transaction?.createdAt, timeZone)
             : "--"
-          }`}</div>
+        }`}</div>
       );
     },
   },

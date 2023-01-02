@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Tag, Modal, Form, Space, Spin, notification } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Button, Form, notification } from "antd";
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -11,7 +10,6 @@ import {
 import { StripeCardNumberElement } from "@stripe/stripe-js/types/stripe-js/elements";
 
 import { CreateSourceData, StripeElement } from "@stripe/stripe-js";
-import _classes from "./StripeCard.module.scss";
 import {
   useCreateCardMutation,
   useGetAllCardsQuery,

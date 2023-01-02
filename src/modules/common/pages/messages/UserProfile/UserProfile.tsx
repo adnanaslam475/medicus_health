@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
-import {
-  ChatChannels,
-  useGetUnreadMessageCountQuery,
-  useMarkMessagesAsReadMutationMutation,
-} from "generated/graphql";
+import React, { useEffect } from "react";
+import { ChatChannels } from "generated/graphql";
 import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import { useMessageContext } from "../MessageDetail/MessageContext";
-import profile from "./../../../../../../public/assets/images/doc-pic.png";
 import nullicon from "./../../../../../../public/assets/images/nullicon.png";
 import loaderLogo from "./../../../../../../public/assets/images/loaderLogo.png";
 import { getUserData } from "common/utils/userData";

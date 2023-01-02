@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
 import { Avatar, Upload, Button, notification } from "antd";
 import { useCreateDoctorMutation } from "../../../../../generated/graphql";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import { AddPatientForm } from "modules/admin/components/AddPatientForm/AddPatientForm";
 import { isChrome } from "utils/helper";
 
@@ -88,7 +88,9 @@ function PatientAdd() {
                     />
                     <Button
                       type="link"
-                      className={`text-primary underline ml-3 text-xs ${isChrome && 'antCustomBtn'}`}
+                      className={`text-primary underline ml-3 text-xs ${
+                        isChrome && "antCustomBtn"
+                      }`}
                     >
                       Update photo
                     </Button>

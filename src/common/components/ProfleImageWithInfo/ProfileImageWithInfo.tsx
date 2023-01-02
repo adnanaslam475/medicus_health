@@ -1,6 +1,4 @@
-import Image from "next/image";
 import React from "react";
-import yourImage from "../../../../public/assets/images/profile.jpg";
 import MDNextImage from "../MDNextImage/MDNextImage";
 
 type props = {

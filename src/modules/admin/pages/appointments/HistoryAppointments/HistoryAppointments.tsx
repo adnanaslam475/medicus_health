@@ -11,7 +11,6 @@ import {
   User,
 } from "generated/graphql";
 import AppointmentHistoryTable from "common/components/AppointmentHistoryTable/AppointmentHistoryTable";
-import _classes from "./HistoryAppointments.module.scss";
 import PatientAppointmentHistoryFilter from "common/components/PatientAppointmentHistoryFilter/PatientAppointmentHistoryFilter";
 import BookAppointmentJourney from "common/components/BookAppointmentJourney/BookAppointmentJourney";
 import { getUserData } from "common/utils/userData";

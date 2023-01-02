@@ -4,9 +4,6 @@ import LabelWithTextDiv from "common/components/LabelWithTextDiv/LabelWithTextDi
 import { date } from "common/utils";
 import {
   GetAppointmentInput,
-  useDoctorAppointmentDetailPatientInfoQuery,
-  useGetCityByIdQuery,
-  useGetCountryByIdQuery,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import { useRouter } from "next/router";
@@ -60,8 +57,14 @@ function PatientInfoTab({}: Props) {
   const { state_name } = state || {};
   const { city_name } = city || {};
 
-  const { maritalStatus, children, occupation, occupationalExposure, pets ,exposureDuration} =
-    patientProfile || {};
+  const {
+    maritalStatus,
+    children,
+    occupation,
+    occupationalExposure,
+    pets,
+    exposureDuration,
+  } = patientProfile || {};
 
   return fetching ? (
     <div className="lg:w-1/3 sm:w-full flex justify-center py-20 mr-5">
@@ -89,7 +92,7 @@ function PatientInfoTab({}: Props) {
           <LabelWithTextDiv label="Correo electrónico" value={email || "-"} />
           <LabelWithTextDiv
             label="Teléfono de contacto"
-            value={contact_number?`+${contact_number}` : "-"}
+            value={contact_number ? `+${contact_number}` : "-"}
           />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
@@ -112,13 +115,16 @@ function PatientInfoTab({}: Props) {
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv label="¿Tienes hijos?" value={children || "No"} />
-          <LabelWithTextDiv label="¿Cuál es tu ocupación?" value={occupation || "-"} />
+          <LabelWithTextDiv
+            label="¿Cuál es tu ocupación?"
+            value={occupation || "-"}
+          />
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <LabelWithTextDiv
             label="¿Tiene alguna exposición ocupacional?"
             value={occupationalExposure === "Yes" ? exposureDuration : "No"}
-            />
+          />
           <LabelWithTextDiv label="¿Tiene mascotas?" value={pets || "-"} />
         </div>
       </div>

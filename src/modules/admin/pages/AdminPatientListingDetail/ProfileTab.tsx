@@ -23,7 +23,6 @@ import {
 import _classes from "./ProfileTab.module.scss";
 import { AdminPatientUpdateInput } from "common/types/types";
 import { GraphQLError } from "graphql";
-import userDefaultPicture from "../../../../../public/assets/images/profile.jpg";
 import chat from "./../../../../../public/assets/icon/chat-bubble.svg";
 import { isChrome } from "utils/helper";
 

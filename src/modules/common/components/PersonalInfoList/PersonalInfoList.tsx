@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { useTranslations } from "next-intl";
 import React from "react";
-import { timezoneLabel } from "utils/helper";
 import { date } from "../../../../common/utils";
 import {
   useCountriesQuery,

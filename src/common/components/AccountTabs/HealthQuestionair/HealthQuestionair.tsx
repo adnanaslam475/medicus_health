@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import { Avatar, Tabs, Button } from "antd";
-import Router from "next/router";
+import React from "react";
+import { Avatar, Button } from "antd";
 import Image from "next/image";
 import yourImage from "../../../../../public/assets/images/your_photo.png";
 import { isChrome } from "utils/helper";
-// import PersonalInfo from "";
-// import SidebarDrawer from "../../../modules/admin/components/SidebarDrawer";
-const { TabPane } = Tabs;
 
 const HealthQuestionair = () => {
   return (

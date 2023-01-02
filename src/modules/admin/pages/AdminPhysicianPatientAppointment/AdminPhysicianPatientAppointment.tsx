@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Button, notification, Table } from "antd";
+import {  notification, Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import Router from "next/router";
 import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentPriceResponse,
-  AppointmentServiceType,
-  AppointmentTimeSlots,
   GetAppointmentInput,
   useAdminPhysicianAppointmentQuery,
   usePhysicianPaymentByAdminMutation,

@@ -4,7 +4,6 @@ import {
   GetAppointmentInput,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
-import word from "../../../../../public/assets/images/word-file.svg";
 import { useRouter } from "next/router";
 import React from "react";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";

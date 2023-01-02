@@ -1,40 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-
-import {
-  Table,
-  Tag,
-  Modal,
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  notification,
-} from "antd";
-import { PlusOutlined, EyeFilled } from "@ant-design/icons";
-import Link from "next/link";
-import Image from "next/image";
-import yourImage from "../../../../../../public/assets/images/your_photo.png";
-import {
-  useCountriesQuery,
-  useCreateDoctorMutation,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-  User,
-} from "../../../../../generated/graphql";
-import dayjs from "dayjs";
+import { notification } from "antd";
+import { useCreateDoctorMutation } from "../../../../../generated/graphql";
 import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 
 type props = {
   validateForm?: (value: any) => void;
   onFinishPersonalInfo?: (value: any) => void;
 };
 function AdminPhysicianAdd() {
-  const [{fetching}, CreateDoctorMutation] = useCreateDoctorMutation();
+  const [{ fetching }, CreateDoctorMutation] = useCreateDoctorMutation();
 
   const form: any = useRef();
 
@@ -119,7 +95,7 @@ function AdminPhysicianAdd() {
                 </Upload>
               </div> */}
               <div className="w-full">
-                <AddPhysicianForm onFinish={createDoctor} loading={fetching}/>
+                <AddPhysicianForm onFinish={createDoctor} loading={fetching} />
               </div>
             </div>
           </div>

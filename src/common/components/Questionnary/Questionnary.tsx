@@ -1,18 +1,9 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import HealthQuestionnaryData from "../../constants/healthQuestionnary";
 
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Checkbox,
-  FormInstance,
-  Tooltip,
-} from "antd";
+import { Form, Input, Button, Radio, Checkbox, Tooltip } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import _classes from "./Questionnary.module.scss";
 import { parseJson } from "common/utils/helper";

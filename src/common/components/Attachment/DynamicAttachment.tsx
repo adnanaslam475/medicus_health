@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { FilePdfOutlined, FileWordOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import pdf from "../../../../public/assets/images/word-file.svg";
 import jpg from "../../../../public/assets/images/jpg.svg";

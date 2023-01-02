@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Button } from "antd";
 import { date } from "../../../../../src/common/utils";
-import { VideoCameraFilled } from "@ant-design/icons";
 import _classes from "./CalendarModal.module.scss";
 import {
   currencyFormatter,

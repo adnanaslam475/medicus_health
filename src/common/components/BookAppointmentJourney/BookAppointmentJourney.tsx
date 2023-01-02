@@ -21,7 +21,6 @@ import BookAppointmentFooter from "./BookAppointmentFooter";
 import { getUserData } from "../../utils/userData";
 import SuccessMessage from "../Appointments/booking/SuccessMessage";
 import { useMediaUploader } from "common/hooks/media";
-import { GraphQLError } from "graphql";
 import { graphqlError } from "utils/helper";
 
 type AdminData = {

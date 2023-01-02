@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Table, Divider, Tag, Skeleton } from "antd";
+import { Table, Divider, Skeleton } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import MyEarningsStats from "../../../../../common/components/MyEarningsStats/MyEarningsStats";
 import MyEarningsSearchFilters from "common/components/PhysicianMyEarningsSearchFilter/MyEarningsSearchFilters";
 import {
   Appointment,
-  GetTransactionFilterQuery,
   GetTransectionInput,
   Transaction,
   useGetDoctorEarningsQuery,

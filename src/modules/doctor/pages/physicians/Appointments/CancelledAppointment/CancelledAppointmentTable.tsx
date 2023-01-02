@@ -5,12 +5,9 @@ import { EyeFilled } from "@ant-design/icons";
 import {
   Appointment,
   AppointmentDateTimeResponse,
-  AppointmentServiceType,
-  Transaction,
   User,
 } from "generated/graphql";
 import { date } from "common/utils";
-// import { getUserData } from "common/utils/userData";
 import StatusChip from "common/components/StatusChip/StatusChip";
 import { StatusName } from "common/types/types";
 import { currencyFormatter, getCurrentUserTimeZone } from "common/utils/date";

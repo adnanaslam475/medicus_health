@@ -1,11 +1,6 @@
 import React from "react";
-import DoctorProfileCard from "../../../../../common/components/DoctorCardsDetail/DoctorProfileCard";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
-import {
-  DoctorProfile,
-  useDoctorProfileDetailsQuery,
-  useDoctorProfileQuery,
-} from "../../../../../generated/graphql";
+import { useDoctorProfileQuery } from "../../../../../generated/graphql";
 import { useRouter } from "next/router";
 function PatientDetail() {
   //   GET ID FROM URL

@@ -1,10 +1,10 @@
 import React from "react";
 import NotesWithText from "common/components/NotesWithText/NotesWithText";
-import { Appointment, AppointmentNote } from "generated/graphql";
+import { Appointment } from "generated/graphql";
 
 type Props = {
-  appointment?: Appointment | undefined ;
-  doctorNotes?: [[string,string]];
+  appointment?: Appointment | undefined;
+  doctorNotes?: [[string, string]];
 };
 
 function NotesWithTextTab({ appointment, doctorNotes }: Props) {

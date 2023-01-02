@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Empty, Form, notification, Skeleton } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
 import AddStaffModal from "./AddStaffModal";
 import StaffAppointmentsFilter from "../../appointments/StaffAppointmentsFilter";
 import StaffTable from "modules/doctor/components/StaffTable/StaffTable";

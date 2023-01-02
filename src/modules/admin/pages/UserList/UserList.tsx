@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Table, Tag } from "antd";
 import AppLayout from "common/components/AppLayout/AppLayout";
 import { useGetAdminUsersQuery, User } from "generated/graphql";
-import { date, userData } from "common/utils";
+import { date } from "common/utils";
 import { adminUserFilterType } from "common/types/types";
 import { EyeFilled, PlusOutlined } from "@ant-design/icons";
 import Router from "next/router";
@@ -90,7 +90,7 @@ const Columns = [
 
 type Props = {};
 
-const UserList = ({ }: Props) => {
+const UserList = ({}: Props) => {
   const [filterValues, setFilterValues] = useState<adminUserFilterType>({});
   let defaultPageSize = localStorage.getItem("adminUserListPerPageLimit") || 10;
   const [pagination, setPagination] = React.useState({
@@ -166,7 +166,7 @@ const UserList = ({ }: Props) => {
               type="primary"
               onClick={() => Router.push("/admin/adduser")}
               icon={<PlusOutlined />}
-              className={`${isChrome && 'antCustomBtn'}`}
+              className={`${isChrome && "antCustomBtn"}`}
             >
               Add user
             </Button>

@@ -1,8 +1,4 @@
 import React from "react";
-import Link from "next/link";
-import { Form, Button } from "antd";
-import _Classes from "./Appointment.module.scss";
-// import Container from "../../../../../common/components/Container/Container";
 import Image from "next/image";
 
 import { useRouter } from "next/router";

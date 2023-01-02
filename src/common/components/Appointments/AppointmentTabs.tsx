@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Empty, Form, Tabs } from "antd";
+import { Empty, Tabs } from "antd";
 import AppointmentInfo from "common/components/Appointments/AppointmentInfo";
 import PhysicianQuestionnaire from "common/components/Appointments/PhysicianQuestionnaire";
 import {
@@ -12,11 +12,7 @@ import { QuestionnaireForm } from "../Questionnary/Questionnary";
 import { parseJson } from "common/utils/helper";
 import Attachment from "../Attachment/Attachment";
 import { AttachmentObject } from "common/types/types";
-import Notes from "../Notes/Notes";
-// import NotesTab from "modules/doctor/pages/appointments/UpcomingAppointmentsDetailDoctor/NotesTabForPhysician";
 import NotesTab from "common/components/NotesTab/NotesTab";
-import Dragger from "antd/lib/upload/Dragger";
-import Image from "next/image";
 import AttachmentDragger from "./AttachmentDragger";
 import i18next from "i18next";
 const { TabPane } = Tabs;
@@ -57,10 +53,13 @@ const AppointmentTabs = (props: Props) => {
   const { reportUrl } = appointment || {};
   let urlArr = parseJson(reportUrl);
   if (urlArr && urlArr.length > 0) {
-    urlArr = urlArr?.flat(1)?.filter((value:any)=>value?.url !== undefined).map((item: any) => ({
-      name: item?.name,
-      url: item?.url,
-    }));
+    urlArr = urlArr
+      ?.flat(1)
+      ?.filter((value: any) => value?.url !== undefined)
+      .map((item: any) => ({
+        name: item?.name,
+        url: item?.url,
+      }));
   }
 
   const t = i18next.t;
@@ -87,7 +86,6 @@ const AppointmentTabs = (props: Props) => {
     });
   }, [deletedUrl]);
 
-  console.log("hello world",urlArr)
   return (
     <div className="profile-tabs">
       <Tabs

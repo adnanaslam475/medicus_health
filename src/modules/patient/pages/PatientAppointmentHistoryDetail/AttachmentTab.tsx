@@ -1,20 +1,14 @@
 import Attachment from "common/components/Attachment/Attachment";
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import {
   GetAppointmentInput,
   usePhysicianAppointmentsHistoryQuery,
 } from "generated/graphql";
 import React from "react";
-import jpgIcon from "../../../../../public/assets/images/jpg.svg";
-import word from "../../../../../public/assets/images/word-file.svg";
 import { parseJson } from "common/utils/helper";
-import { useRouter } from "next/router";
 import { AttachmentObject } from "common/types/types";
 import { Empty, Spin } from "antd";
 
 function AttachmentTab() {
-  const { query } = useRouter();
-
   const [filterValues, setFilterValues] = React.useState<GetAppointmentInput>(
     {}
   );

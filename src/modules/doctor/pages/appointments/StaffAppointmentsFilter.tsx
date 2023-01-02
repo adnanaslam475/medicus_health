@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Input, Button, Select, DatePicker } from "antd";
+import { Input, Select, DatePicker } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { FilterRangePicker } from "common/components/FilterRangePicker/FilterRangePicker";
 import { FilterClearButton } from "common/components/FilterClearButton/FilterClearButton";
 import { BookingDate, GetStaffFilter } from "generated/graphql";
 import _classes from "./StaffAppointmentFilter.module.scss";
-import Image from "next/image";
-import { calendarFilterIcon } from "utils/images";
 
 const { RangePicker } = DatePicker;
 

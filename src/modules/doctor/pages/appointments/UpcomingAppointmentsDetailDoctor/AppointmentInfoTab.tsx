@@ -1,6 +1,5 @@
 import { Spin } from "antd";
 import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
-import ProfileImageWithInfo from "common/components/ProfleImageWithInfo/ProfileImageWithInfo";
 import {
   Appointment,
   useDoctorAppointmentDetailAppointmentInfoQuery,
@@ -19,12 +18,11 @@ function AppointmentInfoTab({}: Props) {
       id: Number(query.id),
     },
     pause: !query.id,
-    requestPolicy:"network-only"
-
+    requestPolicy: "network-only",
   });
 
   const { appointment } = data || {};
-  const { patient, serviceType } = appointment || {};
+  const { patient } = appointment || {};
   const { patientProfile } = patient || {};
   const loading = fetching || !query.id;
   return loading ? (

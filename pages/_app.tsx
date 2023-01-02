@@ -20,12 +20,8 @@ import "./../styles/cutomized-antd.css";
 import { useEffect } from "react";
 import Router from "next/router";
 import Head from "next/head";
-import {
-  UserDataProvider,
-  useUserData,
-} from "common/components/Context/UserContext";
+import { UserDataProvider } from "common/components/Context/UserContext";
 import Script from "next/script";
-import { AuthConfig, authExchange } from "@urql/exchange-auth";
 
 const logout = () => {
   if (typeof window !== "undefined") {

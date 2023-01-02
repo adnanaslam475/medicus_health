@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, notification, Skeleton, Spin, Table } from "antd";
+import { Table } from "antd";
 import { EyeFilled } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import Router from "next/router";
@@ -7,12 +7,9 @@ import {
   Appointment,
   AppointmentDateTimeResponse,
   AppointmentPriceResponse,
-  AppointmentServiceType,
-  AppointmentTimeSlots,
   GetAppointmentInput,
   useAdminPhysicianAppointmentQuery,
   useGetUserQuery,
-  usePhysicianPaymentByAdminMutation,
   User,
 } from "generated/graphql";
 import StatusChip from "common/components/StatusChip/StatusChip";

@@ -1,5 +1,4 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { date } from "common/utils";
 import dayjs from "dayjs";
 import React from "react";
 import { singleSchedule } from "../../types/types";

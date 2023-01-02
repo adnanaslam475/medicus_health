@@ -1,36 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppLayout from "../../../../../common/components/AppLayout/AppLayout";
+import { Form, Tabs } from "antd";
 import {
-  Table,
-  Tag,
-  Modal,
-  Avatar,
-  Upload,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Select,
-  Tabs,
-} from "antd";
-import {
-  PlusOutlined,
-  EyeFilled,
   UserOutlined,
   BellOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
-import Image from "next/image";
-import yourImage from "../../../../../../public/assets/images/your_photo.png";
-import {
-  useCountriesQuery,
-  useGetCitiesByStateQuery,
-  useGetStatesByCountryQuery,
-} from "../../../../../generated/graphql";
-import dayjs from "dayjs";
-import { AddPhysicianForm } from "../../../components/AddPhysicianForm/AddPhysicianForm";
 import EmailNotification from "../../EmailNotification/EmailNotification";
-import { QuestionnaireForm } from "../../../../../common/components/Questionnary/Questionnary";
 import PhysicianProfile from "./AdminDetailTabs/PhysicianProfile";
 
 type props = {
@@ -39,16 +14,6 @@ type props = {
   onFinish?: (value: any) => void;
 };
 function AdminPhysicianDetail() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const [image, setImage] = useState("");
-
   const props = {
     onChange({ file, fileList }: any) {
       if (file.status !== "uploading") {

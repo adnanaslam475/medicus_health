@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import { Layout, Avatar, Dropdown, Menu, Space } from "antd";
-import Router from "next/router";
+import React from "react";
 import Image from "next/image";
-import link from "next/link";
-import { WarningFilled } from "@ant-design/icons";
 import Link from "next/link";
 
 const InfoMessage = () => {

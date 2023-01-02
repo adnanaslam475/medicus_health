@@ -1,4 +1,3 @@
-import CardWithProfileImageInfo from "common/components/CardWithProfileImageInfo/CardWithProfileImageInfo";
 import { QuestionnaireForm } from "common/components/Questionnary/Questionnary";
 import { useRouter } from "next/router";
 import {
@@ -50,9 +49,9 @@ function HealthQuestionnaireFrom() {
         imageUrl={appointment?.patient?.patientProfile?.profileImage}
 
       > */}
-        <QuestionnaireForm
-          data={appointment?.patient?.patientHealthHistory?.history}
-        />
+      <QuestionnaireForm
+        data={appointment?.patient?.patientHealthHistory?.history}
+      />
       {/* </CardWithProfileImageInfo> */}
     </div>
   );

@@ -1,12 +1,9 @@
 import React, { SetStateAction } from "react";
 import Router, { useRouter } from "next/router";
-import { CloseOutlined } from "@ant-design/icons";
-import { Button, Form, notification } from "antd";
-import AppLayout from "common/components/AppLayout/AppLayout";
+import { Form, notification } from "antd";
 import StaffDetailsFrom from "./StaffdetailsForm";
 import {
   UpdateStaffInput,
-  useEnableOrDisableDoctorMutation,
   useEnableOrDisableStaffMutation,
   useGetStaffDetailsUrlByIdQuery,
   User,
@@ -17,7 +14,6 @@ import {
 import { getUserData } from "common/utils/userData";
 
 // scss
-import _classes from "../../staff/staff.module.scss";
 import ConfirmationModal from "common/components/ConfirmationModal/ConfirmationModal";
 
 function DoctorStaffDetails() {

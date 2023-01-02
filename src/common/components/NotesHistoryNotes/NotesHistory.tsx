@@ -1,12 +1,10 @@
-import { CaretRightOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Collapse, Form, Input, Modal } from "antd";
-import Image from "next/image";
-import React, { useRef, useState } from "react";
+import { CaretRightOutlined } from "@ant-design/icons";
+import { Collapse } from "antd";
+import React from "react";
 import _classes from "./NotesHistory.module.scss";
 import { useRouter } from "next/router";
 import {
   useGetAppointmentNotesByIdQuery,
-  useGetDoctorNotesByAppIdQuery,
 } from "generated/graphql";
 import { getRole } from "common/utils/userData";
 import AcronymWithText from "../AcronymWithText/AcronymWithText";

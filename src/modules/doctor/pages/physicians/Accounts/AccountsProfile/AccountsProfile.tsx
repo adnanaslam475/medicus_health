@@ -3,20 +3,10 @@ import React, { useEffect, useState } from "react";
 import { ViewProfile } from "common/components/ViewProfile/ViewProfile";
 import { getUserData } from "common/utils/userData";
 import {
-  DoctorProfile,
-  useCreateDoctorScheduleMutation,
   useDoctorProfileQuery,
-  useGetUserQuery,
-  useRemoveDoctorScheduleMutation,
   useScheduleQuery,
 } from "../../../../../../generated/graphql";
-import { RangeValue } from "rc-picker/lib/interface";
 import EditProfile from "../EditProfile/EditProfile";
-import dayjs from "dayjs";
-import { date } from "common/utils";
-import { UTCPrettierTime } from "common/utils/date";
-import { GraphQLError } from "graphql";
-import { notification } from "antd";
 
 function AccountsProfile() {
   const editData = () => {
