@@ -1,13 +1,15 @@
 mutation createDoctorSchedule(
   $doctorId: Int!
-  $day: Int!
+  $startDay: Int!
+  $endDay: Int!
   $startTime: String!
   $endTime: String!
 ) {
   createDoctorSchedule(
     createDoctorScheduleNewInput: {
       doctorId: $doctorId
-      day: $day
+      startDay: $startDay
+      endDay: $endDay
       startTime: $startTime
       endTime: $endTime
     }
@@ -15,13 +17,16 @@ mutation createDoctorSchedule(
     id
     startTime
     endTime
-    day
+    startDay
+    endDay
   }
 }
 
 mutation removeDoctorSchedule($id: Int!) {
   removeOneDoctorSchedule(id: $id) {
-    day
+    startDay
+    endDay
+    id
   }
 }
 

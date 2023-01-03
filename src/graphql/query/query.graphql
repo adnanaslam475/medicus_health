@@ -232,7 +232,8 @@ query doctorProfile($doctor_id: Int!) {
       doctorSchedules {
         id
         doctorId
-        day
+        endDay
+        startDay
         startTime
         endTime
         createdAt
@@ -313,7 +314,8 @@ query getAllRequestedAppointments(
             doctorSchedules {
               id
               doctorId
-              day
+              startDay
+              endDay
               startTime
               endTime
               createdAt
@@ -410,7 +412,8 @@ query doctorProfileDetails($input: Int!) {
       profile_image
     }
     doctorSchedules {
-      day
+      endDay
+      startDay
       startTime
       endTime
     }
@@ -431,7 +434,8 @@ query doctorSchedules($doctorId: Int!) {
   doctorSchedules(doctorId: $doctorId) {
     id
     doctorId
-    day
+    endDay
+    startDay
     startTime
     endTime
     createdAt
@@ -635,7 +639,8 @@ query schedule($doctorId: Int!) {
     id
     startTime
     endTime
-    day
+    endDay
+    startDay
   }
 }
 

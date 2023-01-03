@@ -57,6 +57,8 @@ function MultiRangeDatePicker(props: Props) {
     timeString: [string, string]
   ) {
     setAddScheduleTime?.({ time, timeString });
+    console.log(timeString, "timestring hai");
+    console.log(time, "time hai");
   }
   return (
     <div className="dateWithTextCardWrapper my-6 border-b border-gray-3 pb-[19px]">

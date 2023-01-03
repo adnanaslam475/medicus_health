@@ -495,7 +495,8 @@ query physicianAppointmentsHistory(
             doctorSchedules {
               id
               doctorId
-              day
+              startDay
+              endDay
               startTime
               endTime
               createdAt
@@ -734,7 +735,8 @@ query doctorSchedulesByDay(
 ) {
   doctorSchedulesByDay(doctorId: $doctorId, filter: $filter) {
     id
-    day
+    startDay
+    endDay
     startTime
     endTime
   }

@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://medicus-api-dev.agencypartner.com/graphql"
+schema: "http://193.168.104.47:3009/graphql"
 documents: "src/**/*.graphql"
 generates:
   src/generated/graphql.tsx:

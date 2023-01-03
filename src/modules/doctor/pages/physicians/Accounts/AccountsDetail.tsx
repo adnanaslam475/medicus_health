@@ -98,11 +98,15 @@ function Accounts() {
     ) {
       const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
       const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
+      console.log(startTime, endTime);
+
       const variable = {
         doctorId: Number(id),
-        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
+        // day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
         startTime: startTime,
         endTime: endTime,
+        startDay: "10/11/2022",
+        endDay: "10/11/2022",
       };
 
       await executeCreateDoctorScheduleMutation(variable)
