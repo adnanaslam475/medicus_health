@@ -113,6 +113,7 @@ export function UTCPrettierTime(time: any, date?: any) {
       : "America/New_York";
 
   const convertedTime = time12HrConvert(time);
+
   const [hours, minute] = convertedTime.split(":");
   const formatedTime = dayjs
     .tz(date ? dayjs(date) : dayjs(), timeZone)
@@ -130,7 +131,9 @@ export function UTCPrettierDateTime(date: any) {
     localStorage?.getItem("timeZone")
       ? JSON.parse(String(localStorage?.getItem("timeZone")))
       : "America/New_York";
-  const formatedTime = dayjs(date,"MM-DD-YYYY HH:mm A").tz(timeZone, true).toISOString();
+  const formatedTime = dayjs(date, "MM-DD-YYYY HH:mm A")
+    .tz(timeZone, true)
+    .toISOString();
 
   return date ? formatedTime : formatedTime?.split("T")[1]?.slice(0, 5);
 }
@@ -244,4 +247,8 @@ export const numberFormatter = (value: number) =>
 
 export function getUnixTimeStamp(date: string) {
   return dayjs(date).unix();
+}
+
+export function getDateToDateTime(datetime: string, format: string) {
+  return dayjs(datetime).utc().format(format);
 }
