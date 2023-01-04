@@ -39,7 +39,6 @@ import {
 } from "common/utils/date";
 import { GraphQLError } from "graphql";
 import { RangeValue } from "rc-picker/lib/interface";
-import dayjs from "dayjs";
 
 function Accounts() {
   const [deleteScheduleId, setDeleteScheduleId] = useState("");
