@@ -28,7 +28,12 @@ import { parseJson } from "common/utils/helper";
 import MultiRangeDatePicker from "common/components/MultiRangeDatePicker/MultiRangeDatePicker";
 import { getUserData } from "common/utils/userData";
 import { GraphQLError } from "graphql";
-import { UTCPrettierTime } from "common/utils/date";
+import {
+  getDateToDateTime,
+  getUnixTimeStamp,
+  UTCPrettierDateTime,
+  UTCPrettierTime,
+} from "common/utils/date";
 
 const { TabPane } = Tabs;
 
@@ -96,6 +101,23 @@ function ProfileDetail() {
     { fetching: deleteScheduleFetching },
     executeRemoveDoctorScheduleMutation,
   ] = useRemoveDoctorScheduleMutation();
+
+  async function getDay(date: any, time: any) {
+    const UTCTimeZone = UTCPrettierDateTime((date + " " + time).toString());
+
+    const a = getDateToDateTime(UTCTimeZone, "MM-DD-YYYY");
+    const getUTCUnix = getUnixTimeStamp(a);
+
+    const getDateUnix = getUnixTimeStamp(date);
+    const getDay: any = addScheduleDay;
+    if (getUTCUnix === getDateUnix) {
+      return getDay === 7 ? 0 : getDay;
+    } else if (getUTCUnix > getDateUnix) {
+      return getDay + 1 === 8 ? 1 : getDay + 1;
+    } else {
+      return getDay - 1 === -1 ? 6 : getDay - 1;
+    }
+  }
   async function onAddClick() {
     if (
       addScheduleDay &&
@@ -105,33 +127,53 @@ function ProfileDetail() {
     ) {
       const startTime = UTCPrettierTime(addScheduleTime?.timeString[0]);
       const endTime = UTCPrettierTime(addScheduleTime?.timeString[1]);
-      const variable = {
-        doctorId: Number(id),
-        day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
-        startTime: startTime,
-        endTime: endTime,
-      };
+      const startDay = await getDay(
+        "02-18-2022",
+        addScheduleTime?.timeString[0]
+      );
+      const endDay = await getDay("02-18-2022", addScheduleTime?.timeString[1]);
+      if (
+        getUnixTimeStamp(
+          ("02-18-2022" + " " + addScheduleTime?.timeString[0]).toString()
+        ) >
+        getUnixTimeStamp(
+          ("02-18-2022" + " " + addScheduleTime?.timeString[1]).toString()
+        )
+      ) {
+        notification.error({
+          message: "End time should be greater than start time",
+        });
+      } else {
+        const variable = {
+          doctorId: Number(id),
+          // day: Number(addScheduleDay === 7 ? 0 : addScheduleDay),
+          startTime: startTime,
+          endTime: endTime,
+          startDay: Number(startDay),
+          endDay: Number(endDay),
+        };
 
-      await executeCreateDoctorScheduleMutation(variable)
-        .then((res) => {
-          if (res?.error && res?.error?.message) {
-            let graphQLError = res?.error?.graphQLErrors[0]?.extensions
-              ?.response as GraphQLError;
-            let customError = res?.error?.graphQLErrors[0]?.extensions
-              ?.exception as GraphQLError;
-            let errorMessage =
-              graphQLError?.message ||
-              customError?.message ||
-              "Something went wrong";
-            notification.error({
-              message: errorMessage,
-            });
-          }
-        })
-        .catch((err) => {});
-      await executeDoctorSchedules({ requestPolicy: "network-only" });
-      setAddScheduleDay("Select Day");
-      setAddScheduleTime({ timeString: [], time: null });
+        await executeCreateDoctorScheduleMutation(variable)
+          .then((res) => {
+            if (res?.error && res?.error?.message) {
+              let graphQLError = res?.error?.graphQLErrors[0]?.extensions
+                ?.response as GraphQLError;
+              let customError = res?.error?.graphQLErrors[0]?.extensions
+                ?.exception as GraphQLError;
+              let errorMessage =
+                graphQLError?.message ||
+                customError?.message ||
+                "Something went wrong";
+              notification.error({
+                message: errorMessage,
+              });
+            }
+          })
+          .catch((err) => {});
+        await executeDoctorSchedules({ requestPolicy: "network-only" });
+        setAddScheduleDay("Select Day");
+        setAddScheduleTime({ timeString: [], time: null });
+      }
     }
   }
   useEffect(() => {
